@@ -16,7 +16,7 @@
             <!-- Table header -->
             <thead class="bg-primary text-white text-lg/7 max-lg:text-base/7">
                 <tr class="header-table">
-                    <th>P.I. Name</th>
+                    <th>User Name</th>
                     <th>Research Title</th>
                     <th>Type of Account</th>
                     <th>Process Date</th>
@@ -26,18 +26,24 @@
 
             <!-- Table body -->
             <tbody class="text-base/7 max-lg:text-sm/6">
+                @forelse($processes as $process)
                 <tr>
-                    <td>John Doe</td>
-                    <td>MCU-RRS</td>
-                    <td>ERB</td>
+                    <td>{{ $process['pi_name'] }}</td>
+                    <td>{{ $process['research_title'] }}</td>
+                    <td>{{ $process['account_type'] }}</td>
                     <td>
-                        10/22/25<br>
-                        22:30:50
+                        {{ $process['date'] }}<br>
+                        {{ $process['time'] }}
                     </td>
                     <td>
-                        Received classified (erb/iacuc)
+                        {{ $process['description'] }}
                     </td>
                 </tr>
+                @empty
+                <tr>
+                    <td colspan="5" class="text-center py-4">No process records found</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </main>

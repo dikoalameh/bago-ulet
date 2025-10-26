@@ -23,22 +23,27 @@
                 </tr>
             </thead>
             <tbody class="text-base/7 max-lg:text-sm/6">
+                @forelse($inquiries as $inquiry)
                 <tr>
-                    <td>John Doe</td>
-                    <td>MCU-RRS</td>
-                    <td>Applying for Amendments</td>
+                    <td>{{ $inquiry['pi_name'] }}</td>
+                    <td>{{ $inquiry['research_title'] }}</td>
+                    <td>{{ $inquiry['subject'] }}</td>
                     <td>
-                        10/25/25<br>
-                        22:30:20
+                        {!! $inquiry['date_submitted'] !!}
                     </td>
                     <td>
-                        <a href="{{ url('erb/tickets') }}">
+                        <a href="{{ url('erb/tickets/' . $inquiry['ticket_id']) }}">
                             <button type="button" class="border-2 p-[5px] hover:bg-gray">
                                 View
                             </button>
                         </a>
                     </td>
                 </tr>
+                @empty
+                <tr>
+                    <td colspan="5" class="text-center py-4">No submitted inquiries found</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </main>

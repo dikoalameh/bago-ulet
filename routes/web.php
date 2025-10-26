@@ -21,6 +21,8 @@ use App\Http\Controllers\ERBDecisionController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\FullBoardReview;
 use App\Http\Controllers\FinalCompletionController;
+use App\Http\Controllers\ProcessMonitoringController;
+use App\Http\Controllers\SubmittedInquiries;
 use Laravel\Tinker\ClassAliasAutoloader;
 
 //Students Form
@@ -72,10 +74,6 @@ Route::get('/reset-password', function () {
     return view('auth.reset-password');
 })->name('password.reset');
 
-Route::get('/register-co-inv', function () {
-    return view('auth.register-co-inv');
-});
-
 // erb - ADDED no-cache MIDDLEWARE
 Route::middleware(['auth', 'access:ERB Admin', 'no-cache', 'prevent-back'])->prefix('erb')->group(function () {
     Route::get('/dashboard', [ERBDashboard::class, 'dashboard'])
@@ -125,9 +123,8 @@ Route::middleware(['auth', 'access:ERB Admin', 'no-cache', 'prevent-back'])->pre
         ->name('erb.view-review-files');
 
     // Submitted Tickets
-    Route::get('/submitted-tickets', function () {
-        return view('erb.submitted-tickets');
-    });
+    Route::get('/submitted-tickets', [SubmittedInquiries::class, 'index'])
+    ->name('erb.submitted-tickets');
 
     // Assigned Amendments
     Route::get('/assign-amendments', [AmendmentsERB::class, 'assignedAmendments'])
@@ -137,14 +134,12 @@ Route::middleware(['auth', 'access:ERB Admin', 'no-cache', 'prevent-back'])->pre
         ->name('assign.amendments');
 
     // Tickets
-    Route::get('/tickets', function () {
-        return view('erb.tickets');
-    });
+    Route::get('/tickets/{ticketId}', [SubmittedInquiries::class, 'show'])
+    ->name('erb.tickets');
 
     // Monitoring Process
-    Route::get('/monitoring-process', function () {
-        return view('erb.monitoring-process');
-    });
+    Route::get('/monitoring-process', [ProcessMonitoringController::class, 'erbindex'])
+        ->name('erb.monitoring-process');
 
     // Assign Full Board Review
     Route::get('/full-board-review', [FullBoardReview::class, 'index'])
@@ -280,9 +275,8 @@ Route::middleware(['auth', 'access:Superadmin', 'no-cache', 'prevent-back'])->pr
     });
 
     // Monitoring Process
-    Route::get('/monitoring-process', function () {
-        return view('superadmin.monitoring-process');
-    });
+    Route::get('/monitoring-process', [ProcessMonitoringController::class, 'index'])
+        ->name('superadmin.monitoring-process');
 
     // Full Board Review
     Route::get('/full-board-review', function () {
@@ -334,13 +328,8 @@ Route::middleware(['auth', 'access:ERB Reviewer', CheckReviewerInformation::clas
         return view('erb-reviewer.settings');
     });
     // Monitoring Process
-    Route::get('/monitoring-process', function () {
-        return view('erb-reviewer.monitoring-process');
-    });
-    // Forms
-    //Route::get('/form2a', [Form2AController::class, 'edit'])->name('form2a.edit');
-    //Route::post('/form2a', [Form2AController::class, 'store'])->name('form2a.store');
-    //Route::get('/export-form2a', [PdfExportController::class, 'exportForm2A'])->name('export.form2a');
+    Route::get('/monitoring-process', [ProcessMonitoringController::class, 'erbReviewerIndex'])
+        ->name('erb-reviewer.monitoring-process');
 
     Route::get('/forms/form2e', function () {
         return view('erb-reviewer.forms.form2e');
@@ -443,9 +432,8 @@ Route::middleware(['auth', 'access:Principal Investigator', 'no-cache', 'prevent
         return view('student.settings');
     });
 
-    Route::get('/monitoring-process', function () {
-        return view('student.monitoring-process');
-    });
+    Route::get('/monitoring-process', [ProcessMonitoringController::class, 'piIndex'])
+        ->name('student.monitoring-process');
 
     Route::post('/tickets/store', [TicketController::class, 'store'])
         ->name('student.tickets.store');

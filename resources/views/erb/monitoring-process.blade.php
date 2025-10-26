@@ -1,5 +1,6 @@
 @section('title','Monitoring Process')
 <x-erb-layout>
+    <!-- Main Content -->
     <main class="xl:ml-[335px] max-xl:ml-auto p-4 max-md:p-2">
         <h2 class="max-xl:hidden text-left bg-[#f2f2f2] shadow-lg p-[35px] rounded-[30px] font-medium text-[28px]">
             MONITORING PROCESS
@@ -15,26 +16,33 @@
             <!-- Table header -->
             <thead class="bg-primary text-white text-lg/7 max-lg:text-base/7">
                 <tr class="header-table">
-                    <th class="w-[25%]">P.I. Name</th>
-                    <th class="w-[25%]">Research Title</th>
-                    <th class="w-[25%]">Process Date</th>
-                    <th class="w-[25%]">Description</th>
+                    <th>User Name</th>
+                    <th>Research Title</th>
+                    <th>Process Date</th>
+                    <th>Description</th>
                 </tr>
             </thead>
 
             <!-- Table body -->
             <tbody class="text-base/7 max-lg:text-sm/6">
+                @forelse($processes as $process)
                 <tr>
-                    <td>John Doe</td>
-                    <td>MCU-RRS</td>
+                    <td>{{ $process['pi_name'] }}</td>
+                    <td>{{ $process['research_title'] }}</td>
+
                     <td>
-                        10/22/25<br>
-                        22:30:50
+                        {{ $process['date'] }}<br>
+                        {{ $process['time'] }}
                     </td>
                     <td>
-                        Received classified (erb/iacuc)
+                        {{ $process['description'] }}
                     </td>
                 </tr>
+                @empty
+                <tr>
+                    <td colspan="5" class="text-center py-4">No process records found</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </main>

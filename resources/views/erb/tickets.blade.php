@@ -12,26 +12,31 @@
             <div class="text-primary gap-x-20 gap-y-3 max-w-full max-sm:text-sm">
                 <div class="flex max-sm:block gap-x-3 my-2">
                     <div class="font-bold max-sm:mb-2">User:</div>
-                    <div class="max-sm:mb-2 font-medium">John Doe</div>
+                    <div class="max-sm:mb-2 font-medium">
+                        {{ $ticket->user ? $ticket->user->user_Fname . ' ' . $ticket->user->user_Lname : 'Unknown' }}
+                    </div>
                 </div>
 
                 <div class="flex max-sm:block gap-x-3 my-2">
                     <div class="font-bold max-sm:mb-2">Research Title:</div>
-                    <div class="max-sm:mb-2 font-medium">MCU-RRS</div>
+                    <div class="max-sm:mb-2 font-medium">
+                        {{ $ticket->user && $ticket->user->researchInformation ? $ticket->user->researchInformation->research_title : 'N/A' }}
+                    </div>
                 </div>
                 <div class="flex max-sm:block gap-x-3 my-2">
                     <div class="font-bold max-sm:mb-2">Subject:</div>
-                    <div class="max-sm:mb-2 font-medium">Amendments</div>
+                    <div class="max-sm:mb-2 font-medium">{{ $ticket->Ticket_Subject }}</div>
                 </div>
                 <div class="flex max-sm:block gap-x-3 my-2">
                     <div class="font-bold max-sm:mb-2">Category:</div>
-                    <div class="max-sm:mb-2 font-medium">Applying for Amendments</div>
+                    <div class="max-sm:mb-2 font-medium">{{ $ticket->User_Concern }}</div>
                 </div>
             </div>
             <br>
             <label class="font-bold text-primary">Concern</label>
-            <textarea name="" id="" class="mt-2 resize-none w-full border-darkgray h-80 max-sm:h-32 max-sm:text-sm"
-                readonly>aweweawewewe</textarea>
+            <textarea class="mt-2 resize-none w-full border-darkgray h-80 max-sm:h-32 max-sm:text-sm" readonly>
+{{ $ticket->Ticket_Description }}
+            </textarea>
         </div>
         <div class="mt-4">
             <a href="{{ url('/erb/submitted-tickets') }}"

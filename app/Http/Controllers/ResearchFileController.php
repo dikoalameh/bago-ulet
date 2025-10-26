@@ -12,6 +12,7 @@ use App\Notifications\FileUploaded;
 use App\Notifications\DocumentDeletedNotification;
 use App\Mail\DocumentDeletedMail;
 use Illuminate\Support\Facades\Mail;
+use App\Models\ProcessMonitoring;
 use Illuminate\Support\Facades\Storage;
 
 class ResearchFileController extends Controller
@@ -59,20 +60,84 @@ class ResearchFileController extends Controller
                     'submitted_at' => now(),
                 ]);
 
+                // ✅ ADDED PROCESS MONITORING: PI Submits Forms (OUTGOING)
+                ProcessMonitoring::create([
+                    'process_code' => 'PI6',
+                    'process_description' => 'Submit forms to ERB/IACUC: ' . $filename,
+                    'user_type' => 'pi',
+                    'direction' => 'out',
+                    'timestamp' => now(),
+                    'action_by_user_id' => $user->user_ID,
+                    'action_by_user_type' => 'pi',
+                    'affected_user_id' => null,
+                    'affected_user_type' => null,
+                ]);
+
                 // Determine which admins to notify based on user classification
                 $adminUsers = collect();
 
                 // Check user classification (assuming these fields exist in your users table)
                 if ($user->classification === 'IACUC') {
                     $adminUsers = $adminUsers->merge(User::where('user_Access', 'IACUC Admin')->get());
+                    
+                    // ✅ ADDED PROCESS MONITORING: IACUC Admin Receives Forms (INCOMING)
+                    ProcessMonitoring::create([
+                        'process_code' => 'IAC2',
+                        'process_description' => 'Received IACUC forms from PI: ' . $filename,
+                        'user_type' => 'admin_iacuc',
+                        'direction' => 'in',
+                        'timestamp' => now(),
+                        'action_by_user_id' => $user->user_ID,
+                        'action_by_user_type' => 'pi',
+                        'affected_user_id' => null,
+                        'affected_user_type' => 'admin_iacuc',
+                    ]);
                 } 
                 elseif ($user->classification === 'ERB') {
                     $adminUsers = $adminUsers->merge(User::where('user_Access', 'ERB Admin')->get());
+                    
+                    // ✅ ADDED PROCESS MONITORING: ERB Admin Receives Forms (INCOMING)
+                    ProcessMonitoring::create([
+                        'process_code' => 'ERB2',
+                        'process_description' => 'Received forms from PI: ' . $filename,
+                        'user_type' => 'admin_erb',
+                        'direction' => 'in',
+                        'timestamp' => now(),
+                        'action_by_user_id' => $user->user_ID,
+                        'action_by_user_type' => 'pi',
+                        'affected_user_id' => null,
+                        'affected_user_type' => 'admin_erb',
+                    ]);
                 } 
                 elseif ($user->classification === 'BOTH') {
                     $iacucAdmins = User::where('user_Access', 'IACUC Admin')->get();
                     $erbAdmins = User::where('user_Access', 'ERB Admin')->get();
                     $adminUsers = $adminUsers->merge($iacucAdmins)->merge($erbAdmins);
+                    
+                    // ✅ ADDED PROCESS MONITORING: Both Admins Receive Forms (INCOMING)
+                    ProcessMonitoring::create([
+                        'process_code' => 'IAC2',
+                        'process_description' => 'Received IACUC forms from PI: ' . $filename,
+                        'user_type' => 'admin_iacuc',
+                        'direction' => 'in',
+                        'timestamp' => now(),
+                        'action_by_user_id' => $user->user_ID,
+                        'action_by_user_type' => 'pi',
+                        'affected_user_id' => null,
+                        'affected_user_type' => 'admin_iacuc',
+                    ]);
+                    
+                    ProcessMonitoring::create([
+                        'process_code' => 'ERB2',
+                        'process_description' => 'Received forms from PI: ' . $filename,
+                        'user_type' => 'admin_erb',
+                        'direction' => 'in',
+                        'timestamp' => now(),
+                        'action_by_user_id' => $user->user_ID,
+                        'action_by_user_type' => 'pi',
+                        'affected_user_id' => null,
+                        'affected_user_type' => 'admin_erb',
+                    ]);
                 }
 
                 if ($adminUsers->isNotEmpty()) {

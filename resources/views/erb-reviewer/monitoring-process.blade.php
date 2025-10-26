@@ -16,22 +16,26 @@
             <!-- Table header -->
             <thead class="bg-primary text-white text-lg/7 max-lg:text-base/7">
                 <tr class="header-table">
-                    <th>P.I. Name</th>
-                    <th>Research Title</th>
+                    <th>Description</th>
                     <th>Process Date</th>
                 </tr>
             </thead>
 
             <!-- Table body -->
             <tbody class="text-base/7 max-lg:text-sm/6">
+                @forelse($processes as $process)
                 <tr>
-                    <td>John Doe</td>
-                    <td>MCU-RRS</td>
+                    <td>{{ $process['description'] }}</td>
                     <td>
-                        10/22/25<br>
-                        22:30:50
+                        {{ $process['date'] }}<br>
+                        {{ $process['time'] }}
                     </td>
                 </tr>
+                @empty
+                <tr>
+                    <td colspan="2" class="text-center py-4">No process records found</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </main>
@@ -44,7 +48,7 @@
                 responsive: true,
                 paging: false,
                 scrollY: '300px',
-                order: [[0, 'asc']]
+                order: [[1, 'desc']] // Sort by Process Date descending
             });
 
             // ✅ Move the DataTables search bar into our custom search-wrapper
@@ -52,14 +56,14 @@
             $('.search-wrapper').append(dtSearch);
 
             // ✅ Build dropdown filter dynamically
-            const offices = [...new Set(table.column(1).data().toArray())].sort();
+            const descriptions = [...new Set(table.column(0).data().toArray())].sort();
             const select = $('#officeFilter');
-            offices.forEach(o => select.append(`<option value="${o}">${o}</option>`));
+            descriptions.forEach(d => select.append(`<option value="${d}">${d}</option>`));
 
-            // ✅ Apply filter to Office column
+            // ✅ Apply filter to Description column
             select.on('change', function () {
                 const val = $.fn.dataTable.util.escapeRegex($(this).val());
-                table.column(1).search(val ? '^' + val + '$' : '', true, false).draw();
+                table.column(0).search(val ? '^' + val + '$' : '', true, false).draw();
             });
         }
     });

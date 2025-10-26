@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\ResearchFiles;
 use App\Notifications\FormsAssigned;
+use App\Models\ProcessMonitoring;
 use Illuminate\Support\Facades\Notification;
 
 class FormAssignment extends Controller
@@ -67,12 +68,7 @@ class FormAssignment extends Controller
                 return $user->forms->isNotEmpty() ? 1 : 0;
             });
 
-        $selectForms = FormsTable::whereIn('form_code', [
-            'Form 2(A)',
-            'Form 2(B)',
-        ])->get();
-
-        return view('iacuc.iro-approved-accounts', compact('selectForms','approvedAccounts'));
+        return view('iacuc.iro-approved-accounts', compact('approvedAccounts'));
     }
 
     public function assignFormsAjax(Request $request)
@@ -91,6 +87,32 @@ class FormAssignment extends Controller
                 
                 // Send notification ONLY to this specific user
                 $user->notify(new FormsAssigned($request->form_ids));
+
+                // ✅ ADDED PROCESS MONITORING: Admin Assigns Forms (OUTGOING)
+                ProcessMonitoring::create([
+                    'process_code' => 'ERB5',
+                    'process_description' => 'Assign initial forms to PI',
+                    'user_type' => 'admin_erb',
+                    'direction' => 'out',
+                    'timestamp' => now(),
+                    'action_by_user_id' => auth()->user()->user_ID,
+                    'action_by_user_type' => 'admin_erb',
+                    'affected_user_id' => $user->user_ID,
+                    'affected_user_type' => 'pi',
+                ]);
+
+                // ✅ ADDED PROCESS MONITORING: PI Receives Forms (INCOMING)
+                ProcessMonitoring::create([
+                    'process_code' => 'PI2',
+                    'process_description' => 'Received initial forms from admin',
+                    'user_type' => 'pi',
+                    'direction' => 'in',
+                    'timestamp' => now(),
+                    'action_by_user_id' => auth()->user()->user_ID,
+                    'action_by_user_type' => 'admin_erb',
+                    'affected_user_id' => $user->user_ID,
+                    'affected_user_type' => 'pi',
+                ]);
             }
         }
 

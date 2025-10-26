@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Storage;
+use App\Models\ProcessMonitoring;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
@@ -84,6 +85,31 @@ class RegisteredUserController extends Controller
                 'user_Password' => Hash::make($validate['user_Password']),
                 'user_Email'    => $validate['user_Email'],
             ]);
+
+            ProcessMonitoring::create([
+            'process_code' => 'PI4',
+            'process_description' => 'Registration submitted',
+            'user_type' => 'pi',
+            'direction' => 'out',
+            'timestamp' => now(),
+            'action_by_user_id' => $user->user_ID, // The PI who registered
+            'action_by_user_type' => 'pi',
+            'affected_user_id' => null, // No specific affected user
+            'affected_user_type' => null,
+        ]);
+
+        // ✅ PROCESS MONITORING: Super Admin Received Request (INCOMING)
+        ProcessMonitoring::create([
+            'process_code' => 'SA1',
+            'process_description' => 'Received request from PI: ' . $user->user_Fname . ' ' . $user->user_Lname,
+            'user_type' => 'super_admin',
+            'direction' => 'in',
+            'timestamp' => now(),
+            'action_by_user_id' => $user->user_ID, // The PI who triggered this
+            'action_by_user_type' => 'pi',
+            'affected_user_id' => null, // All super admins will see this
+            'affected_user_type' => 'super_admin',
+        ]);
 
             // ✅ Folder for uploads
             $folderPath = 'researchFolder/' . $user->user_ID;

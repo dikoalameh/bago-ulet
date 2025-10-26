@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\CertificateExemptedMail;
 use App\Mail\ResearchUnderReviewMail;
 use App\Mail\NewProtocolAssignedMail;
+use App\Models\ProcessMonitoring;
 
 class assignReviewer extends Controller
 {
@@ -47,8 +48,8 @@ class assignReviewer extends Controller
         $forms = FormsTable::whereIn('form_code', [
             'Form 2(E)',
             'Form 2(J)',
-            'Form 2(E) Soft Copy',
-            'Form 2(J) Soft Copy'
+            'Upload FORM 2(E) Soft Copy',
+            'Upload FORM 2(J) Soft Copy'
         ])->get();
         
         return view('erb.assign-reviewer', compact('piWithForms','erbReviewer','forms'));
@@ -99,6 +100,19 @@ class assignReviewer extends Controller
             $piUser = User::find($piID);
             $piName = $piUser ? $piUser->user_Fname . ' ' . $piUser->user_Lname : 'Unknown';
 
+            // ✅ ADDED PROCESS MONITORING: ERB Admin Assigns Reviewer (OUTGOING)
+            ProcessMonitoring::create([
+                'process_code' => 'ERB6',
+                'process_description' => 'Assign reviewer for protocol: ' . $protocolCode,
+                'user_type' => 'admin_erb',
+                'direction' => 'out',
+                'timestamp' => now(),
+                'action_by_user_id' => auth()->user()->user_ID,
+                'action_by_user_type' => 'admin_erb',
+                'affected_user_id' => $piID,
+                'affected_user_type' => 'pi',
+            ]);
+
             // 🔹 Determine valid reviewers
             $reviewers = [
                 'reviewer1' => $request->reviewer1_ID !== 'N/A' ? $request->reviewer1_ID : null,
@@ -128,6 +142,19 @@ class assignReviewer extends Controller
                         'completed_at' => now(),
                     ]);
 
+                    // ✅ ADDED PROCESS MONITORING: Reviewer Receives Assignment (INCOMING)
+                    ProcessMonitoring::create([
+                        'process_code' => 'REV_ERB1',
+                        'process_description' => 'Received forms and protocol from ERB admin: ' . $protocolCode,
+                        'user_type' => 'reviewer_erb',
+                        'direction' => 'in',
+                        'timestamp' => now(),
+                        'action_by_user_id' => auth()->user()->user_ID,
+                        'action_by_user_type' => 'admin_erb',
+                        'affected_user_id' => $reviewerID,
+                        'affected_user_type' => 'reviewer_erb',
+                    ]);
+
                     // 🔹 Notify Reviewer via Email and System Notification
                     $reviewer = User::find($reviewerID);
                     if ($reviewer && !empty($reviewer->user_Email)) {
@@ -148,6 +175,19 @@ class assignReviewer extends Controller
                     'status' => 'Completed',
                     'completed_at' => now(),
                 ]);
+
+                // ✅ ADDED PROCESS MONITORING: Auto-completed with no reviewers
+                ProcessMonitoring::create([
+                    'process_code' => 'ERB10',
+                    'process_description' => 'Decide protocol: ' . $protocolCode . ' (Auto-completed - No reviewers)',
+                    'user_type' => 'admin_erb',
+                    'direction' => 'out',
+                    'timestamp' => now(),
+                    'action_by_user_id' => auth()->user()->user_ID,
+                    'action_by_user_type' => 'admin_erb',
+                    'affected_user_id' => $piID,
+                    'affected_user_type' => 'pi',
+                ]);
             }
 
             // 🔹 Notify Student (PI) that their research is under review
@@ -156,9 +196,35 @@ class assignReviewer extends Controller
                     // For exempted protocols, notify about certificate
                     $research = $piUser->researchInformation;
                     Mail::to($piUser->user_Email)->queue(new CertificateExemptedMail($protocol, $piUser, $research));
+
+                    // ✅ ADDED PROCESS MONITORING: Exempted Certificate
+                    ProcessMonitoring::create([
+                        'process_code' => 'ERB10',
+                        'process_description' => 'Decide protocol: ' . $protocolCode . ' (Exempted)',
+                        'user_type' => 'admin_erb',
+                        'direction' => 'out',
+                        'timestamp' => now(),
+                        'action_by_user_id' => auth()->user()->user_ID,
+                        'action_by_user_type' => 'admin_erb',
+                        'affected_user_id' => $piID,
+                        'affected_user_type' => 'pi',
+                    ]);
                 } else {
                     // For non-exempted protocols, notify about review process
                     Mail::to($piUser->user_Email)->queue(new ResearchUnderReviewMail($protocolCode, $request->review_type));
+
+                    // ✅ ADDED PROCESS MONITORING: PI Notified Research Under Review
+                    ProcessMonitoring::create([
+                        'process_code' => 'PI1',
+                        'process_description' => 'Research under review: ' . $protocolCode,
+                        'user_type' => 'pi',
+                        'direction' => 'in',
+                        'timestamp' => now(),
+                        'action_by_user_id' => auth()->user()->user_ID,
+                        'action_by_user_type' => 'admin_erb',
+                        'affected_user_id' => $piID,
+                        'affected_user_type' => 'pi',
+                    ]);
                 }
                 
                 // Send system notification

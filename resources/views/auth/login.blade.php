@@ -3,67 +3,25 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
-    <!-- Auto-redirect with history management -->
+    <!-- Lightweight session check -->
     <script>
-        (function () {
+        (function() {
             'use strict';
-
-            let redirectAttempted = false;
-
-            function checkAndRedirect() {
-                if (redirectAttempted) return;
-
-                fetch('{{ route("check-session") }}', {
-                    method: 'GET',
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                    },
-                    credentials: 'same-origin',
-                    cache: 'no-store'
-                })
-                    .then(response => {
-                        if (!response.ok) throw new Error('Network error');
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.loggedIn && data.redirectUrl && !redirectAttempted) {
-                            redirectAttempted = true;
-
-                            // Replace current history entry completely
-                            if (window.history.replaceState) {
-                                window.history.replaceState(null, '', data.redirectUrl);
-                            }
-
-                            // Use replace to remove login from history
-                            window.location.replace(data.redirectUrl);
-                        }
-                    })
-                    .catch(() => {
-                        // Silent failure
-                    });
-            }
-
-            // Check immediately
-            checkAndRedirect();
-
-            // Check again after a short delay
-            setTimeout(checkAndRedirect, 100);
-
-            // Additional check when page becomes visible
-            document.addEventListener('visibilitychange', function () {
-                if (!document.hidden) {
-                    setTimeout(checkAndRedirect, 50);
+            
+            // Immediate redirect without visible loading
+            fetch('{{ route("check-session") }}', {
+                method: 'GET',
+                headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                credentials: 'same-origin'
+            })
+            .then(response => response.ok ? response.json() : Promise.reject())
+            .then(data => {
+                if (data.loggedIn && data.redirectUrl) {
+                    // Immediate redirect without delay
+                    window.location.href = data.redirectUrl;
                 }
-            });
-
-            // Prevent any form submission if redirect is pending
-            document.addEventListener('submit', function (e) {
-                if (redirectAttempted) {
-                    e.preventDefault();
-                    e.stopImmediatePropagation();
-                }
-            }, true);
-
+            })
+            .catch(() => {});
         })();
     </script>
 

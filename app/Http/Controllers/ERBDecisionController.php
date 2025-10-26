@@ -9,6 +9,7 @@ use App\Models\FormUser;
 use App\Models\FormsTable;
 use App\Models\Protocol;
 use App\Notifications\ProtocolDecision;
+use App\Models\ProcessMonitoring;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 class ERBDecisionController extends Controller
@@ -78,6 +79,32 @@ class ERBDecisionController extends Controller
                 ['Decision' => $decision]
             );
 
+            // ✅ ADDED PROCESS MONITORING: ERB Admin Makes Decision (OUTGOING)
+            ProcessMonitoring::create([
+                'process_code' => 'ERB10',
+                'process_description' => 'Decide protocol: ' . $protocolId . ' - ' . $decision,
+                'user_type' => 'admin_erb',
+                'direction' => 'out',
+                'timestamp' => now(),
+                'action_by_user_id' => auth()->user()->user_ID,
+                'action_by_user_type' => 'admin_erb',
+                'affected_user_id' => $piUserId,
+                'affected_user_type' => 'pi',
+            ]);
+
+            // ✅ ADDED PROCESS MONITORING: PI Receives Decision (INCOMING)
+            ProcessMonitoring::create([
+                'process_code' => 'PI1',
+                'process_description' => 'Protocol decision: ' . $protocolId . ' - ' . $decision,
+                'user_type' => 'pi',
+                'direction' => 'in',
+                'timestamp' => now(),
+                'action_by_user_id' => auth()->user()->user_ID,
+                'action_by_user_type' => 'admin_erb',
+                'affected_user_id' => $piUserId,
+                'affected_user_type' => 'pi',
+            ]);
+
             // ✅ Get form configuration
             $formConfig = $this->getFormConfiguration($decision);
             
@@ -123,6 +150,32 @@ class ERBDecisionController extends Controller
                 }
             }
 
+            // ✅ ADDED PROCESS MONITORING: ERB Admin Assigns Forms Based on Decision (OUTGOING)
+            ProcessMonitoring::create([
+                'process_code' => 'ERB5',
+                'process_description' => 'Assign forms to PI based on ' . $decision . ' decision: ' . implode(', ', $assignedForms),
+                'user_type' => 'admin_erb',
+                'direction' => 'out',
+                'timestamp' => now(),
+                'action_by_user_id' => auth()->user()->user_ID,
+                'action_by_user_type' => 'admin_erb',
+                'affected_user_id' => $piUserId,
+                'affected_user_type' => 'pi',
+            ]);
+
+            // ✅ ADDED PROCESS MONITORING: PI Receives Forms Based on Decision (INCOMING)
+            ProcessMonitoring::create([
+                'process_code' => 'PI2',
+                'process_description' => 'Received forms from admin based on ' . $decision . ' decision: ' . implode(', ', $assignedForms),
+                'user_type' => 'pi',
+                'direction' => 'in',
+                'timestamp' => now(),
+                'action_by_user_id' => auth()->user()->user_ID,
+                'action_by_user_type' => 'admin_erb',
+                'affected_user_id' => $piUserId,
+                'affected_user_type' => 'pi',
+            ]);
+
             // ✅ Notify student
             if ($protocol->researchInformation->user) {
                 $protocol->researchInformation->user->notify(
@@ -146,6 +199,20 @@ class ERBDecisionController extends Controller
                 'decision' => $decision ?? 'unknown'
             ]);
             
+            // ✅ ADDED PROCESS MONITORING: Protocol Decision Failed
+            ProcessMonitoring::create([
+                'process_code' => 'ERB10',
+                'process_description' => 'Protocol decision failed: ' . $e->getMessage(),
+                'user_type' => 'admin_erb',
+                'direction' => 'out',
+                'timestamp' => now(),
+                'action_by_user_id' => auth()->user()->user_ID,
+                'action_by_user_type' => 'admin_erb',
+                'affected_user_id' => null,
+                'affected_user_type' => null,
+                'metadata' => ['error' => $e->getMessage(), 'protocol_id' => $protocolId ?? 'unknown']
+            ]);
+
             return response()->json([
                 'success' => false,
                 'message' => 'An error occurred while processing your request.',

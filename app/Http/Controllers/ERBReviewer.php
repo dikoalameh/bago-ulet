@@ -12,6 +12,7 @@ use App\Models\Protocol;
 use App\Notifications\ReviewerProgress;
 use App\Notifications\ReviewCompleted;
 use App\Models\EvaluatedReviews;
+use App\Models\ProcessMonitoring;
 use App\Models\ReviewerFile;
 
 class ERBReviewer extends Controller
@@ -167,12 +168,51 @@ class ERBReviewer extends Controller
             ]
         );
 
+        // ✅ ADDED PROCESS MONITORING: Reviewer Submits Forms (OUTGOING)
+        ProcessMonitoring::create([
+            'process_code' => 'REV_ERB4',
+            'process_description' => 'Submit accomplished forms to ERB admin for protocol: ' . $protocolId,
+            'user_type' => 'reviewer_erb',
+            'direction' => 'out',
+            'timestamp' => now(),
+            'action_by_user_id' => $reviewerId,
+            'action_by_user_type' => 'reviewer_erb',
+            'affected_user_id' => null,
+            'affected_user_type' => 'admin_erb',
+        ]);
+
+        // ✅ ADDED PROCESS MONITORING: ERB Admin Receives Forms (INCOMING)
+        ProcessMonitoring::create([
+            'process_code' => 'ERB4',
+            'process_description' => 'Received accomplished forms from reviewer for protocol: ' . $protocolId,
+            'user_type' => 'admin_erb',
+            'direction' => 'in',
+            'timestamp' => now(),
+            'action_by_user_id' => $reviewerId,
+            'action_by_user_type' => 'reviewer_erb',
+            'affected_user_id' => null,
+            'affected_user_type' => 'admin_erb',
+        ]);
+
         // 🔹 NOTIFY ERB ADMINS ABOUT REVIEWER PROGRESS
         $adminUsers = User::where('user_Access', 'ERB Admin')->get();
         
         if ($adminUsers->isNotEmpty()) {
             foreach ($adminUsers as $admin) {
                 $admin->notify(new ReviewerProgress($protocolId, $reviewerId, $status, $formId));
+
+                // ✅ ADDED PROCESS MONITORING: Individual Admin Notification
+                ProcessMonitoring::create([
+                    'process_code' => 'ERB4',
+                    'process_description' => 'Reviewer progress notification: ' . $status . ' for protocol ' . $protocolId,
+                    'user_type' => 'admin_erb',
+                    'direction' => 'in',
+                    'timestamp' => now(),
+                    'action_by_user_id' => $reviewerId,
+                    'action_by_user_type' => 'reviewer_erb',
+                    'affected_user_id' => $admin->user_ID,
+                    'affected_user_type' => 'admin_erb',
+                ]);
             }
         }
 
@@ -217,6 +257,19 @@ class ERBReviewer extends Controller
                 
                 if ($student) {
                     $student->notify(new ReviewCompleted($protocolId, $reviewType));
+
+                    // ✅ ADDED PROCESS MONITORING: PI Notified of Completed Review
+                    ProcessMonitoring::create([
+                        'process_code' => 'PI1',
+                        'process_description' => 'All reviews completed for protocol: ' . $protocolId,
+                        'user_type' => 'pi',
+                        'direction' => 'in',
+                        'timestamp' => now(),
+                        'action_by_user_id' => null, // System triggered
+                        'action_by_user_type' => 'system',
+                        'affected_user_id' => $student->user_ID,
+                        'affected_user_type' => 'pi',
+                    ]);
                 }
             }
         }
