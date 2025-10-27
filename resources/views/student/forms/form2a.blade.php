@@ -193,8 +193,6 @@
                         <!-- Informed Consent -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="sen_ic"
-                                {{ old('sen_ic', $form2a->sen_ic ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Informed Consent:</b> Ensure clarity and accessibility of consent forms,
                                     considering
@@ -209,8 +207,6 @@
                         <!-- Cognitive Assessment -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="sen_ca"
-                                {{ old('sen_ca', $form2a->sen_ca ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Cognitive Assessment:</b> Verify the capacity to consent and consider involving
                                     legally authorized representatives if necessary.
@@ -223,8 +219,6 @@
                         <!-- Physical Health Risks -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="sen_phr"
-                                {{ old('sen_phr', $form2a->sen_phr ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Physical Health Risks:</b> Evaluate potential health risks due to medical
                                     conditions or physical frailty.
@@ -236,8 +230,6 @@
                         <!-- Respect and Autonomy -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="sen_raa"
-                                {{ old('sen_raa', $form2a->sen_raa ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Respect and Autonomy:</b> Ensure participants are not coerced or unduly
                                     influenced due to age-related vulnerabilities. This must be explicit in the Methods
@@ -250,8 +242,6 @@
                         <!-- Privacy -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="sen_pac"
-                                {{ old('sen_pac', $form2a->sen_pac ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Privacy and Confidentiality:</b> Safeguard sensitive health information and
                                     ensure
@@ -265,8 +255,6 @@
                         <!-- Intervention Suitability -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="sen_is"
-                                {{ old('sen_is', $form2a->sen_is ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Intervention Suitability:</b> Confirm interventions are age-appropriate and do
                                     not disproportionately burden seniors.
@@ -285,8 +273,6 @@
                         <!-- Parental/Guardian Consent -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="min_pgc"
-                                {{ old('min_pgc', $form2a->min_pgc ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Parental/Guardian Consent:</b> Require consent from parents or legal guardians,
                                     and where appropriate, seek assent from the minors themselves.
@@ -298,8 +284,6 @@
                         <!-- Assent Process -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="min_ap"
-                                {{ old('min_ap', $form2a->min_ap ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Assent Process:</b> Tailor information for children's comprehension based on age,
                                     maturity, and developmental stage.
@@ -311,8 +295,6 @@
                         <!-- Protection from Harm -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="min_pfh"
-                                {{ old('min_pfh', $form2a->min_pfh ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Protection from Harm:</b> Minimize psychological, physical, and emotional risks.
                                     Details on how should be specified.
@@ -324,8 +306,6 @@
                         <!-- Educational Balance -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="min_eb"
-                                {{ old('min_eb', $form2a->min_eb ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Educational Balance:</b> Ensure participation does not interfere with schooling
                                     or normal development. Detail on this is necessary.
@@ -338,8 +318,6 @@
                         <!-- Mandatory Reporting -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="min_mr"
-                                {{ old('min_mr', $form2a->min_mr ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Mandatory Reporting:</b> Ensure mehchanisms are in place to report suspected
                                     abuse or neglect.
@@ -352,8 +330,6 @@
                         <!-- Equitable Inclusion -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="min_ei"
-                                {{ old('min_ei', $form2a->min_ei ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Equitable Inclusion:</b> Avoid exploiting minors solely because they are an
                                     accessible population.
@@ -375,8 +351,6 @@
                         <!-- Accessible Communication -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="pwd_ac"
-                                {{ old('pwd_ac', $form2a->pwd_ac ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Accessible Communication:</b> Adapt materials and processes for participants'
                                     specific disabilities (e.g., braille, sign language, or simplified text).
@@ -388,8 +362,6 @@
                         <!-- Capacity to Consent -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="pwd_cc"
-                                {{ old('pwd_cc', $form2a->pwd_cc ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Capacity to Consent:</b> Assess individual decision-making abilities and involve
                                     legal representatives when necessary.
@@ -401,8 +373,6 @@
                         <!-- Risk Mitigation -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="pwd_rm"
-                                {{ old('pwd_rm', $form2a->pwd_rm ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Risk Mitigation:</b> Address potential physical, emotional, or psychological
                                     harm.
@@ -414,8 +384,6 @@
                         <!-- Non-Discrimination -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="pwd_nd"
-                                {{ old('pwd_nd', $form2a->pwd_nd ?? false) ? 'checked' : '' }}> 
                                 <span>
                                     <b>Non-Discrimination:</b> Ensure the study promotes inclusion and avoids
                                     stigmatization or bias.
@@ -428,8 +396,6 @@
                         <!-- Reasonable Accommodations -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="pwd_ra"
-                                {{ old('pwd_ra', $form2a->pwd_ra ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Reasonable Accommodations:</b> Provide necessary support, such as assistive
                                     devices or adaptive technologies.
@@ -442,8 +408,6 @@
                         <!-- Monitoring -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="pwd_m"
-                                {{ old('pwd_m', $form2a->pwd_m ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Monitoring:</b> Implement mechanisms to monitor and address any adverse effects
                                     unique to the disability.
@@ -464,8 +428,6 @@
                         <!-- Volutary Participation -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="pdol_vp"
-                                {{ old('pdol_vp', $form2a->pdol_vp ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Voluntary Participation:</b> Safeguard against coercion, considering the inherent
                                     power imbalances in detention or institutional settings. Indicate how?
@@ -478,8 +440,6 @@
                         <!-- Equitable Selection -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="pdol_es"
-                                {{ old('pdol_es', $form2a->pdol_es ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Equitable Selection:</b> Ensure inclusion is based on scientific reasons and, not
                                     convenience or vulnerability.
@@ -492,8 +452,6 @@
                         <!-- Privacy and Confidentiality -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="pdol_pac2"
-                                {{ old('pdol_pac2', $form2a->pdol_pac2 ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Privacy and Confidentiality:</b> Protect personal information, especially in
                                     environments with limited privacy.
@@ -506,8 +464,6 @@
                         <!-- Benefit and Risk Analysis -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="pdol_bara"
-                                {{ old('pdol_bara', $form2a->pdol_bara ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Benefit and Risk Analysis:</b> Ensure the study offers direct benefits to
                                     participants or their communities and minimizes risks.
@@ -520,8 +476,6 @@
                         <!-- Independent Oversight -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="pdol_io"
-                                {{ old('pdol_io', $form2a->pdol_io ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Independent Oversight:</b> Verify the absence of institutional conflicts of
                                     interest or undue influence.
@@ -534,8 +488,6 @@
                         <!-- Post-Study Support -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="pdol_pss"
-                                {{ old('pdol_pss', $form2a->pdol_pss ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Post-Study Support:</b> Address how findings or interventions will be accessible
                                     to participants after the study.
@@ -555,8 +507,6 @@
                         <!-- Ethical Justification -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="gpfag_ej"
-                                {{ old('gpfag_ej', $form2a->gpfag_ej ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Ethical Justification:</b> Clearly outline the necessity and appropriateness of
                                     including vulnerable populations.
@@ -569,8 +519,6 @@
                         <!-- Scientific Validity -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="gpfag_sv"
-                                {{ old('gpfag_sv', $form2a->gpfag_sv ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Scientific Validity:</b> Confirm that the study design is rigorous and ethically
                                     justifiable.
@@ -583,8 +531,6 @@
                         <!-- Risk-Benefit Assessment -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="gpfag_rba"
-                                {{ old('gpfag_rba', $form2a->gpfag_rba ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Risk-Benefit Assessment:</b> Ensure that risks are minimal, and benefits
                                     outweight
@@ -598,8 +544,6 @@
                         <!-- Cultural Sensitivity -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="gpfag_cs"
-                                {{ old('gpfag_cs', $form2a->gpfag_cs ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Cultural Sensitivity:</b> Consider cultural norms and values relevant to each
                                     group.
@@ -612,8 +556,6 @@
                         <!-- Compensation -->
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="gpfag_c"
-                                {{ old('gpfag_c', $form2a->gpfag_c ?? false) ? 'checked' : '' }}>
                                 <span>
                                     <b>Compensation:</b> Ensure fair and non-coercive incentives or reimbursements.
                                 </span>
@@ -630,8 +572,6 @@
                     <div class="mt-2 space-y-2 text-base">
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="popr_pp"
-                                {{ old('popr_pp', $form2a->popr_pp ?? false) ? 'checked' : '' }}>
                                 <span>
                                     Include how potential participants will be recruited, contacted, screened, and
                                     registered in the study described.
@@ -643,8 +583,6 @@
                         </div>
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="popr_cc"
-                                {{ old('popr_cc', $form2a->popr_cc ?? false) ? 'checked' : '' }}>
                                 <span>
                                     Specify conditions and characteristics applicable to the identification and
                                     selection of participants in the study and the conditions necessary for eligible
@@ -657,8 +595,6 @@
                         </div>
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="popr_str"
-                                {{ old('popr_str', $form2a->popr_str ?? false) ? 'checked' : '' }}>
                                 <span>
                                     Specify whether there are any groups of people who might be more susceptible to the
                                     risks presented by the study and who therefore ought to be excluded from the
@@ -671,8 +607,6 @@
                         </div>
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="popr_sv"
-                                {{ old('popr_sv', $form2a->popr_sv ?? false) ? 'checked' : '' }}>
                                 <span>
                                     Indicate if any, special vulnerability among prospective study participants that
                                     might be relevant to evaulating the risk of participation considered.
@@ -684,8 +618,6 @@
                         </div>
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="popr_pi"
-                                {{ old('popr_pi', $form2a->popr_pi ?? false) ? 'checked' : '' }}>
                                 <span>
                                     State explicitly possible indication of special measures to be implemented to
                                     protect the vulnerability of study participants.
@@ -697,8 +629,6 @@
                         </div>
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="popr_p"
-                                {{ old('popr_p', $form2a->popr_p ?? false) ? 'checked' : '' }}>
                                 <span>
                                     State explicitly that the procedures for informing participants about the study and
                                     methods and for obtaining consent are clearly described. Indicate how you would do.
@@ -746,8 +676,6 @@
 
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="sodc_ac"
-                                {{ old('sodc_ac', $form2a->sodc_ac ?? false) ? 'checked' : '' }}>
                                 <span>
                                     Specify measures to ensure the anonymity and confidentiality of the study
                                     participants and data collected clearly indicated: Indicate how you would achieve
@@ -760,8 +688,6 @@
                         </div>
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="sodc_pc"
-                                {{ old('sodc_pc', $form2a->sodc_pc ?? false) ? 'checked' : '' }}>
                                 <span>
                                     Include procedures regarding confidentality of the data, including how
                                     confidentiality will be preserved during transmission, use, and storage of the data
@@ -775,8 +701,6 @@
                         </div>
                         <div>
                             <label>
-                                <input type="checkbox" class="max-sm:h-[14px] max-sm:w-[14px]" name="sodc_fd"
-                                {{ old('sodc_fd', $form2a->sodc_fd ?? false) ? 'checked' : '' }}>
                                 <span>
                                     Clearly include the prcedures on how the final disposition of records, data,
                                     compuiter files, and specimens will be, including the location for any relevant
