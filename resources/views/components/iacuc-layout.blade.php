@@ -50,7 +50,13 @@
                     responsive: true,
                     paging: false,
                     scrollY: '300px',
-                    order: [[0, 'asc']]
+                    order: [],
+                    // Tell DataTables not to auto-detect data sources
+                    deferRender: true,
+                    // Use the existing HTML as-is
+                    columnDefs: [
+                        { targets: '_all', defaultContent: '' }
+                    ]
                 });
 
                 // ✅ Move the DataTables search bar into our custom search-wrapper
@@ -134,16 +140,20 @@
         }
         // Set Page Title Based on URL Path
         const titles = {
-            "/iacuc/dashboard": "DASHBOARD",
-            "/iacuc/assign-reviewer": "ASSIGN REVIEWER",
             "/iacuc/approved-accounts": "APPROVED ACCOUNTS",
+            "/iacuc/assign-amendments": "RESUBMISSION",
+            "/iacuc/assign-reviewer": "ASSIGN REVIEWER",
+            "/iacuc/dashboard": "DASHBOARD",
             "/iacuc/iro-approved-accounts": "APPROVED ACCOUNTS",
-            "/iacuc/pending-reviews": "PENDING REVIEWS",
+            "/iacuc/monitoring-process": "MONITORING PROCESS",
+            "/iacuc/pending-reviews": "PROTOCOL DECISION",
             "/iacuc/research-records": "RESEARCH RECORDS",
-            "/iacuc/ongoing-reviews": "ONGOING REVIEWS",
             "/iacuc/settings": "SETTINGS",
-            "/iacuc/forms/protocol-review": "PROTOCOL REVIEW FORM",
-            "/iacuc/forms/protocol-review-checklist": "PROTOCOL REVIEW CHECKLIST"
+            "/iacuc/submitted-documents": "SUBMITTED DOCUMENTS",
+            "/iacuc/submitted-tickets": "SUBMITTED INQUIRIES",
+            "/iacuc/tickets": "SUBMITTED INQUIRIES",
+            "/iacuc/view-reviews": "VIEW REVIEWS",
+            "/iacuc/viewing-file": "VIEWING FILES"
         };
 
         const path = window.location.pathname;

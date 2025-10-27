@@ -34,7 +34,11 @@
                         Alexander Feuer<br>
                         Rene Phillips
                     </td>
-                    <td><button type="button" class="border-2 p-[5px] hover:bg-gray">View</button></td>
+                    <td>
+                        <a href="{{ url('iacuc/viewing-file') }}">
+                            <button type="button" class="border-2 p-[5px] hover:bg-gray">View</button>
+                        </a>
+                    </td>
                     <td>4/15/2025<br>21:37:23</td>
                 </tr>
                 <tr>

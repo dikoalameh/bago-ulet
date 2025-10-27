@@ -23,11 +23,11 @@
             <div>
                 <div class="grid max-md:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
                     <div class="card bg-lightgray p-4 rounded-lg border border-gray shadow">
-                        <h3 class="text-[25px] max-md:text-[22px] font-semibold">5</h3>
+                        <h3 class="text-[25px] max-2xl:text-[22px] max-sm:text-lg font-semibold ">5</h3>
                         <p class="max-md:text-[13px]">APPROVAL OF ACCOUNTS</p>
                     </div>
                     <div class="card bg-lightgray p-4 rounded-lg border border-gray shadow">
-                        <h3 class="text-[25px] max-md:text-[22px] font-semibold">2</h3>
+                        <h3 class="text-[25px] max-2xl:text-[22px] max-sm:text-lg font-semibold ">2</h3>
                         <p class="max-md:text-[13px]">RESEARCH PROTOCOL</p>
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                         <div class="bg-white shadow-sm border-2 border-gray">
 
                             <!-- Scroll area -->
-                            <ul class="h-[32rem] overflow-y-auto scrollbar divide-y divide-gray">
+                            <ul class="h-[32rem] max-md:h-[20rem] overflow-y-auto scrollbar divide-y divide-gray">
 
                                 <!-- Notification item -->
                                 <li class="p-4 flex gap-4 hover:bg-gray duration-200">

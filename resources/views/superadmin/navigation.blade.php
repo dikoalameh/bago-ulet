@@ -139,7 +139,7 @@
             </a>
         </li>
         <!-- Settings -->
-        <li>
+        <!-- <li>
             <a href="{{ url('superadmin/settings') }}" class="px-3 py-3 flex duration-200 hover:text-secondary
                 {{ Request::is('superadmin/settings') ? 'text-secondary' : '' }}">
                 <i class="bi bi-gear-wide-connected"></i>
@@ -147,7 +147,7 @@
                     Settings
                 </span>
             </a>
-        </li>
+        </li> -->
         <!-- Profile Info -->
         <li class="fixed h-[60px] w-[335px] left-0 bottom-0 py-1.5 px-3.5 overflow-hidden ease-in-out duration-200 bg-primary">
             <div class="flex items-center flex-nowrap">
@@ -194,7 +194,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
-                <ul class="dropdownMenu ml-1 mt-4 space-y-1 hidden">
+                <ul class="dropdownMenu ml-1 mt-2 space-y-1 hidden">
                     <!-- View Reviews -->
                     <li>
                         <a href="{{ url('/superadmin/view-reviews') }}" class="block hover:text-secondary duration-200 px-2 py-1.5 flex 
@@ -297,7 +297,7 @@
                 </a>
             </li>
             <!-- Settings -->
-            <li>
+            <!-- <li>
                 <a href="{{ url('superadmin/settings') }}" class="px-3 py-2.5 flex duration-200 hover:text-secondary
                 {{ Request::is('superadmin/settings') ? 'text-secondary' : '' }}">
                     <i class="bi bi-gear-wide-connected"></i>
@@ -305,9 +305,9 @@
                         Settings
                     </span>
                 </a>
-            </li>
+            </li> -->
             <!-- Profile Info -->
-            <li class="fixed h-[60px] w-80 left-0 bottom-0 py-1.5 px-3.5 overflow-hidden ease-in-out duration-200">
+            <li class="fixed h-[60px] w-80 left-0 bottom-0 py-1.5 px-3.5 overflow-hidden ease-in-out duration-200 bg-primary">
                 <div class="flex items-center flex-nowrap">
                     <img src="" alt=""
                         class="h-[45px] w-[45px] object-cover rounded-[50%] mr-[10px] border-2 border-white">

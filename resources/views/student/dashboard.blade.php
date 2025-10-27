@@ -10,13 +10,13 @@
             <!-- Announcement/Reminders -->
             <div class="rounded-md shadow-md overflow-hidden bg-white">
                 <!-- Header bar -->
-                <div class="bg-primary max-sm:text-sm text-white font-semibold px-4 py-2">
+                <div class="bg-primary max-sm:text-base text-white font-semibold px-4 py-2">
                     Reminder
                 </div>
 
                 <!-- Body -->
                 <div class="p-6 text-sm leading-relaxed">
-                    <p class="mb-4 max-sm:text-xs">
+                    <p class="mb-4 max-sm:text-[13px]">
                         @if($reviewStatus === 'Under Review')
                             Your protocol is currently under review. Please wait for the evaluation results.
                         @elseif($reviewStatus === 'Evaluated')
@@ -35,36 +35,36 @@
                 <div class="grid 2xl:grid-cols-4 max-md:grid-cols-1 md:grid-cols-2 max-lg:grid-cols-2 gap-4">
                     <!-- Status of Review Card -->
                     <div class="card bg-lightgray p-4 rounded-lg border border-gray shadow">
-                        <h2 class="text-[25px] max-2xl:text-[22px] max-sm:text-[14px] font-medium text-center">
+                        <h2 class="text-[25px] max-2xl:text-[22px] max-sm:text-base font-semibold text-center">
                             {{ strtoupper($reviewStatus) }}
                         </h2>
-                        <p class="mt-2 text-center max-sm:text-[13px]">STATUS OF REVIEW</p>
+                        <p class="mt-2 text-center max-sm:text-sm">STATUS OF REVIEW</p>
                     </div>
                     
                     <!-- Deadline Card -->
                     <div class="card bg-lightgray p-4 rounded-lg border border-gray shadow">
-                        <h2 class="text-[25px] max-2xl:text-[22px] max-sm:text-[14px] font-medium text-center">
+                        <h2 class="text-[25px] max-2xl:text-[22px] max-sm:text-base font-semibold text-center">
                             {{ $deadline }}
                         </h2>
-                        <p class="mt-2 text-center max-sm:text-[13px]">DEADLINE OF SUBMISSION</p>
+                        <p class="mt-2 text-center max-sm:text-sm">DEADLINE OF SUBMISSION</p>
                     </div>
                     
                     <!-- Submitted Documents Card -->
                     <div data-modal="modal1"
                         class="card cursor-pointer bg-lightgray hover:bg-gray duration-200 p-4 rounded-lg border border-gray shadow">
-                        <h3 class="text-[25px] max-2xl:text-[22px] max-sm:text-[14px]/5 font-medium text-center">
+                        <h3 class="text-[25px] max-2xl:text-[22px] max-sm:text-base/5 font-semibold text-center">
                             {{ $submittedDocumentsCount }}
                         </h3>
-                        <p class="mt-2 text-center max-sm:text-[13px]">Submitted Documents</p>
+                        <p class="mt-2 text-center max-sm:text-sm">Submitted Documents</p>
                     </div>
                     
                     <!-- Pending Documents Card -->
                     <div data-modal="modal2"
                         class="card cursor-pointer bg-lightgray hover:bg-gray duration-200 p-4 rounded-lg border border-gray shadow">
-                        <h2 class="text-[25px] max-2xl:text-[22px] max-sm:text-[14px]/5 font-medium text-center">
+                        <h2 class="text-[25px] max-2xl:text-[22px] max-sm:text-base/5 font-semibold text-center">
                             {{ $pendingDocumentsCount }}
                         </h2>
-                        <p class="mt-2 text-center max-sm:text-[13px]">Pending Documents</p>
+                        <p class="mt-2 text-center max-sm:text-sm">Pending Documents</p>
                     </div>
                 </div>
             </div>
@@ -85,7 +85,7 @@
                     <div class="w-full mx-auto px-4 max-md:px-0 py-2 max-md:py-0">
                         <div class="bg-white shadow-sm border-2 border-gray">
                             <!-- Scroll area -->
-                            <ul class="h-[32rem] overflow-y-auto scrollbar divide-y divide-gray" id="notifications-list">
+                            <ul class="h-[32rem] max-md:h-[20rem] overflow-y-auto scrollbar divide-y divide-gray" id="notifications-list">
                                 @forelse(auth()->user()->notifications->take(20) as $notification)
                                     <li class="p-4 flex gap-4 hover:bg-gray duration-200 cursor-pointer {{ $notification->read_at ? '' : 'bg-blue-50' }}"
                                         onclick="handleNotificationClick('{{ $notification->id }}', '{{ json_encode($notification->data) }}')">

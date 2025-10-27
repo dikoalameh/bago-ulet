@@ -221,7 +221,7 @@ Route::middleware(['auth', 'access:IACUC Admin', 'no-cache', 'prevent-back'])->p
     })->name('iacuc.settings');
 
     // Viewing File
-    Route::get('/iacuc/viewing-file', function () {
+    Route::get('/viewing-file', function () {
         return view('iacuc.viewing-file');
     });
 
@@ -233,6 +233,11 @@ Route::middleware(['auth', 'access:IACUC Admin', 'no-cache', 'prevent-back'])->p
     // Assigned Amendments
     Route::get('/assign-amendments', function () {
         return view('iacuc.assign-amendments');
+    });
+
+    // Monitoring Process
+    Route::get('/monitoring-process', function() {
+        return view('iacuc.monitoring-process');
     });
 
     Route::get('/tickets', function () {

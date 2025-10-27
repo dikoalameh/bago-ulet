@@ -1,9 +1,9 @@
-@section('title', 'Approved Accounts')
+@section('title', 'Assigned Forms')
 <x-iacuc-layout>
     <!-- Main Content -->
     <main class="xl:ml-[335px] max-xl:ml-auto p-4 max-md:p-2">
         <h2 class="max-xl:hidden text-left bg-[#f2f2f2] shadow-lg p-[35px] rounded-[30px] font-medium text-[28px]">
-            APPROVED ACCOUNTS
+            ASSIGNED FORMS
         </h2>
         <br>
 
@@ -45,20 +45,3 @@
         </table>
     </main>
 </x-iacuc-layout>
-<script>
-    $(document).ready(function () {
-        // Only initialize if not already initialized
-        if (!$.fn.dataTable.isDataTable('#myTable')) {
-            const table = new DataTable('#myTable', {
-                responsive: true,
-                paging: false,
-                scrollY: '300px',
-                order: [[0, 'asc']]
-            });
-
-            // ✅ Move the DataTables search bar into our custom search-wrapper
-            const dtSearch = $('div.dt-search');
-            $('.search-wrapper').append(dtSearch);
-        }
-    });
-</script>

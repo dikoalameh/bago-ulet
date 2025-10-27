@@ -51,7 +51,7 @@
                     responsive: true,
                     paging: false,
                     scrollY: '300px',
-                    order: [[0, 'asc']],
+                    order: [],
                     // Tell DataTables not to auto-detect data sources
                     deferRender: true,
                     // Use the existing HTML as-is

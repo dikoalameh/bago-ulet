@@ -49,11 +49,11 @@
             <div>
                 <div class="grid max-md:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4">
                     <div class="card bg-lightgray p-4 rounded-lg border border-gray shadow">
-                        <h3 class="text-[25px] max-md:text-[22px] font-semibold">{{ $pendingProtocolsCount }}</h3>
+                        <h3 class="text-[25px] max-2xl:text-[22px] max-sm:text-lg font-semibold">{{ $pendingProtocolsCount }}</h3>
                         <p class="max-md:text-[13px]">PENDING PROTOCOLS</p>
                     </div>
                     <div class="card bg-lightgray p-4 rounded-lg border border-gray shadow">
-                        <h3 class="text-[25px] max-md:text-[22px] font-semibold">{{ $evaluatedProtocolsCount }}</h3>
+                        <h3 class="text-[25px] max-2xl:text-[22px] max-sm:text-lg font-semibold">{{ $evaluatedProtocolsCount }}</h3>
                         <p class="max-md:text-[13px]">EVALUATED PROTOCOLS</p>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                     <div class="w-full mx-auto px-4 max-md:px-0 py-2 max-md:py-0">
                         <div class="bg-white shadow-sm border-2 border-gray">
                             <!-- Scroll area -->
-                            <ul class="h-[32rem] overflow-y-auto scrollbar divide-y divide-gray">
+                            <ul class="h-[32rem] max-md:h-[20rem] overflow-y-auto scrollbar divide-y divide-gray">
                                 @forelse(auth()->user()->notifications->take(20) as $notification)
                                 <li class="p-4 flex gap-4 hover:bg-gray duration-200 cursor-pointer">
                                     <form method="POST" action="{{ route('erb-reviewer.notification.markRead', $notification->id) }}" class="hidden" id="form-{{ $notification->id }}">

@@ -83,7 +83,7 @@
                         <div class="bg-white shadow-sm border-2 border-gray">
 
                             <!-- Scroll area -->
-                            <ul class="h-[32rem] overflow-y-auto scrollbar divide-y divide-gray">
+                            <ul class="h-[32rem] max-md:h-[20rem] overflow-y-auto scrollbar divide-y divide-gray">
 
                                 <!-- Notification item -->
                                 <li class="p-4 flex gap-4 hover:bg-gray duration-200">

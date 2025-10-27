@@ -83,7 +83,7 @@
                     <div class="max-w-5xl mx-auto max-md:px-0 px-4 py-6 max-md:py-2">
                         <div class="bg-white shadow-sm border-2 border-gray">
                             <!-- Scroll area -->
-                            <ul class="h-[32rem] overflow-y-auto scrollbar divide-y divide-gray">
+                            <ul class="h-[32rem] max-md:h-[20rem] overflow-y-auto scrollbar divide-y divide-gray">
                                 @forelse(auth()->user()->unreadNotifications ?? [] as $notification)
                                 <li class="p-4 flex gap-4 hover:bg-gray duration-200 cursor-pointer">
                                     <form method="POST" action="{{ route('erb.notification.markRead', $notification->id) }}" class="hidden" id="form-{{ $notification->id }}">

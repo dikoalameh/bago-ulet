@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title','Default title')</title>
+    <title>@yield('title', 'Default title')</title>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Icons -->
@@ -15,7 +15,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Fonts and Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
-    
+
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.5/css/responsive.dataTables.css">
@@ -46,10 +46,26 @@
         </main>
     </div>
     <script>
-        new DataTable('#myTable', {
-            paging: false,
-            responsive: true,
-            scrollY: '300px'
+        $(document).ready(function () {
+            // Only initialize if not already initialized
+            if (!$.fn.dataTable.isDataTable('#myTable')) {
+                const table = new DataTable('#myTable', {
+                    responsive: true,
+                    paging: false,
+                    scrollY: '300px',
+                    order: [],
+                    // Tell DataTables not to auto-detect data sources
+                    deferRender: true,
+                    // Use the existing HTML as-is
+                    columnDefs: [
+                        { targets: '_all', defaultContent: '' }
+                    ]
+                });
+
+                // ✅ Move the DataTables search bar into our custom search-wrapper
+                const dtSearch = $('div.dt-search');
+                $('.search-wrapper').append(dtSearch);
+            }
         });
 
         document.addEventListener("DOMContentLoaded", () => {
@@ -84,7 +100,7 @@
                 });
             });
         });
-        
+
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
@@ -101,6 +117,7 @@
             "/iacuc-reviewer/settings": "SETTINGS",
             "/iacuc-reviewer/forms/protocol-review": "REVIEW FORM",
             "/iacuc-reviewer/forms/protocol-review-checklist": "REVIEW CHECKLIST",
+            "/iacuc-reviewer/monitoring-process": "MONITORING PROCESS"
         };
 
         const path = window.location.pathname;

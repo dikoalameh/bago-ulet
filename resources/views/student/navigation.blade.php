@@ -48,13 +48,13 @@
             </a>
         </li>
         <!-- Settings -->
-        <li>
+        <!-- <li>
             <a href="{{ url('student/settings') }}" class="flex items-center justify-between px-3 py-3 transition-all duration-200 hover:text-secondary 
                 {{ Request::is('student/settings') ? 'text-secondary' : '' }}">
                 <i class="bi bi-gear-wide-connected"></i>
                 <span class="w-full flex justify-between items-center px-3">Settings</span>
             </a>
-        </li>
+        </li> -->
         <!-- Profile Information -->
         <li
             class="fixed h-[60px] w-[335px] left-0 bottom-0 py-1.5 px-3.5 overflow-hidden ease-in-out duration-200 bg-primary">
@@ -123,13 +123,13 @@
                 </a>
             </li>
             <!-- Settings -->
-            <li>
+            <!-- <li>
                 <a href="{{ url('student/settings') }}" class="flex items-center justify-between px-3 py-2.5 transition-all duration-200 hover:text-secondary 
                 {{ Request::is('student/settings') ? 'text-secondary' : '' }}">
                     <i class="bi bi-gear-wide-connected"></i>
                     <span class="w-full flex justify-between items-center px-3">Settings</span>
                 </a>
-            </li>
+            </li> -->
             <!-- Profile Information -->
             <li
                 class="fixed h-[60px] w-80 left-0 bottom-0 py-1.5 px-3.5 overflow-hidden ease-in-out duration-200 bg-primary">

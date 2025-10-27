@@ -53,7 +53,7 @@
                     responsive: true,
                     paging: false,
                     scrollY: '300px',
-                    order: [[0, 'asc']],
+                    order: [],
                     // Tell DataTables not to auto-detect data sources
                     deferRender: true,
                     // Use the existing HTML as-is
@@ -129,7 +129,10 @@
                 "/superadmin/pending-reviews": "PENDING REVIEWS",
                 "/superadmin/permission-control": "PERMISSION CONTROL",
                 "/superadmin/monitoring": "MONITORING STATUS",
-                "/superadmin/settings": "SETTINGS"
+                "/superadmin/settings": "SETTINGS",
+                "/superadmin/final-completion": "FINAL COMPLETION",
+                "/superadmin/full-board-review": "FULL BOARD REVIEW",
+                "/superadmin/monitoring-process": "MONITORING PROCESS"
             };
 
             const path = window.location.pathname;

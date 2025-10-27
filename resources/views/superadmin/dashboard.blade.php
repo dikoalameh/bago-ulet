@@ -18,19 +18,19 @@
                 <h2 class="text-[20px] max-sm:text-[17px] font-semibold mb-4">USERS ACCOUNT</h2>
                 <div class="grid max-md:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div class="card bg-lightgray p-4 rounded-lg border border-gray shadow">
-                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-xl font-semibold">{{ $totalUsers }}</h3>
+                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-lg font-semibold">{{ $totalUsers }}</h3>
                         <p class="max-xl:text-sm">TOTAL USERS</p>
                     </div>
                     <div class="card bg-lightgray p-4 rounded-lg border border-gray shadow">
-                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-xl font-semibold">{{ $unclassifiedUsers }}</h3>
+                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-lg font-semibold">{{ $unclassifiedUsers }}</h3>
                         <p class="max-xl:text-sm">PENDING</p>
                     </div>
                     <div class="card bg-lightgray p-4 rounded-lg border border-gray shadow">
-                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-xl font-semibold">{{ $classifiedUsers }}</h3>
+                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-lg font-semibold">{{ $classifiedUsers }}</h3>
                         <p class="max-xl:text-sm">APPROVED</p>
                     </div>
                     <div class="card bg-lightgray p-4 rounded-lg border border-gray shadow">
-                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-xl font-semibold">3</h3>
+                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-lg font-semibold">3</h3>
                         <p class="max-xl:text-sm">DISABLED</p>
                     </div>
                 </div>
@@ -41,23 +41,23 @@
                 <h2 class="text-[20px] max-sm:text-[17px] font-semibold mb-4">RESEARCH PROTOCOL</h2>
                 <div class="grid max-md:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div class="card bg-lightgray p-4 rounded-lg border border-gray shadow">
-                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-xl font-semibold">{{ $totalAssignedProtocols }}</h3>
+                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-lg font-semibold">{{ $totalAssignedProtocols }}</h3>
                         <p class="max-xl:text-sm">ASSIGNED PROTOCOLS</p>
                     </div>
                     <div class="card bg-lightgray p-4 rounded-lg border border-gray shadow">
-                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-xl font-semibold">{{ $protocolsWithoutReviewer }}</h3>
+                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-lg font-semibold">{{ $protocolsWithoutReviewer }}</h3>
                         <p class="max-xl:text-sm">PENDING ASSIGNMENT OF REVIEWER</p>
                     </div>
                     <div class="card bg-lightgray p-4 rounded-lg border border-gray shadow">
-                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-xl font-semibold">{{ $ongoingReviews }}</h3>
+                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-lg font-semibold">{{ $ongoingReviews }}</h3>
                         <p class="max-xl:text-sm">ONGOING REVIEWS</p>
                     </div>
                     <div class="card bg-lightgray p-4 rounded-lg border border-gray shadow">
-                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-xl font-semibold">{{ $evaluatedReviews }}</h3>
+                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-lg font-semibold">{{ $evaluatedReviews }}</h3>
                         <p class="max-xl:text-sm">EVALUATED PROTOCOLS</p>
                     </div>
                     <div class="card bg-lightgray p-4 rounded-lg border border-gray shadow">
-                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-xl font-semibold">{{ $approvedProtocols }}</h3>
+                        <h3 class="text-2xl max-md:text-[22px] max-sm:text-lg font-semibold">{{ $approvedProtocols }}</h3>
                         <p class="max-xl:text-sm">APPROVED</p>
                     </div>
                 </div>
@@ -82,7 +82,7 @@
                              @php
                                 $notifications = auth()->user()->notifications()->latest()->get();
                             @endphp
-                            <ul class="h-[32rem] overflow-y-auto scrollbar divide-y divide-gray">
+                            <ul class="h-[32rem] max-md:h-[20rem] overflow-y-auto scrollbar divide-y divide-gray">
                                 <!-- Notification item -->
                                 @forelse($notifications as $notification)
                                     @php

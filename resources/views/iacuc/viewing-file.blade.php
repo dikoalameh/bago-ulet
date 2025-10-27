@@ -14,7 +14,7 @@
         </div>
 
         <div class="mt-8">
-            <a href="{{ url('/erb/view-reviews') }}"
+            <a href="{{ url('/iacuc/view-reviews') }}"
                 class="bg-secondary hover:bg-primary text-lg max-xl:text-base text-primary hover:text-secondary uppercase tracking-widest px-4 py-2 rounded-md duration-200">
                 Back
             </a>

@@ -15,11 +15,11 @@
         <table id="myTable" class="display overflow-scroll border-collapse w-full">
             <thead class="bg-primary text-white text-lg/7 max-lg:text-base/7">
                 <tr class="header-table">
-                    <th>P.I. Name</th>
-                    <th>Research Title</th>
-                    <th>Subject</th>
-                    <th>Date Submitted</th>
-                    <th>View</th>
+                    <th class="w-[20%]">P.I. Name</th>
+                    <th class="w-[20%]">Research Title</th>
+                    <th class="w-[20%]">Subject</th>
+                    <th class="w-[20%]">Date Submitted</th>
+                    <th class="w-[20%]">View</th>
                 </tr>
             </thead>
             <tbody class="text-base/7 max-lg:text-sm/6">

@@ -16,11 +16,11 @@
             <!-- Table header -->
             <thead class="bg-primary text-white text-lg/7 max-lg:text-base/7">
                 <tr class="header-table">
-                    <th>User Name</th>
-                    <th>Research Title</th>
-                    <th>Type of Account</th>
-                    <th>Process Date</th>
-                    <th>Description</th>
+                    <th class="w-[20%]">User Name</th>
+                    <th class="w-[20%]">Research Title</th>
+                    <th class="w-[20%]">Type of Account</th>
+                    <th class="w-[20%]">Process Date</th>
+                    <th class="w-[20%]">Description</th>
                 </tr>
             </thead>
 

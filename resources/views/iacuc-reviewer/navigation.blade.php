@@ -5,8 +5,8 @@
     </div>
 
     <ul class="mt-8 text-[18px]">
+        <!-- Dashboard -->
         <li>
-            <!-- Dashboard -->
             <a href="{{ url('/iacuc-reviewer/dashboard') }}" class="flex items-center justify-between px-3 py-3 transition-all duration-200 hover:text-secondary
                 {{ Request::is('iacuc-reviewer/dashboard') ? 'text-secondary' : '' }}">
                 <i class="bi bi-file-earmark-bar-graph-fill"></i>
@@ -22,13 +22,13 @@
             </a>
         </li>
         <!-- Settings -->
-        <li>
+        <!-- <li>
             <a href="{{ url('iacuc-reviewer/settings') }}" class="px-3 py-3 transition-all flex duration-200 hover:text-secondary
                 {{ Request::is('iacuc-reviewer/settings') ? 'text-secondary' : '' }}">
                 <i class="bi bi-gear-wide-connected"></i>
                 <span class="w-full flex justify-between items-center px-3">Settings</span>
             </a>
-        </li>
+        </li> -->
         <!-- Profile Information -->
         <li class="fixed h-[60px] w-[335px] left-0 bottom-0 py-1.5 px-3.5 overflow-hidden ease-in-out duration-200 bg-primary">
             <div class="flex items-center flex-nowrap">
@@ -50,7 +50,7 @@
 
 <!-- Mobile Sidebar -->
 <div id="sidebar"
-    class="fixed top-0 left-0 h-full w-80 bg-primary 2xl:hidden transform -translate-x-full transition-transform duration-300 z-50">
+    class="fixed top-0 left-0 h-full w-80 bg-primary 2xl:hidden shadow transform -translate-x-full transition-transform duration-300 z-50">
     <nav class="flex flex-col p-2">
         <ul class="text-white max-2xl:mt-[65px] max-sm:mt-[55px]">
             <li>
@@ -68,13 +68,13 @@
                 <span class="w-full flex justify-between items-center px-3">Assigned Research Protocol</span>
             </a>
             <!-- Settings -->
-            <li>
+            <!-- <li>
                 <a href="{{ url('iacuc-reviewer/settings') }}" class="px-3 py-2.5 transition-all flex duration-200 hover:text-secondary
                     {{ Request::is('iacuc-reviewer/settings') ? 'text-secondary' : '' }}">
                     <i class="bi bi-gear-wide-connected"></i>
                     <span class="w-full flex justify-between items-center px-3">Settings</span>
                 </a>
-            </li>
+            </li> -->
             <!-- Profile Information -->
             <li class="fixed h-[60px] w-80 left-0 bottom-0 py-1.5 px-3.5 overflow-hidden ease-in-out duration-200 bg-primary">
                 <div class="flex items-center flex-nowrap">

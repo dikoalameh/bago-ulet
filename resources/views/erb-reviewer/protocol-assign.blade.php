@@ -7,7 +7,7 @@
         <br>
 
         <!-- CSS NG FILTER + SEARCH BAR -->
-        <div class="top-controls flex items-center max-md:flex-col">
+        <div class="top-controls">
             <div class="search-wrapper max-sm:mt-3 max-sm:justify-center max-sm:items-center"></div>
         </div>
 

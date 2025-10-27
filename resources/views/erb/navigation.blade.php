@@ -140,7 +140,7 @@
             </a>
         </li>
         <!-- Settings -->
-        <li>
+        <!-- <li>
             <a href="{{ url('/erb/settings') }}" class="flex items-center justify-between px-3 py-3 transition-all duration-200 hover:text-secondary
                 {{ Request::is('erb/settings') ? 'text-secondary' : '' }}">
                 <i class="bi bi-gear-wide-connected"></i>
@@ -148,7 +148,7 @@
                     Settings
                 </span>
             </a>
-        </li>
+        </li> -->
         <!-- Profile Information -->
         <li
             class="fixed h-[60px] w-[335px] left-0 bottom-0 py-1.5 px-3.5 overflow-hidden ease-in-out duration-200 bg-primary">
@@ -196,7 +196,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
-                <ul class="dropdownMenu ml-1 mt-4 hidden">
+                <ul class="dropdownMenu ml-1 mt-2 hidden">
                     <!-- View Reviews -->
                     <li>
                         <a href="{{ url('/erb/view-reviews') }}"
@@ -229,7 +229,7 @@
                     </li>
                 </ul>
             </li>
-            <!-- Pending Accounts -->
+            <!-- IRO Approved Accounts -->
             <li>
                 <a href="{{ url('/erb/iro-approved-accounts') }}" class="flex items-center justify-between px-3 py-2.5 transition-all flex duration-200 hover:text-secondary
                 {{ Request::is('erb/iro-approved-accounts') ? 'text-secondary' : '' }}">
@@ -260,7 +260,7 @@
                     </span>
                 </a>
             </li>
-            <!-- Pending Reviews -->
+            <!-- Protocol Decision -->
             <li>
                 <a href="{{ url('/erb/pending-reviews') }}" class="flex items-center justify-between px-3 py-2.5 transition-all flex duration-200 hover:text-secondary
                 {{ Request::is('erb/pending-reviews') ? 'text-secondary' : '' }}">
@@ -300,7 +300,7 @@
                 </a>
             </li>
             <!-- Settings -->
-            <li>
+            <!-- <li>
                 <a href="{{ url('/erb/settings') }}" class="flex items-center justify-between px-3 py-2.5 transition-all duration-200 hover:text-secondary
                 {{ Request::is('erb/settings') ? 'text-secondary' : '' }}">
                     <i class="bi bi-gear-wide-connected"></i>
@@ -308,7 +308,7 @@
                         Settings
                     </span>
                 </a>
-            </li>
+            </li> -->
             <!-- Profile Information -->
             <li
                 class="fixed h-[60px] w-80 left-0 bottom-0 py-1.5 px-3.5 overflow-hidden ease-in-out duration-200 bg-primary">

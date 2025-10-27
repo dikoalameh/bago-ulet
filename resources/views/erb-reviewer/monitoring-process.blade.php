@@ -8,7 +8,7 @@
         <br>
 
         <!-- CSS NG FILTER + SEARCH BAR -->
-        <div class="top-controls flex items-center max-md:flex-col">
+        <div class="top-controls">
             <div class="search-wrapper max-sm:mt-3 max-sm:justify-center max-sm:items-center"></div>
         </div>
 
@@ -16,8 +16,8 @@
             <!-- Table header -->
             <thead class="bg-primary text-white text-lg/7 max-lg:text-base/7">
                 <tr class="header-table">
-                    <th>Description</th>
-                    <th>Process Date</th>
+                    <th class="w-[50%]">Description</th>
+                    <th class="w-[50%]">Process Date</th>
                 </tr>
             </thead>
 
@@ -40,31 +40,3 @@
         </table>
     </main>
 </x-erb-reviewer>
-<script>
-     $(document).ready(function () {
-        // Only initialize if not already initialized
-        if (!$.fn.dataTable.isDataTable('#myTable')) {
-            const table = new DataTable('#myTable', {
-                responsive: true,
-                paging: false,
-                scrollY: '300px',
-                order: [[1, 'desc']] // Sort by Process Date descending
-            });
-
-            // ✅ Move the DataTables search bar into our custom search-wrapper
-            const dtSearch = $('div.dt-search');
-            $('.search-wrapper').append(dtSearch);
-
-            // ✅ Build dropdown filter dynamically
-            const descriptions = [...new Set(table.column(0).data().toArray())].sort();
-            const select = $('#officeFilter');
-            descriptions.forEach(d => select.append(`<option value="${d}">${d}</option>`));
-
-            // ✅ Apply filter to Description column
-            select.on('change', function () {
-                const val = $.fn.dataTable.util.escapeRegex($(this).val());
-                table.column(0).search(val ? '^' + val + '$' : '', true, false).draw();
-            });
-        }
-    });
-</script>
