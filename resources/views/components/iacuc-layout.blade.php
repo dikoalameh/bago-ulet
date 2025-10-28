@@ -49,7 +49,7 @@
                 const table = new DataTable('#myTable', {
                     responsive: true,
                     paging: false,
-                    scrollY: '300px',
+                    scrollY: '350px',
                     order: [],
                     // Tell DataTables not to auto-detect data sources
                     deferRender: true,
