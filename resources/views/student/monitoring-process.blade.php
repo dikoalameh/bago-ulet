@@ -16,8 +16,8 @@
             <!-- Table header -->
             <thead class="bg-primary text-white text-lg/7 max-lg:text-base/7">
                 <tr class="header-table">
-                    <th>Description</th>
-                    <th>Process Date</th>
+                    <th class="w-[50%]">Description</th>
+                    <th class="w-[50%]">Process Date</th>
                 </tr>
             </thead>
 

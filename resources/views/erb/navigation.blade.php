@@ -1,10 +1,10 @@
 <nav
     class="shadow-md bg-primary max-sm:hidden sm:hidden max-xl:hidden xl:block h-screen w-[335px] p-2 flex flex-col text-white fixed top-0 left-0">
-    <div class="px-3 py-2 h-20 flex justify-between items-center">
-        <img src="" alt="ERB MAS BAGO">
+    <div class="px-3 py-2 h-20 flex justify-center items-center">
+        <img src="{{ asset('images/mcu-logo-white.png') }}" alt="ERB MAS BAGO" class="w-40">
     </div>
 
-    <ul class="mt-8 text-[18px]">
+    <ul class="mt-4 text-[18px]">
         <!-- Dashboard -->
         <li>
             <a href="{{ url('/erb/dashboard') }}" class="flex items-center justify-between px-3 py-3 transition-all duration-200 hover:text-secondary
@@ -25,7 +25,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
             </button>
-            <ul class="dropdownMenu ml-1 mt-4 hidden">
+            <ul class="dropdownMenu ml-1 mt-3 hidden">
                 <!-- View Reviews -->
                 <li>
                     <a href="{{ url('/erb/view-reviews') }}"

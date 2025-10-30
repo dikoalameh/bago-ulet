@@ -16,10 +16,10 @@
             <!-- Table header -->
             <thead class="bg-primary text-white text-lg/7 max-lg:text-base/7">
                 <tr class="header-table">
-                    <th class="w-[13%]">Process Date</th>
                     <th class="w-[17%]">User Name</th>
                     <th class="w-[13%]">Research Title</th>
                     <th class="w-[17%]">Type of Account</th>
+                    <th class="w-[13%]">Process Date</th>
                     <th class="w-[40%]">Description</th>
                 </tr>
             </thead>
@@ -27,13 +27,13 @@
             <tbody class="text-base/7 max-lg:text-sm/6">
                 @forelse($processes as $process)
                     <tr>
+                        <td>{{ $process['pi_name'] }}</td>
+                        <td>{{ $process['research_title'] }}</td>
+                        <td>{{ $process['account_type'] }}</td>
                         <td>
                             {{ $process['date'] }}<br>
                             {{ $process['time'] }}
                         </td>
-                        <td>{{ $process['pi_name'] }}</td>
-                        <td>{{ $process['research_title'] }}</td>
-                        <td>{{ $process['account_type'] }}</td>
                         <td class="break-normal">
                             {{ $process['description'] }}
                         </td>

@@ -1,10 +1,10 @@
 <nav
     class="shadow-md bg-primary max-sm:hidden sm:hidden max-xl:hidden xl:block h-screen w-[335px] p-2 flex flex-col text-white fixed top-0 left-0">
-    <div class="px-3 py-2 h-20 flex justify-between items-center">
-        <img src="" alt="REVIEWER MAS BAGO">
+    <div class="px-3 py-2 h-20 flex justify-center items-center">
+        <img src="{{ asset('images/mcu-logo-white.png') }}" alt="ERB REVIEWER MAS BAGO" class="w-40">
     </div>
 
-    <ul class="mt-8 text-[18px]">
+    <ul class="mt-4 text-[18px]">
         <li>
             <!-- Dashboard -->
             <a href="{{ url('/erb-reviewer/dashboard') }}" class="flex items-center justify-between px-3 py-3 transition-all duration-200 hover:text-secondary
