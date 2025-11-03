@@ -1,10 +1,10 @@
 <nav
     class="shadow-md bg-primary max-sm:hidden sm:hidden max-xl:hidden xl:block h-screen w-[335px] p-2 flex flex-col text-white fixed top-0 left-0">
-    <div class="px-3 py-2 h-20 flex justify-between items-center">
-        <img src="" alt="IRO MAS BAGO">
+    <div class="px-3 py-2 h-20 flex justify-center items-center">
+        <img src="{{ asset('images/mcu-logo-white.png') }}" alt="IACUC   MAS BAGO" class="w-40">
     </div>
 
-    <ul class="mt-8 text-[18px]">
+    <ul class="mt-4 text-[18px]">
         <!-- Dashboard -->
         <li>
             <a href="{{ url('iacuc/dashboard') }}" class="flex items-center justify-between px-3 py-3 transition-all duration-200 hover:text-secondary
@@ -25,7 +25,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
             </button>
-            <ul class="dropdownMenu ml-1 mt-4 space-y-1 hidden">
+            <ul class="dropdownMenu ml-1 mt-3 space-y-1 hidden">
                 <!-- View Reviews -->
                 <li>
                     <a href="{{ url('iacuc/view-reviews') }}"
@@ -70,16 +70,6 @@
                 </span>
             </a>
         </li>
-        <!-- Assigned Forms -->
-        <li>
-            <a href="{{ url('iacuc/approved-accounts') }}" class="flex items-center justify-between px-3 py-3 transition-all flex duration-200 hover:text-secondary
-                {{ Request::is('iacuc/approved-accounts') ? 'text-secondary' : '' }}">
-                <i class="bi bi-person-check-fill"></i>
-                <span class="w-full flex justify-between items-center px-3">
-                    Assigned Forms
-                </span>
-            </a>
-        </li>
         <!-- Protocol Decision -->
         <li>
             <a href="{{ url('iacuc/pending-reviews') }}" class="flex items-center justify-between px-3 py-3 transition-all flex duration-200 hover:text-secondary
@@ -87,27 +77,6 @@
                 <i class="bi bi-clock-fill"></i>
                 <span class="w-full flex justify-between items-center px-3">
                     Protocol Decision
-                </span>
-            </a>
-        </li>
-        <!-- Submitted Inquiries -->
-        <li>
-            <a href="{{ url('/iacuc/submitted-tickets') }}"
-                class="flex items-center justify-between px-3 py-3 transition-all duration-200 hover:text-secondary 
-                {{ Request::is('iacuc/submitted-tickets') || Request::is('iacuc/tickets') || Request::is('iacuc/tickets/*') ? 'text-secondary' : ''}}">
-                <i class="bi bi-ticket-detailed"></i>
-                <span class="w-full flex justify-between items-center px-3">
-                    Submitted Inquiries
-                </span>
-            </a>
-        </li>
-        <!-- Resubmission -->
-        <li>
-            <a href="{{ url('/iacuc/assign-amendments') }}" class="flex items-center justify-between px-3 py-3 transition-all duration-200 hover:text-secondary
-            {{ Request::is('iacuc/assign-amendments') ? 'text-secondary' : ''}}">
-                <i class="bi bi-pencil-square"></i>
-                <span class="w-full flex justify-between items-center px-3">
-                    Resubmission
                 </span>
             </a>
         </li>
@@ -221,16 +190,6 @@
                     </span>
                 </a>
             </li>
-            <!-- Assigned Forms -->
-            <li>
-                <a href="{{ url('iacuc/approved-accounts') }}" class="flex items-center justify-between px-3 py-2.5 transition-all flex duration-200 hover:text-secondary
-                {{ Request::is('iacuc/approved-accounts') ? 'text-secondary' : '' }}">
-                    <i class="bi bi-person-check-fill"></i>
-                    <span class="w-full flex justify-between items-center px-3">
-                        Assigned Forms
-                    </span>
-                </a>
-            </li>
             <!-- Protocol Decision -->
             <li>
                 <a href="{{ url('iacuc/pending-reviews') }}" class="flex items-center justify-between px-3 py-2.5 transition-all flex duration-200 hover:text-secondary
@@ -238,27 +197,6 @@
                     <i class="bi bi-clock-fill"></i>
                     <span class="w-full flex justify-between items-center px-3">
                         Protocol Decision
-                    </span>
-                </a>
-            </li>
-            <!-- Submitted Inquiries -->
-            <li>
-                <a href="{{ url('/iacuc/submitted-tickets') }}"
-                    class="flex items-center justify-between px-3 py-2.5 transition-all duration-200 hover:text-secondary 
-                {{ Request::is('iacuc/submitted-tickets') || Request::is('iacuc/tickets') || Request::is('iacuc/tickets/*') ? 'text-secondary' : ''}}">
-                    <i class="bi bi-ticket-detailed"></i>
-                    <span class="w-full flex justify-between items-center px-3">
-                        Submitted Inquiries
-                    </span>
-                </a>
-            </li>
-            <!-- Resubmission -->
-            <li>
-                <a href="{{ url('/iacuc/assign-amendments') }}" class="flex items-center justify-between px-3 py-2.5 transition-all duration-200 hover:text-secondary
-            {{ Request::is('iacuc/assign-amendments') ? 'text-secondary' : ''}}">
-                    <i class="bi bi-pencil-square"></i>
-                    <span class="w-full flex justify-between items-center px-3">
-                        Resubmission
                     </span>
                 </a>
             </li>
@@ -317,5 +255,6 @@
     </button>
     <!-- Page Title (centered) -->
     <h1 id="page-title" class="max-2xl:text-[23px] max-sm:text-[15px] font-normal mx-auto">Loading...</h1>
-    <img src="" alt="a">
+    <!-- TEMPORARY ICON -->
+    <img src="{{ asset('images/mcu-logo.png') }}" alt="ERB MAS BAGO" class="bg-white w-[24px]">
 </header>

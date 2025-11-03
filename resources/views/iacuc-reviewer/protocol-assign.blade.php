@@ -6,6 +6,11 @@
         </h2>
         <br>
 
+        <!-- CSS NG SEARCH BAR -->
+        <div class="top-controls">
+            <div class="search-wrapper mt-1 flex max-sm:justify-center max-sm:items-center"></div>
+        </div>
+
         <table id="myTable" class="display overflow-scroll border-collapse w-full">
             <thead class="bg-primary text-white text-lg/7 max-lg:text-base/7">
                 <tr class="header-table">

@@ -25,7 +25,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
             </button>
-            <ul class="dropdownMenu ml-1 mt-4 space-y-1 hidden">
+            <ul class="dropdownMenu ml-1 mt-3 space-y-1 hidden">
                 <!-- Ongoing Reviews -->
                 <li>
                     <a href="{{ url('/superadmin/view-reviews') }}"
@@ -95,16 +95,6 @@
                 <i class="bi bi-universal-access-circle"></i>
                 <span class="w-full flex justify-between items-center px-3">
                     Permission Control
-                </span>
-            </a>
-        </li>
-        <!-- Monitoring Status -->
-        <li>
-            <a href="{{ url('/superadmin/monitoring') }}" class="px-3 py-3 transition-all flex duration-200 hover:text-secondary
-                {{ Request::is('superadmin/monitoring') ? 'text-secondary' : '' }}">
-                <i class="bi bi-clock-history"></i>
-                <span class="w-full flex justify-between items-center px-3">
-                    Monitoring Status
                 </span>
             </a>
         </li>

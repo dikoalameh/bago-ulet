@@ -205,11 +205,6 @@ Route::middleware(['auth', 'access:IACUC Admin', 'no-cache', 'prevent-back'])->p
 
     Route::post('/assign-default-forms', [FormAssignment::class, 'assignDefaultFormsAjax'])
     ->name('assign.default.forms.ajax');
-    
-    // Approved Accounts
-    Route::get('/approved-accounts', function () {
-        return view('iacuc.approved-accounts');
-    })->name('iacuc.approved-accounts');
 
     // Pending Reviews
     Route::get('/pending-reviews', [ERBDecisionController::class, 'iacucIndex']
@@ -236,16 +231,6 @@ Route::middleware(['auth', 'access:IACUC Admin', 'no-cache', 'prevent-back'])->p
     // Viewing File
     Route::get('/view-review-files/{protocolId}/{reviewerId}', [ERBViewReviews::class, 'iacucShowFiles'])
         ->name('iacuc.view-review-files');
-
-    // Submitted Tickets
-    Route::get('/submitted-tickets', function () {
-        return view('iacuc.submitted-tickets');
-    });
-
-    // Assigned Amendments
-    Route::get('/assign-amendments', function () {
-        return view('iacuc.assign-amendments');
-    });
 
     // Monitoring Process
     Route::get('/monitoring-process', function() {
@@ -285,7 +270,8 @@ Route::middleware(['auth', 'access:Superadmin', 'no-cache', 'prevent-back'])->pr
         return view('superadmin.view-reviews');
     });
 
-    Route::get('/monitoring', [MonitoringDashboard::class, 'index'])->name('monitoring');
+    // cinomment ko muna incase magbago isip HAHAH
+    // Route::get('/monitoring', [MonitoringDashboard::class, 'index'])->name('monitoring');
 
     Route::get('/settings', function () {
         return view('superadmin.settings');
@@ -414,6 +400,10 @@ Route::middleware(['auth', 'access:IACUC Reviewer',CheckReviewerInformation::cla
 
     Route::get('/settings', function () {
         return view('iacuc-reviewer.settings');
+    });
+
+    Route::get('/monitoring-process', function() {
+        return view('iacuc-reviewer.monitoring-process');
     });
 
     Route::get('/forms/protocol-review', function () {

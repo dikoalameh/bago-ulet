@@ -15,7 +15,8 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Fonts and Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
-
+    <!-- Browser Tab Icon -->
+    <link rel="icon" href="{{ asset('images/mcu-logo.png') }}" type="image/x-icon">
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.2/css/dataTables.dataTables.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.5/css/responsive.dataTables.css">
@@ -128,7 +129,6 @@
                 "/superadmin/research-records": "RESEARCH RECORDS",
                 "/superadmin/pending-reviews": "PENDING REVIEWS",
                 "/superadmin/permission-control": "PERMISSION CONTROL",
-                "/superadmin/monitoring": "MONITORING STATUS",
                 "/superadmin/settings": "SETTINGS",
                 "/superadmin/final-completion": "FINAL COMPLETION",
                 "/superadmin/full-board-review": "FULL BOARD REVIEW",

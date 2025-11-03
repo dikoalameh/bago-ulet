@@ -15,10 +15,21 @@
         </li>
         <!-- Assigned Research Protocol -->
         <li>
-            <a href="{{ url('iacuc-reviewer/protocol-assign') }}" class="px-3 py-3 transition-all flex duration-200 hover:text-secondary
+            <a href="{{ url('iacuc-reviewer/protocol-assign') }}"
+                class="px-3 py-3 transition-all flex duration-200 hover:text-secondary
                 {{ Request::is('iacuc-reviewer/protocol-assign') || Request::is('iacuc-reviewer/forms/*') ? 'text-secondary' : '' }}">
                 <i class="bi bi-file-earmark-fill"></i>
                 <span class="w-full flex justify-between items-center px-3">Assigned Research Protocol</span>
+            </a>
+        </li>
+        <!-- Process Monitoring -->
+        <li>
+            <a href="{{ url('/iacuc-reviewer/monitoring-process') }}"
+                class="flex items-center justify-between px-3 py-3 transition-all duration-200 hover:text-secondary {{ Request::is('iacuc-reviewer/monitoring-process') ? 'text-secondary' : ''}}">
+                <i class="bi bi-tv-fill"></i>
+                <span class="w-full flex justify-between items-center px-3">
+                    Process Monitoring
+                </span>
             </a>
         </li>
         <!-- Settings -->
@@ -30,11 +41,13 @@
             </a>
         </li> -->
         <!-- Profile Information -->
-        <li class="fixed h-[60px] w-[335px] left-0 bottom-0 py-1.5 px-3.5 overflow-hidden ease-in-out duration-200 bg-primary">
+        <li
+            class="fixed h-[60px] w-[335px] left-0 bottom-0 py-1.5 px-3.5 overflow-hidden ease-in-out duration-200 bg-primary">
             <div class="flex items-center flex-nowrap">
                 <img src="" alt="" class="h-[45px] w-[45px] object-cover rounded-[50%] mr-[10px] border-2 border-white">
                 <div class="">
-                    <div class="text-base whitespace-nowrap" name="userName">{{ Auth::user()->user_Fname }} {{ Auth::user()->user_MI }} {{ Auth::user()->user_Lname }}</div>
+                    <div class="text-base whitespace-nowrap" name="userName">{{ Auth::user()->user_Fname }}
+                        {{ Auth::user()->user_MI }} {{ Auth::user()->user_Lname }}</div>
                     <div class="text-sm whitespace-nowrap" name="userAccess">IACUC Reviewer</div>
                 </div>
             </div>
@@ -62,11 +75,21 @@
                 </a>
             </li>
             <!-- Assigned Research Protocol -->
-            <a href="{{ url('iacuc-reviewer/protocol-assign') }}" class="px-3 py-2.5 transition-all flex duration-200 hover:text-secondary
+            <a href="{{ url('iacuc-reviewer/protocol-assign') }}"
+                class="px-3 py-2.5 transition-all flex duration-200 hover:text-secondary
                 {{ Request::is('iacuc-reviewer/protocol-assign') || Request::is('iacuc-reviewer/forms/*') ? 'text-secondary' : '' }}">
                 <i class="bi bi-file-earmark-fill"></i>
                 <span class="w-full flex justify-between items-center px-3">Assigned Research Protocol</span>
             </a>
+            <li>
+                <a href="{{ url('/iacuc-reviewer/monitoring-process') }}"
+                    class="flex items-center justify-between px-3 py-2.5 transition-all duration-200 hover:text-secondary {{ Request::is('iacuc-reviewer/monitoring-process') ? 'text-secondary' : ''}}">
+                    <i class="bi bi-tv-fill"></i>
+                    <span class="w-full flex justify-between items-center px-3">
+                        Process Monitoring
+                    </span>
+                </a>
+            </li>
             <!-- Settings -->
             <!-- <li>
                 <a href="{{ url('iacuc-reviewer/settings') }}" class="px-3 py-2.5 transition-all flex duration-200 hover:text-secondary
@@ -76,12 +99,14 @@
                 </a>
             </li> -->
             <!-- Profile Information -->
-            <li class="fixed h-[60px] w-80 left-0 bottom-0 py-1.5 px-3.5 overflow-hidden ease-in-out duration-200 bg-primary">
+            <li
+                class="fixed h-[60px] w-80 left-0 bottom-0 py-1.5 px-3.5 overflow-hidden ease-in-out duration-200 bg-primary">
                 <div class="flex items-center flex-nowrap">
                     <img src="" alt=""
                         class="h-[45px] w-[45px] object-cover rounded-[50%] mr-[10px] border-2 border-white">
                     <div class="">
-                        <div class="max-md:text-[15px] whitespace-nowrap" name="userName">{{ Auth::user()->user_Fname }} {{ Auth::user()->user_MI }} {{ Auth::user()->user_Lname }}</div>
+                        <div class="max-md:text-[15px] whitespace-nowrap" name="userName">{{ Auth::user()->user_Fname }}
+                            {{ Auth::user()->user_MI }} {{ Auth::user()->user_Lname }}</div>
                         <div class="text-sm whitespace-nowrap" name="userAccess">IACUC Reviewer</div>
                     </div>
                 </div>

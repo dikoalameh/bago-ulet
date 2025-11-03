@@ -1,9 +1,9 @@
-@section('title', 'Submitted Inquiries')
-<x-iacuc-layout>
+@section('title','Monitoring Process')
+<x-iacuc-reviewer>
     <!-- Main Content -->
     <main class="xl:ml-[335px] max-xl:ml-auto p-4 max-md:p-2">
         <h2 class="max-xl:hidden text-left bg-[#f2f2f2] shadow-lg p-[35px] rounded-[30px] font-medium text-[28px]">
-            SUBMITTED INQUIRIES
+            MONITORING PROCESS
         </h2>
         <br>
 
@@ -13,33 +13,26 @@
         </div>
 
         <table id="myTable" class="display overflow-scroll border-collapse w-full">
+            <!-- Table header -->
             <thead class="bg-primary text-white text-lg/7 max-lg:text-base/7">
                 <tr class="header-table">
                     <th>P.I. Name</th>
                     <th>Research Title</th>
-                    <th>Subject</th>
-                    <th>Date Submitted</th>
-                    <th>View</th>
+                    <th>Process Date</th>
                 </tr>
             </thead>
+
+            <!-- Table body -->
             <tbody class="text-base/7 max-lg:text-sm/6">
                 <tr>
                     <td>John Doe</td>
                     <td>MCU-RRS</td>
-                    <td>Applying for Amendments</td>
                     <td>
-                        10/25/25<br>
-                        22:30:20
-                    </td>
-                    <td>
-                        <a href="{{ url('iacuc/tickets') }}">
-                            <button type="button" class="border-2 p-[5px] hover:bg-gray">
-                                View
-                            </button>
-                        </a>
+                        10/22/25<br>
+                        22:30:50
                     </td>
                 </tr>
             </tbody>
         </table>
     </main>
-</x-iacuc-layout>
+</x-iacuc-reviewer>
