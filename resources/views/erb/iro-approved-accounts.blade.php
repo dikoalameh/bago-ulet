@@ -9,6 +9,16 @@
 
         <!-- CSS NG FILTER + SEARCH BAR -->
         <div class="top-controls flex items-center max-md:flex-col">
+            <!-- CALENDAR FILTERING FOR THE COUNT OF SUBMISSION -->
+            <div class="filter-box mb-2">
+                <label for="filterDate">Date:</label>
+                <input type="date" id="filterDate" class="w-40 max-md:text-sm h-[35px] text-sm max-sm:h-[31px]">
+            </div>
+            <!-- FUNCTIONALITY TO DISPLAY THE DATAS BASED ON DATE -->
+            <div class="filter-box mb-2 ml-4 hidden">
+                <span id="submissionCount"></span>
+            </div>
+            <!-- FILTER BY COLUMN -->
             <div class="filter-wrapper items-center gap-x-2 max-sm:justify-center max-sm:items-center">
                 <label for="officeFilter">Filter:</label>
                 <select id="officeFilter"
@@ -18,7 +28,7 @@
             </div>
             <div class="search-wrapper max-sm:mt-3 max-sm:justify-center max-sm:items-center"></div>
         </div>
-        
+
         <table id="myTable" class="display overflow-scroll border-collapse w-full">
             <!-- Table header -->
             <thead class="bg-primary text-white text-lg/7 max-lg:text-base/7">
@@ -34,10 +44,11 @@
             <!-- Table body -->
             <tbody class="text-base/7 max-lg:text-sm/6">
                 @foreach($approvedAccounts as $user)
-                    <tr data-user-id="{{ $user->user_ID }}" data-assigned-forms="{{ $user->forms->pluck('form_id')->toJson() }}">
+                    <tr data-date="{{ $user->created_at ? $user->created_at->format('Y-m-d') : '' }}"
+                        data-user-id="{{ $user->user_ID }}"
+                        data-assigned-forms="{{ $user->forms->pluck('form_id')->toJson() }}">
                         <td>
-                            <input type="checkbox" class="user-checkbox w-[14px] h-[14px] mb-1"
-                                value="{{ $user->user_ID }}" 
+                            <input type="checkbox" class="user-checkbox w-[14px] h-[14px] mb-1" value="{{ $user->user_ID }}"
                                 data-name="{{ $user->user_Fname }} {{ $user->user_Lname }}"
                                 data-assigned-forms="{{ $user->forms->pluck('form_id')->toJson() }}">
                             <span>{{ $user->user_Fname }} {{ $user->user_Lname }}</span>
@@ -63,7 +74,8 @@
                 <!-- Left Selection -->
                 <div class="bg-lightgray p-4 shadow-md rounded-md">
                     <h3 class="text-lg font-semibold max-md:text-base mb-3">Assignment of Forms</h3>
-                    <div class="flex h-40 max-md:h-28 overflow-y-auto grid grid-cols-3 max-sm:grid-cols-2 gap-y-3 gap-x-3 font-semibold max-md:text-sm">
+                    <div
+                        class="flex h-40 max-md:h-28 overflow-y-auto grid grid-cols-3 max-sm:grid-cols-2 gap-y-3 gap-x-3 font-semibold max-md:text-sm">
                         @foreach ($selectForms as $form)
                             <div class="room cursor-pointer bg-gray hover:bg-darkgray px-3 py-2 rounded-md"
                                 data-room="{{ $form->form_id }}" data-view="{{ $form->form_view }}">
@@ -99,6 +111,36 @@
     </main>
 </x-erb-layout>
 <script>
+    // calendar filtering
+    const filterDate = document.getElementById("filterDate");
+    const rows = document.querySelectorAll("#myTable tbody tr");
+    const countSpan = document.getElementById("submissionCount");
+
+    function updateTable(selectedDate = "") {
+        let count = 0;
+
+        rows.forEach(row => {
+            const rowDate = row.getAttribute("data-date");
+
+            if (!selectedDate || rowDate === selectedDate) {
+                row.style.display = "";
+                count++;
+            } else {
+                row.style.display = "none";
+            }
+        });
+
+        countSpan.textContent = count;
+    }
+
+    // Initial load
+    updateTable();
+
+    // On date change
+    filterDate.addEventListener("change", function () {
+        updateTable(this.value);
+    });
+
     const rooms = document.querySelectorAll(".room");
     const assignedList = document.getElementById("assignedList");
     const submitBtn = document.getElementById("submitBtn");
@@ -118,10 +160,10 @@
 
             const formId = room.dataset.room;
             const formCode = room.textContent;
-            
+
             // Check if form is already in formsToAssign
             const existingIndex = formsToAssign.findIndex(form => form.id === formId);
-            
+
             if (existingIndex > -1) {
                 // Remove from forms to assign
                 formsToAssign.splice(existingIndex, 1);
@@ -133,7 +175,7 @@
                 room.classList.add("bg-darkgray");
                 room.classList.remove("bg-gray");
             }
-            
+
             updateAssignedFormsDisplay();
             validateSubmitButton(); // ✅ ADDED: Validate button state
         });
@@ -142,7 +184,7 @@
     // Update the assigned forms display
     function updateAssignedFormsDisplay() {
         assignedList.innerHTML = '';
-        
+
         // Display already assigned forms (gray color)
         alreadyAssignedForms.forEach(form => {
             const li = document.createElement("li");
@@ -151,7 +193,7 @@
             li.setAttribute('data-room', form.id);
             assignedList.appendChild(li);
         });
-        
+
         // Display forms to be assigned (normal color)
         formsToAssign.forEach(form => {
             const li = document.createElement("li");
@@ -180,13 +222,13 @@
         // If users are selected, disable their already assigned forms
         if (selectedUsers.length > 0) {
             const assignedFormIds = alreadyAssignedForms.map(form => form.id);
-            
+
             rooms.forEach(room => {
                 const formId = room.dataset.room;
                 if (assignedFormIds.includes(formId)) {
                     room.classList.add('disabled-form', 'cursor-not-allowed', 'opacity-50');
                     room.style.pointerEvents = 'none';
-                    
+
                     // Also remove from formsToAssign if it was previously selected
                     const index = formsToAssign.findIndex(form => form.id === formId);
                     if (index > -1) {
@@ -231,17 +273,17 @@
                     formsToAssign = [];
                     alreadyAssignedForms = [];
                     selectedUsers = [];
-                    
+
                     // Reset form colors and enable all forms
                     rooms.forEach(room => {
                         room.classList.remove("bg-darkgray", "disabled-form", "cursor-not-allowed", "opacity-50");
                         room.classList.add("bg-gray");
                         room.style.pointerEvents = 'auto';
                     });
-                    
+
                     // Update display
                     updateAssignedFormsDisplay();
-                    
+
                     // Uncheck all users
                     document.querySelectorAll(".user-checkbox").forEach(cb => {
                         cb.checked = false;
@@ -261,21 +303,21 @@
     userCheckboxes.forEach(cb => {
         cb.addEventListener("change", () => {
             const userId = cb.value;
-            
+
             if (cb.checked) {
                 // Add user to selected users
                 selectedUsers.push(userId);
-                
+
                 // Load already assigned forms for this user from data attribute
                 const assignedFormsJson = cb.getAttribute('data-assigned-forms');
                 const assignedFormIds = assignedFormsJson ? JSON.parse(assignedFormsJson) : [];
-                
+
                 // Get form details for assigned form IDs
                 loadAlreadyAssignedForms(assignedFormIds);
             } else {
                 // Remove user from selected users
                 selectedUsers = selectedUsers.filter(id => id !== userId);
-                
+
                 // Clear already assigned forms if no users are selected
                 if (selectedUsers.length === 0) {
                     alreadyAssignedForms = [];
@@ -307,13 +349,13 @@
     // ✅ ADDED: Recalculate already assigned forms when users are deselected
     function recalculateAlreadyAssignedForms() {
         alreadyAssignedForms = [];
-        
+
         // Get all selected users' assigned forms
         const selectedCheckboxes = document.querySelectorAll(".user-checkbox:checked");
         selectedCheckboxes.forEach(cb => {
             const assignedFormsJson = cb.getAttribute('data-assigned-forms');
             const assignedFormIds = assignedFormsJson ? JSON.parse(assignedFormsJson) : [];
-            
+
             assignedFormIds.forEach(formId => {
                 const formElement = document.querySelector(`.room[data-room="${formId}"]`);
                 if (formElement && !alreadyAssignedForms.some(form => form.id === formId)) {
@@ -333,14 +375,18 @@
 <style>
     /* ✅ ADDED: Styles for disabled forms */
     .disabled-form {
-        background-color: #d1d5db !important; /* gray-300 */
-        color: #9ca3af !important; /* gray-400 */
+        background-color: #d1d5db !important;
+        /* gray-300 */
+        color: #9ca3af !important;
+        /* gray-400 */
         cursor: not-allowed !important;
         opacity: 0.5;
     }
-    
+
     .disabled-form:hover {
-        background-color: #d1d5db !important; /* gray-300 */
-        color: #9ca3af !important; /* gray-400 */
+        background-color: #d1d5db !important;
+        /* gray-300 */
+        color: #9ca3af !important;
+        /* gray-400 */
     }
 </style>
