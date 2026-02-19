@@ -100,6 +100,13 @@
                     Process Monitoring
                 </a>
             </li>
+            <li>
+                <a href="{{ url('/student/monitoring-process') }}"
+                    class="w-100 flex items-center px-2 py-3 border-none no-underline gap-x-3 {{ Request::is('student/monitoring-process') ? 'text-secondary' : '' }}">
+                    <i class="material-symbols-outlined">monitor</i>
+                    Process Monitoring
+                </a>
+            </li>
         </ul>
     </div>
     <footer class="flex items-center px-3 py-3">
