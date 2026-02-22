@@ -1,6 +1,6 @@
 @section('title', 'Send OTP')
 <x-guest-layout>
-    <form method="POST" action="{{ route('password.otp.verify') }}" class="">
+    <form method="POST" action="{{ route('password.otp.verify') }}" class="px-4">
         @csrf
         <span class="text-center font-bold text-2xl max-sm:text-[18px] text-primary">Enter OTP</span>
         <p class="text-primary text-[14px]">{{ __('The OTP has been sent to your email address.') }}</p>
@@ -23,31 +23,31 @@
         @endif
 
         <!-- Email Display -->
-        <div class="text-center mb-4">
+        <div class="mb-4">
             <p class="text-primary text-sm">
                 Sent to: <strong>{{ session('email') ?? old('email') }}</strong>
             </p>
         </div>
 
         <!-- OTP Input Boxes -->
-        <div class="inputContainer w-[200px] flex m-auto items-center justify-center flex-row gap-[15px] max-sm:gap-[12px] mt-4">
+        <div class="inputContainer w-[200px] flex m-auto items-center justify-center flex-row gap-x-2 mt-4">
             <input type="text" maxlength="1" name="otp1"
-                class="otp-input w-[50px] h-[55px] max-sm:w-[40px] max-sm:h-[50px] border-darkgray rounded-lg text-[25px] max-sm:text-[18px] text-center"
+                class="otp-input w-[45px] h-[55px] max-sm:w-[40px] max-sm:h-[50px] border-darkgray rounded-lg text-xl max-sm:text-lg text-center"
                 required autofocus>
             <input type="text" maxlength="1" name="otp2"
-                class="otp-input w-[50px] h-[55px] max-sm:w-[40px] max-sm:h-[50px] border-darkgray rounded-lg text-[25px] max-sm:text-[18px] text-center"
+                class="otp-input w-[45px] h-[55px] max-sm:w-[40px] max-sm:h-[50px] border-darkgray rounded-lg text-xl max-sm:text-lg text-center"
                 required>
             <input type="text" maxlength="1" name="otp3"
-                class="otp-input w-[50px] h-[55px] max-sm:w-[40px] max-sm:h-[50px] border-darkgray rounded-lg text-[25px] max-sm:text-[18px] text-center"
+                class="otp-input w-[45px] h-[55px] max-sm:w-[40px] max-sm:h-[50px] border-darkgray rounded-lg text-xl max-sm:text-lg text-center"
                 required>
             <input type="text" maxlength="1" name="otp4"
-                class="otp-input w-[50px] h-[55px] max-sm:w-[40px] max-sm:h-[50px] border-darkgray rounded-lg text-[25px] max-sm:text-[18px] text-center"
+                class="otp-input w-[45px] h-[55px] max-sm:w-[40px] max-sm:h-[50px] border-darkgray rounded-lg text-xl max-sm:text-lg text-center"
                 required>
             <input type="text" maxlength="1" name="otp5"
-                class="otp-input w-[50px] h-[55px] max-sm:w-[40px] max-sm:h-[50px] border-darkgray rounded-lg text-[25px] max-sm:text-[18px] text-center"
+                class="otp-input w-[45px] h-[55px] max-sm:w-[40px] max-sm:h-[50px] border-darkgray rounded-lg text-xl max-sm:text-lg text-center"
                 required>
             <input type="text" maxlength="1" name="otp6"
-                class="otp-input w-[50px] h-[55px] max-sm:w-[40px] max-sm:h-[50px] border-darkgray rounded-lg text-[25px] max-sm:text-[18px] text-center"
+                class="otp-input w-[45px] h-[55px] max-sm:w-[40px] max-sm:h-[50px] border-darkgray rounded-lg text-xl max-sm:text-lg text-center"
                 required>
         </div>
 
@@ -59,7 +59,7 @@
             <form method="POST" action="{{ route('password.otp.resend') }}" class="mr-3">
                 @csrf
                 <input type="hidden" name="email" value="{{ session('email') ?? old('email') }}">
-                <x-primary-button type="submit" class="text-[15px] bg-primary text-orangeyellow hover:bg-orangeyellow hover:text-primary">
+                <x-primary-button type="button" class="text-[15px] bg-primary text-orangeyellow hover:bg-orangeyellow hover:text-primary">
                     RESEND OTP
                 </x-primary-button>
             </form>

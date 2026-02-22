@@ -21,7 +21,8 @@ export default {
                 blue: 'var(--blue)',
                 darkblue: 'var(--darkblue)',
                 whitepurple: 'var(--whitepurple)',
-                darkergray: 'var(--darkergray)'
+                darkergray: 'var(--darkergray)',
+                darkpurple: 'var(--darkpurple)'
             },
             fontFamily: {
                 sans: ['Montserrat', ...defaultTheme.fontFamily.sans],

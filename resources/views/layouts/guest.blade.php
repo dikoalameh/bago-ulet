@@ -14,7 +14,8 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
     <!-- Browser Tab Icon -->
     <link rel="icon" href="{{ asset('images/mcu-logo.png') }}" type="image/x-icon">
-
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <style>
@@ -31,14 +32,7 @@
         class="min-h-screen flex sm:flex flex-col justify-center items-center sm:justify-center sm:items-center pt-6 sm:pt-0 max-sm:mx-2 max-sm:mt-auto">
         <!-- Log in/register/forgot password form layout -->
         <div
-            class="bg-white w-full max-w-[520px] mt-2 px-6 py-4 shadow-lg border-4 border-gray text-black overflow-hidden max-sm:max-h-[100vh] max-sm:overflow-y-auto max-sm:relative rounded-lg max-sm:rounded-lg">
-            <div class="flex items-center justify-center">
-                <!-- DTO UNG LOGO KAYA HNDI NAKA CENTERALIZED BY Y-AXIS -->
-                <x-application-logo class="w-8 text-gray-500" />
-            </div>
-            <div class="flex items-center justify-center font-bold text-2xl max-sm:text-xl mt-4 text-primary">
-                MCURRS
-            </div>
+            class="bg-white w-full max-w-[500px] mt-2 px-4 py-4 shadow-lg border-4 border-gray text-black overflow-hidden max-sm:max-h-[100vh] max-sm:overflow-y-auto max-sm:relative rounded-lg max-sm:rounded-lg">
             {{ $slot }}
         </div>
     </div>

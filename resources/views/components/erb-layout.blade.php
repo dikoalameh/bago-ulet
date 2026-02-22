@@ -10,6 +10,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <!-- Fonts and Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
     <!-- Browser Tab Icon -->
@@ -87,14 +88,20 @@
 
         dropDownMenu();
 
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            const isHidden = sidebar.classList.contains('-translate-x-full');
-
+        // TOGGLE SIDEBAR
+        const sidebar = document.getElementById('sidebar');
+        const menuBtn = document.getElementById('menuBtn');
+        
+        menuBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
             sidebar.classList.toggle('-translate-x-full');
-            overlay.classList.toggle('hidden');
-        }
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!sidebar.contains(e.target)) {
+                sidebar.classList.add('-translate-x-full');
+            }
+        });
 
         function dropDownMenu() {
             const toggles = document.querySelectorAll('.dropdownToggle');

@@ -9,10 +9,8 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Fonts and Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
     <!-- Browser Tab Icon -->
@@ -26,6 +24,12 @@
     <script src="https://cdn.datatables.net/responsive/3.0.5/js/dataTables.responsive.js"></script>
     <script src="https://cdn.datatables.net/responsive/3.0.5/js/responsive.dataTables.js"></script>
 </head>
+<style>
+    div input:focus~label,
+    div input:valid~label {
+        top: -5px;
+    }
+</style>
 
 <body>
     <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -132,13 +136,64 @@
             });
         });
 
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('overlay');
-            const isHidden = sidebar.classList.contains('-translate-x-full');
+        dropDownMenu();
 
+        // TOGGLE SIDEBAR
+        const sidebar = document.getElementById('sidebar');
+        const menuBtn = document.getElementById('menuBtn');
+        
+        menuBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
             sidebar.classList.toggle('-translate-x-full');
-            overlay.classList.toggle('hidden');
+        });
+
+        document.addEventListener('click', function (e) {
+            if (!sidebar.contains(e.target)) {
+                sidebar.classList.add('-translate-x-full');
+            }
+        });
+
+        // DROPDOWN MENU
+        function dropDownMenu() {
+            const toggles = document.querySelectorAll('.dropdownToggle');
+
+            toggles.forEach(toggle => {
+                const menu = toggle.nextElementSibling;
+                const arrow = toggle.querySelector('.dropdownArrow');
+
+                toggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+
+                    const isHidden = menu.classList.contains('hidden');
+
+                    if (isHidden) {
+                        menu.classList.remove('hidden');
+                        setTimeout(() => {
+                            menu.classList.remove('opacity-0');
+                        }); // small delay to trigger transition
+                    } else {
+                        menu.classList.add('opacity-0');
+                        setTimeout(() => {
+                            menu.classList.add('hidden');
+                        }); // match the transition duration
+                    }
+
+                    arrow.classList.toggle('rotate-180');
+                });
+            });
+
+            document.addEventListener('click', () => {
+                toggles.forEach(toggle => {
+                    const menu = toggle.nextElementSibling;
+                    const arrow = toggle.querySelector('.dropdownArrow');
+
+                    menu.classList.add('opacity-0');
+                    setTimeout(() => {
+                        menu.classList.add('hidden');
+                    }, 300);
+                    arrow.classList.remove('rotate-180');
+                });
+            });
         }
 
         // Set Page Title Based on URL Path
@@ -161,12 +216,6 @@
             "/student/forms/form3l": "FORM 3(L)",
             "/student/forms/form5e": "FORM 5(E)",
         };
-
-        const path = window.location.pathname;
-        const pageTitle = titles[path] || "Page";
-
-        // Update the text content of the header and the <title> tag
-        document.getElementById("page-title").textContent = pageTitle;
     </script>
 </body>
 
