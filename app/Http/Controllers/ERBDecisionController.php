@@ -48,7 +48,7 @@ class ERBDecisionController extends Controller
             ];
         });
 
-        return view('erb.pending-reviews', compact('evaluatedProtocols'));
+        return view('erb.protocol-decision', compact('evaluatedProtocols'));
     }
 
     public function iacucIndex()
@@ -85,7 +85,7 @@ class ERBDecisionController extends Controller
             ];
         });
 
-        return view('iacuc.pending-reviews', compact('evaluatedProtocols'));
+        return view('iacuc.protocol-decision', compact('evaluatedProtocols'));
     }
 
     public function iacucStoreDecision(Request $request)

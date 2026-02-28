@@ -9,7 +9,7 @@
 
             {{-- Only display a single submission form --}}
             @if($form)
-                <div class="duration-200 my-4 p-4 max-sm:p-0 border rounded-lg shadow-sm">
+                <div class="duration-200 my-4 p-4 max-sm:p-2 border rounded-lg shadow-sm">
                     
                     {{-- Dynamic form name --}}
                     <h2 class="font-semibold text-2xl max-sm:text-[19px]">

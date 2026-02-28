@@ -149,7 +149,7 @@ class FormAssignment extends Controller
         ->where('form_type','Forms')
         ->get();
 
-        return view('student.download-forms', compact('assignedForms'));
+        return view('student.submit-forms', compact('assignedForms'));
     }
 
     public function assignedSubmissionDisplay(){
@@ -179,7 +179,7 @@ class FormAssignment extends Controller
             return $form;
         });
     
-    return view('student.submit-forms', compact('submissionForms'));
+    return view('student.submit-documents', compact('submissionForms'));
 }
 
     public function assignedFormsLogs()
@@ -204,6 +204,6 @@ class FormAssignment extends Controller
             'Gantt chart',
         ])->get();
 
-        return view('erb.approved-accounts', compact('approvedAccounts','selectForms'));
+        return view('erb.assigned-forms', compact('approvedAccounts','selectForms'));
     }
 }

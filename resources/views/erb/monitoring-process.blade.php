@@ -12,15 +12,15 @@
             <div class="search-wrapper mt-1 flex max-sm:justify-center max-sm:items-center"></div>
         </div>
 
-        <table id="myTable" class="display overflow-scroll border-collapse w-full">
+        <table id="myTable" class="display overflow-y-scroll overflow-x-hidden border-collapse w-full">
             <!-- Table header -->
             <thead class="bg-primary text-white text-lg/7 max-lg:text-base/7">
                 <tr class="header-table">
-                    <th class="w-[20%]">User Name</th>
-                    <th class="w-[20%]">Research Title</th>
+                    <th class="w-[15%]">User Name</th>
+                    <th class="w-[15%]">Research Title</th>
                     <th class="w-[15%]">User Type</th>
-                    <th class="w-[20%]">Process Date</th>
-                    <th class="w-[25%]">Description</th>
+                    <th class="w-[12%]">Process Date</th>
+                    <th class="w-[43%]">Description</th>
                 </tr>
             </thead>
 
@@ -35,7 +35,7 @@
                         {{ $process['date'] }}<br>
                         {{ $process['time'] }}
                     </td>
-                    <td>
+                    <td class="w-[20%] break-all">
                         {{ $process['description'] }}
                     </td>
                 </tr>

@@ -22,7 +22,7 @@ class AmendmentsERB extends Controller
         ->where('Decision', 'Approved')
         ->get();
 
-        return view('erb.assign-amendments', compact('approvedProtocols'));
+        return view('erb.resubmission', compact('approvedProtocols'));
     }
 
     public function assignAmendments(Request $request)

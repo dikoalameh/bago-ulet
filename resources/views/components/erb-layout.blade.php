@@ -91,7 +91,7 @@
         // TOGGLE SIDEBAR
         const sidebar = document.getElementById('sidebar');
         const menuBtn = document.getElementById('menuBtn');
-        
+
         menuBtn.addEventListener('click', function (e) {
             e.stopPropagation();
             sidebar.classList.toggle('-translate-x-full');
@@ -144,29 +144,72 @@
                 });
             });
         }
-        // Set Page Title Based on URL Path
-        const titles = {
-            "/erb/dashboard": "DASHBOARD",
-            "/erb/assign-reviewer": "ASSIGN REVIEWER",
-            "/erb/approved-accounts": "ASSIGNED FORMS",
-            "/erb/view-reviews": "VIEW REVIEWS",
-            "/erb/full-board-review": "FULL BOARD REVIEW",
-            "/erb/monitoring-process": "MONITORING PROCESS",
-            "/erb/iro-approved-accounts": "APPROVED ACCOUNTS",
-            "/erb/assign-amendments": "RESUBMISSION",
-            "/erb/submitted-tickets": "SUBMITTED INQUIRIES",
-            "/erb/pending-reviews": "PROTOCOL DECISION",
-            "/erb/research-records": "RESEARCH RECORDS",
-            "/erb/ongoing-reviews": "ONGOING REVIEWS",
-            "/erb/submitted-documents": "SUBMITTED DOCUMENTS",
-            "/erb/settings": "SETTINGS"
-        };
+        
+        function openSettingsModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const inputs = document.querySelectorAll('.peer');
+            const profile = document.getElementById('profilePreview');
+            const image = document.getElementById('profileImage');
 
-        const path = window.location.pathname;
-        const pageTitle = titles[path] || "Page";
+            image.value = "";
+            profile.src = "{{ asset('images/profile-black.png') }}"
 
-        // Update the text content of the header and the <title> tag
-        document.getElementById("page-title").textContent = pageTitle;
+            // FOREACH LOOP TO REMOVE MULTIPLE INPUTS WITH THE SAME CLASS NAME
+            inputs.forEach(input => {
+                input.value = "";
+            });
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeSettingsModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        function outsideClick(event) {
+            if (event.target.id === 'editProfileModal' ||
+                event.target.id === 'changePasswordModal') {
+
+                // PREVENTS TO CLOSE SIDEBAR
+                event.stopPropagation();
+                event.currentTarget.classList.add('hidden');
+                event.currentTarget.classList.remove('flex');
+            }
+        }
+
+        document.addEventListener('click', function (e) {
+            const sidebar = document.getElementById('sidebar');
+            const isModalOpen = !document.getElementById('editProfileModal').classList.contains('hidden') ||
+                !document.getElementById('changePasswordModal').classList.contains('hidden');
+
+            // WHEN THE MODAL IS OPEN
+            if (isModalOpen) return;
+
+            if (!sidebar.contains(e.target)) {
+                sidebar.classList.add('-translate-x-full');
+            }
+        });
+
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                document.getElementById('profilePreview').src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function removeProfileImage() {
+            const profile = document.getElementById('profilePreview')
+            const image = document.getElementById('profileImage');
+
+            image.value = "";
+            profile.src = "{{ asset('images/profile-black.png') }}"
+        }
     </script>
 </body>
 

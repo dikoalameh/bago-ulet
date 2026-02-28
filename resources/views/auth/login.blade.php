@@ -25,7 +25,7 @@
         })();
     </script>
 
-    <form method="POST" action="{{ route('login') }}">
+    <form method="POST" action="{{ route('login') }}" class="w-[500px] max-sm:w-auto">
         <div class="flex items-center justify-center">
             <!-- DTO UNG LOGO KAYA HNDI NAKA CENTERALIZED BY Y-AXIS -->
             <x-application-logo class="w-8 text-gray-500" />

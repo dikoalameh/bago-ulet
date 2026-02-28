@@ -80,7 +80,7 @@ class MonitoringDashboard extends Controller
             ];
         });
 
-        return view('superadmin.pending-reviews', compact('evaluatedProtocols'));
+        return view('superadmin.protocol-decision', compact('evaluatedProtocols'));
     }
 
     public function viewReviews()

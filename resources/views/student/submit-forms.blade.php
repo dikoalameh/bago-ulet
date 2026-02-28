@@ -1,165 +1,155 @@
-@section('title', 'Submit Documents')
+@section('title', 'Submit Forms')
 <x-student-layout>
-    <!-- Main Content -->
     <main class="xl:ml-[335px] max-xl:ml-auto p-4">
         <h2 class="max-xl:hidden text-left bg-[#f2f2f2] shadow-lg p-[35px] rounded-[30px] font-medium text-[28px]">
-            SUBMIT DOCUMENTS
+            SUBMIT FORMS
         </h2>
         <br>
         <div class="p-6 max-md:p-0 space-y-10">
-            
-            <!-- Deficiencies Section -->
-            <div class="my-4">
-                <h2 class="mb-4 font-semibold text-[20px]">Deficiencies</h2>
-                @forelse($submissionForms as $form)
-                    @if(!$form->is_submitted)
-                    <div class="bg-red-200 hover:bg-red-300 my-3 p-4 rounded-lg duration-200">
-                        <div class="flex justify-between items-center">
-                            <div class="block items-center flex-wrap gap-[10px]">
-                                <h2 class="text-lg text-red-900 max-sm:text-base font-semibold">{{ $form->form_code }}</h2>
-                                <p class="text-sm max-sm:text-xs text-red-900">Due at {{ \Carbon\Carbon::parse($form->due_date ?? now()->addDays(7))->format('m/d/Y') }}</p>
-                                <label class="mt-1 text-sm max-sm:text-xs text-red-900">{{ $form->form_name }}</label>
-                            </div>
-                            <div>
-                                <input type="file" name="uploadForms[]" id="upload-{{ $form->form_id }}" accept=".doc,.docx,.pdf" multiple hidden>
-                                <label for="upload-{{ $form->form_id }}" class="flex flex-col items-center justify-center p-2 rounded-lg transition cursor-pointer">
-                                    <i class="bi bi-cloud-arrow-up-fill text-blue-600 text-3xl max-md:text-xl"></i>
-                                </label>
-                            </div>
-                        </div>
-                        <div id="toggleExpand-{{ $form->form_id }}" class="hidden mt-5 transition-all duration-300">
-                            <h3 class="text-lg font-semibold mb-2 text-gray-700">Uploaded Files</h3>
-                            <div id="scrollbar-{{ $form->form_id }}" class="bg-gray-50 h-64 px-3 border-2 border-blue-300 rounded-lg overflow-y-auto">
-                                <!-- Uploaded files go here -->
-                            </div>
-                            <div>
-                                <form action="{{ route('student.submit.form.store', ['form' => $form->form_id]) }}" method="POST" enctype="multipart/form-data" id="form-{{ $form->form_id }}">
-                                    @csrf
-                                    <x-primary-button class="mt-4" type="submit">
-                                        Submit
-                                    </x-primary-button>
-                                </form>
-                            </div>
-                        </div>
+            <div>
+                <h2 class="text-xl font-semibold mb-4">FORMS</h2>
+                <div class="grid max-md:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    @if ($assignedForms->isEmpty())
+                        <p class="text-gray-500">⚠ No forms have been assigned to you yet.</p>
+                    <div class="grid max-md:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    @else
+                        @foreach($assignedForms as $form)
+                            <a href="{{ url( $form->form_view) }}">
+                                <div class="card bg-lightgray p-4 rounded-lg flex justify-between items-center cursor-pointer">
+                                    <div class="block items-center flex-wrap gap-[10px]">
+                                        <h2 class="text-xl max-md:text-[18px] font-semibold">
+                                            {{ $form->form_code }}
+                                        </h2>
+                                        <p class="text-xs font-medium">
+                                            {{ $form->form_name }}
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+                    @endif
                     </div>
-                    @endif
-                @empty
-                    <p class="text-sm text-gray-600">No assigned forms to submit.</p>
-                @endforelse
-            </div>
-
-            <!-- Completed Section -->
-            <div class="my-4">
-                <h2 class="mb-4 font-semibold text-[20px]">Completed</h2>
-                @forelse($submissionForms as $form)
-                    @if($form->is_submitted)
-                    <a href="{{ route('student.submit.form', ['form' => $form->form_id]) }}">
-                        <div class="bg-green-200 hover:bg-green-300 my-3 p-4 rounded-lg flex justify-between items-center duration-200">
-                            <div class="block items-center flex-wrap gap-[10px]">
-                                <h2 class="text-lg text-green-900 max-sm:text-base font-semibold">{{ $form->form_code }}</h2>
-                                <p class="text-sm max-sm:text-xs text-green-900">Submitted on {{ \Carbon\Carbon::parse($form->submitted_at)->format('m/d/Y') }}</p>
-                                <label class="mt-1 text-sm max-sm:text-xs text-green-900">{{ $form->form_name }}</label>
-                            </div>
-                        </div>
-                    </a>
-                    @endif
-                @empty
-                    <p class="text-sm text-gray-600">No completed forms yet.</p>
-                @endforelse
+                </div>
             </div>
         </div>
     </main>
 </x-student-layout>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // File upload change event
-    document.querySelectorAll('input[type="file"]').forEach(input => {
-        input.addEventListener('change', function(e) {
-            const formId = this.id.replace('upload-', '');
-            const filesContainer = document.getElementById(`scrollbar-${formId}`);
-            const toggleExpand = document.getElementById(`toggleExpand-${formId}`);
-            const form = document.getElementById(`form-${formId}`);
-            
-            // Clear previous files display
-            filesContainer.innerHTML = '';
-            
-            // Show the expandable section
-            toggleExpand.classList.remove('hidden');
-            
-            // Create hidden input fields for each file in the form
-            if (this.files.length > 0) {
-                Array.from(this.files).forEach((file, index) => {
-                    showFileBox(file.name, formId);
-                });
-                
-                // Move the file input into the form
-                form.appendChild(this.cloneNode(true));
-                // Replace the original file input with a new one for new selections
-                const newInput = this.cloneNode(true);
-                this.parentNode.replaceChild(newInput, this);
-                newInput.addEventListener('change', arguments.callee);
-            }
-        });
-    });
+<!----
+                    <a href="{{ url('student/forms/form2a') }}">
+                        <div class="card bg-lightgray p-4 rounded-lg flex justify-between items-center cursor-pointer">
+                            <div class="block items-center flex-wrap gap-[10px]">
+                                <h2 class="text-xl max-md:text-[18px] font-semibold">FORM 2(A)</h2>
+                                <p class="text-xs font-medium">STUDY PROTOCOL REVIEW CHECKLIST</p>
+                            </div>
+                        </div>
+                    </a>
 
-    // File display function
-    const showFileBox = (filename, formId) => {
-        const scrollbar = document.getElementById(`scrollbar-${formId}`);
-        const fileBox = document.createElement("div");
-        fileBox.classList.add(
-            "relative", "items-center", "px-3", "py-1", "rounded-md", "shadow-md", "bg-lightgray", "border", "border-darkgray", "shadow-sm", "my-2", "overflow-hidden", "hover:shadow-md", "transition"
-        );
+                    <a href="{{ url('student/forms/form2b') }}">
+                        <div class="card bg-lightgray p-4 rounded-lg flex justify-between items-center">
+                            <div class="block items-center flex-wrap gap-[10px]">
+                                <h2 class="text-xl max-md:text-[18px] font-semibold">FORM 2(B)</h2>
+                                <p class="text-xs font-medium">APPLICATION FOR INITIAL REVIEW</p>
+                            </div>
+                        </div>
+                    </a>
 
-        const inner = document.createElement("div");
-        inner.classList.add("flex", "items-center", "justify-between");
+                    <a href="{{ url('student/forms/form2c') }}">
+                        <div class="card bg-lightgray p-4 rounded-lg flex justify-between items-center">
+                            <div class="block items-center flex-wrap gap-[10px]">
+                                <h2 class="text-xl max-md:text-[18px] font-semibold">FORM 2(C)</h2>
+                                <p class="text-xs font-medium">INFORMED CONSENT FORM</p>
+                            </div>
+                        </div>
+                    </a>
 
-        // Left (icon + filename)
-        const left = document.createElement("div");
-        left.classList.add("flex", "items-center", "space-x-2");
+                    <a href="{{ url('student/forms/form2d') }}">
+                        <div class="card bg-lightgray p-4 rounded-lg flex justify-between items-center">
+                            <div class="block items-center flex-wrap gap-[10px]">
+                                <h2 class="text-xl max-md:text-[18px] font-semibold">FORM 2(D)</h2>
+                                <p class="text-xs font-medium">INFORMED CONSENT FORM FOR P.I.</p>
+                            </div>
+                        </div>
+                    </a>
 
-        const name = document.createElement("span");
-        name.textContent = filename;
-        name.classList.add("text-gray-700", "truncate", "max-w-[250px]");
+                    <a href="{{ url('student/forms/form5e') }}">
+                        <div class="card bg-lightgray p-4 rounded-lg flex justify-between items-center">
+                            <div class="blockitems-center flex-wrap gap-[10px]">
+                                <h2 class="text-xl max-md:text-[18px] font-semibold">FORM 5(E)</h2>
+                                <p class="text-xs font-medium">DOCUMENT HISTORY</p>
+                            </div>
+                        </div>
+                    </a>
 
-        left.append(name);
+                    <a href="{{ url('student/forms/form2e') }}">
+                        <div class="card bg-lightgray p-4 rounded-lg flex justify-between items-center">
+                            <div class="block items-center flex-wrap gap-[10px]">
+                                <h2 class="text-xl max-md:text-[18px] font-semibold">FORM 2(E)</h2>
+                                <p class="text-xs font-medium">PROTOCOL EVALUATION CHECKLIST</p>
+                            </div>
+                        </div>
+                    </a>
 
-        // Right (delete button)
-        const right = document.createElement("span");
-        right.innerHTML = "&times;";
-        right.classList.add("text-gray-400", "hover:text-red-500", "cursor-pointer", "text-xl");
+                    <a href="">
+                        <div class="card bg-lightgray p-4 rounded-lg flex justify-between items-center">
+                            <div class="block items-center flex-wrap gap-[10px]">
+                                <h2 class="text-xl max-md:text-[18px] font-semibold">FORM 2(J)</h2>
+                                <p class="text-xs font-medium">INFORMED CONSENT EVALUATION CHECKLIST</p>
+                            </div>
+                        </div>
+                    </a>
 
-        right.addEventListener("click", () => {
-            fileBox.remove();
-            if (scrollbar.children.length === 0) {
-                document.getElementById(`toggleExpand-${formId}`).classList.add("hidden");
-            }
-        });
+                    <a href="">
+                        <div class="card bg-lightgray p-4 rounded-lg flex justify-between items-center">
+                            <div class="block items-center flex-wrap gap-[10px]">
+                                <h2 class="text-xl max-md:text-[18px] font-semibold">FORM 3(A)</h2>
+                                <p class="text-xs font-medium">RESUBMISSION</p>
+                            </div>
+                        </div>
+                    </a>
 
-        inner.append(left, right);
-        fileBox.append(inner);
+                    <a href="">
+                        <div class="card bg-lightgray p-4 rounded-lg flex justify-between items-center">
+                            <div class="block items-center flex-wrap gap-[10px]">
+                                <h2 class="text-xl max-md:text-[18px] font-semibold">FORM 3(B)</h2>
+                                <p class="text-xs font-medium">REVIEW OF RESUBMITTED STUDY PROTOCOL</p>
+                            </div>
+                        </div>
+                    </a>
 
-        // Smooth progress bar
-        const progressBar = document.createElement("div");
-        progressBar.classList.add(
-            "absolute", "bottom-0", "left-0", "h-[3px]", "bg-blue"
-        );
-        progressBar.style.width = "0%";
-        progressBar.style.transition = "width 3s linear";
+                    <a href="">
+                        <div class="card bg-lightgray p-4 rounded-lg flex justify-between items-center">
+                            <div class="block items-center flex-wrap gap-[10px]">
+                                <h2 class="text-xl max-md:text-[18px] font-semibold">FORM 3(D)</h2>
+                                <p class="text-xs font-medium">APPLICATION FOR REVIEW OF AMENDMENT</p>
+                            </div>
+                        </div>
+                    </a>
 
-        fileBox.append(progressBar);
-        scrollbar.append(fileBox);
+                    <a href="">
+                        <div class="card bg-lightgray p-4 rounded-lg flex justify-between items-center">
+                            <div class="block items-center flex-wrap gap-[10px]">
+                                <h2 class="text-xl max-md:text-[18px] font-semibold">FORM 3(E)</h2>
+                                <p class="text-xs font-medium">AMENDMENTS</p>
+                            </div>
+                        </div>
+                    </a>
 
-        // Animate smoothly to 100%
-        setTimeout(() => {
-            progressBar.style.width = "100%";
-        }, 100);
+                    <a href="">
+                        <div class="card bg-lightgray p-4 rounded-lg flex justify-between items-center">
+                            <div class="block items-center flex-wrap gap-[10px]">
+                                <h2 class="text-xl max-md:text-[18px] font-semibold">FORM 3(C)</h2>
+                                <p class="text-xs font-medium">PROGRESS REPORTS</p>
+                            </div>
+                        </div>
+                    </a>
 
-        // Instantly stop transition & color change when done
-        setTimeout(() => {
-            progressBar.style.transition = "none";
-            progressBar.classList.replace("bg-blue", "bg-white");
-        }, 3000);
-    };
-});
-</script>
+                    <a href="">
+                        <div class="card bg-lightgray p-4 rounded-lg flex justify-between items-center">
+                            <div class="block items-center flex-wrap gap-[10px]">
+                                <h2 class="text-xl max-md:text-[18px] font-semibold">FORM 3(L)</h2>
+                                <p class="text-xs font-medium">FINAL REPORTS</p>
+                            </div>
+                        </div>
+                    </a>
+                    ---->

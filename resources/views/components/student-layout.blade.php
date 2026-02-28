@@ -141,7 +141,7 @@
         // TOGGLE SIDEBAR
         const sidebar = document.getElementById('sidebar');
         const menuBtn = document.getElementById('menuBtn');
-        
+
         menuBtn.addEventListener('click', function (e) {
             e.stopPropagation();
             sidebar.classList.toggle('-translate-x-full');
@@ -196,26 +196,54 @@
             });
         }
 
-        // Set Page Title Based on URL Path
-        const titles = {
-            "/student/dashboard": "DASHBOARD",
-            "/student/submit-forms": "SUBMIT DOCUMENTS",
-            "/student/download-forms": "SUBMIT FORMS",
-            "/student/submit-tickets": "SUBMIT TICKETS",
-            "/student/submit-form-layout": "SUBMIT FORMS",
-            "/student/monitoring-process": "MONITORING PROCESS",
-            "/student/settings": "SETTINGS",
-            "/student/forms/form2a": "FORM 2(A)",
-            "/student/forms/form2b": "FORM 2(B)",
-            "/student/forms/form2c": "FORM 2(C)",
-            "/student/forms/form2d": "FORM 2(D)",
-            "/student/forms/form3a": "FORM 3(A)",
-            "/student/forms/form3b": "FORM 3(B)",
-            "/student/forms/form3c": "FORM 3(C)",
-            "/student/forms/form3d": "FORM 3(D)",
-            "/student/forms/form3l": "FORM 3(L)",
-            "/student/forms/form5e": "FORM 5(E)",
-        };
+        function openSettingsModal(modalId) {
+            const modal = document.getElementById(modalId);
+            const inputs = document.querySelectorAll('.name');
+            const profile = document.getElementById('profilePreview');
+            const image = document.getElementById('profileImage');
+
+            image.value = "";
+            profile.src = "{{ asset('images/profile-black.png') }}"
+
+            // FOREACH LOOP TO REMOVE MULTIPLE INPUTS WITH THE SAME CLASS NAME
+            inputs.forEach(input => {
+                input.value = "";
+            });
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeSettingsModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        function outsideClick(event) {
+            if (event.target === event.currentTarget) {
+                event.currentTarget.classList.add('hidden');
+                event.currentTarget.classList.remove('flex');
+            }
+        }
+
+        function previewImage(event) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                document.getElementById('profilePreview').src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+        function removeProfileImage() {
+            const profile = document.getElementById('profilePreview')
+            const image = document.getElementById('profileImage');
+
+            image.value = "";
+            profile.src = "{{ asset('images/profile-black.png') }}"
+        }
     </script>
 </body>
 

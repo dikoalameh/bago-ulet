@@ -32,7 +32,7 @@
         class="min-h-screen flex sm:flex flex-col justify-center items-center sm:justify-center sm:items-center pt-6 sm:pt-0 max-sm:mx-2 max-sm:mt-auto">
         <!-- Log in/register/forgot password form layout -->
         <div
-            class="bg-white max-md:w-full w-auto max-w-[550px] mt-2 px-4 py-4 shadow-log border-4 border-gray text-black overflow-hidden max-sm:max-h-[100vh] sm:overflow-y-auto max-sm:relative rounded-lg">
+            class="bg-white w-[40px] max-w-auto mt-2 px-4 py-4 shadow-lg border-4 border-gray text-black overflow-hidden max-sm:max-h-[100vh] max-sm:overflow-y-auto max-sm:relative rounded-lg max-sm:rounded-lg">
             {{ $slot }}
         </div>
     </div>

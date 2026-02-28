@@ -98,13 +98,13 @@ Route::middleware(['auth', 'access:ERB Admin', 'no-cache', 'prevent-back'])->pre
     Route::post('/assign-forms-ajax', [FormAssignment::class, 'assignFormsAjax'])
         ->name('assign.forms.ajax');
 
-    // Approved Accounts
-    Route::get('/approved-accounts', [FormAssignment::class, 'assignedFormsLogs'])
-        ->name('erb.approved.accounts');
+    // Assigned Forms
+    Route::get('/assigned-forms', [FormAssignment::class, 'assignedFormsLogs'])
+        ->name('erb.assigned-forms');
 
-    // Pending Reviews
-    Route::get('/pending-reviews', [ERBDecisionController::class, 'index'])
-        ->name('erb.pending-reviews');
+    // Protocol Decision
+    Route::get('/protocol-decision', [ERBDecisionController::class, 'index'])
+        ->name('erb.protocol-decision');
 
     Route::post('/pending-reviews/store', [ERBDecisionController::class, 'store'])
         ->name('erb.pending-reviews.store');
@@ -127,11 +127,11 @@ Route::middleware(['auth', 'access:ERB Admin', 'no-cache', 'prevent-back'])->pre
     Route::get('/submitted-tickets', [SubmittedInquiries::class, 'index'])
     ->name('erb.submitted-tickets');
 
-    // Assigned Amendments
-    Route::get('/assign-amendments', [AmendmentsERB::class, 'assignedAmendments'])
+    // Resubmission
+    Route::get('/resubmission', [AmendmentsERB::class, 'assignedAmendments'])
         ->name('assigned.amendments');
 
-    Route::post('/assign-amendments', [AmendmentsERB::class, 'assignAmendments'])
+    Route::post('/resubmission', [AmendmentsERB::class, 'assignAmendments'])
         ->name('assign.amendments');
 
     // Tickets
@@ -207,8 +207,8 @@ Route::middleware(['auth', 'access:IACUC Admin', 'no-cache', 'prevent-back'])->p
     ->name('assign.default.forms.ajax');
 
     // Pending Reviews
-    Route::get('/pending-reviews', [ERBDecisionController::class, 'iacucIndex']
-    )->name('iacuc.pending-reviews');
+    Route::get('/protocol-decision', [ERBDecisionController::class, 'iacucIndex']
+    )->name('iacuc.protocol-decision');
 
     // Assign Reviewer
     Route::get('/assign-reviewer', [assignReviewer::class, 'iacucIndex'])
@@ -257,8 +257,8 @@ Route::middleware(['auth', 'access:Superadmin', 'no-cache', 'prevent-back'])->pr
     Route::post('/classifications/bulk-update', [ClassificationController::class, 'bulkUpdate'])->name('classifications.bulk-update');
 
     // Other pages
-    Route::get('/pending-reviews', [MonitoringDashboard::class, 'viewEvaluatedProtocols'])
-        ->name('superadmin.pending-reviews');
+    Route::get('/protocol-decision', [MonitoringDashboard::class, 'viewEvaluatedProtocols'])
+        ->name('superadmin.protocol-decision');
 
     Route::get('/assign-reviewer', [MonitoringDashboard::class, 'viewUnassignedReviewer'])
         ->name('superadmin.assign-reviewer');
@@ -285,8 +285,8 @@ Route::middleware(['auth', 'access:Superadmin', 'no-cache', 'prevent-back'])->pr
         ->name('superadmin.full-board-review');
 
     // Assign Amendments
-    /*Route::get('/assign-amendments', function () {
-        return view('superadmin.assign-amendments');
+    /*Route::get('/resubmission', function () {
+        return view('superadmin.resubmission');
     });*/
 
     // Final Completion
@@ -419,8 +419,8 @@ Route::middleware(['auth', 'access:Principal Investigator', 'no-cache', 'prevent
 
     Route::get('/dashboard', [StudentDashboard::class, 'index'])->name('student.dashboard');
 
-    Route::get('/submit-forms', [FormAssignment::class, 'assignedSubmissionDisplay'])
-        ->name('student.submit-forms');
+    Route::get('/submit-documents', [FormAssignment::class, 'assignedSubmissionDisplay'])
+        ->name('student.submit-documents');
 
     Route::get('/submit-form-layout/{form}', [ResearchFileController::class, 'showForm'])
         ->name('student.submit.form');
@@ -428,12 +428,12 @@ Route::middleware(['auth', 'access:Principal Investigator', 'no-cache', 'prevent
     Route::post('/submit-form-layout/{form}/store', [ResearchFileController::class, 'storeSubmission'])
         ->name('student.submit.form.store');
 
-    Route::get('/submit-tickets', function () {
-        return view('student.submit-tickets');
+    Route::get('/submit-inquiries', function () {
+        return view('student.submit-inquiries');
     });
 
-    Route::get('/download-forms', [FormAssignment::class, 'assignedFormsDisplay'])
-        ->name('student.download-forms');
+    Route::get('/submit-forms', [FormAssignment::class, 'assignedFormsDisplay'])
+        ->name('student.submit-forms');
 
     Route::get('/settings', function () {
         return view('student.settings');

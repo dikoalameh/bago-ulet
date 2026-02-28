@@ -84,40 +84,41 @@
         <ul class="m-4 text-lg p-0 bg-primary">
             <!-- DASHBOARD -->
             <li>
-                <a href="{{ url('/student/dashboard') }}"
-                    class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 {{ Request::is('student/dashboard') ? 'text-secondary' : '' }}">
+                <a href="{{ url('/student/dashboard') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
+                    {{ Request::is('student/dashboard') ? 'text-secondary' : '' }}">
                     <i class="material-symbols-outlined text-sm">dashboard</i>
                     Dashboard
                 </a>
             </li>
             <!-- SUBMIT FORMS -->
             <li>
-                <a href="{{ url('/student/download-forms') }}"
-                    class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 {{ Request::is('student/download-forms') ? 'text-secondary' : '' }}">
+                <a href="{{ url('/student/submit-forms') }}"
+                    class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
+                    {{ Request::is('student/submit-forms') || Request::is('student/forms/*') ? 'text-secondary' : '' }}">
                     <i class="material-symbols-outlined text-sm">send</i>
                     Submit Forms
                 </a>
             </li>
             <!-- SUBMIT DOCUMENTS -->
             <li>
-                <a href="{{ url('/student/submit-forms') }}"
-                    class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 {{ Request::is('student/submit-forms') ? 'text-secondary' : '' }}">
+                <a href="{{ url('/student/submit-documents') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
+                    {{ Request::is('student/submit-documents') ? 'text-secondary' : '' }}">
                     <i class="material-symbols-outlined text-sm">attach_file</i>
                     Submit Documents
                 </a>
             </li>
             <!-- SUBMIT INQUIRIES -->
             <li>
-                <a href="{{ url('/student/submit-tickets') }}"
-                    class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 {{ Request::is('student/submit-tickets') ? 'text-secondary' : '' }}">
+                <a href="{{ url('/student/submit-inquiries') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
+                    {{ Request::is('student/submit-inquiries') ? 'text-secondary' : '' }}">
                     <i class="material-symbols-outlined text-sm">topic</i>
                     Submit Inquiries
                 </a>
             </li>
             <!-- PROCESS MONITORING -->
             <li>
-                <a href="{{ url('/student/monitoring-process') }}"
-                    class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 {{ Request::is('student/monitoring-process') ? 'text-secondary' : '' }}">
+                <a href="{{ url('/student/monitoring-process') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
+                    {{ Request::is('student/monitoring-process') ? 'text-secondary' : '' }}">
                     <i class="material-symbols-outlined text-sm">monitor</i>
                     Process Monitoring
                 </a>
@@ -138,7 +139,7 @@
                 <div class="whitespace-nowrap">
                     {{ Auth::user()->user_Fname }} {{ Auth::user()->user_MI }} {{ Auth::user()->user_Lname }}
                 </div>
-                <div class="whitespace-nowrap text-sm">Admin</div>
+                <div class="whitespace-nowrap text-sm">Student</div>
             </div>
             <form method="POST" action="{{ route('logout') }}" class="inline">
                 @csrf
@@ -156,46 +157,49 @@
     class="fixed top-0 left-0 h-full w-[335px] bg-primary xl:hidden shadow transform -translate-x-full transition-transform duration-300 z-[999]">
     <nav
         class="text-white fixed top-0 left-0 w-[335px] bg-primary h-[100dvh] z-[999] flex flex-col overflow-hidden border-darkergray border-r">
-        <header class="flex justify-center items-center p-2 overflow-hidden border-darkergray border-b h-[90px] max-sm:h-[80px]">
-            <img src="{{ asset('images/mcu-logo-white.png') }}" alt="STUDENT MAS BAGO" class="w-[160px] h-[55px] max-sm:w-[140px] max-sm:h-[50px]">
+        <header
+            class="flex justify-center items-center p-2 overflow-hidden border-darkergray border-b h-[90px] max-sm:h-[80px]">
+            <img src="{{ asset('images/mcu-logo-white.png') }}" alt="STUDENT MAS BAGO"
+                class="w-[160px] h-[55px] max-sm:w-[140px] max-sm:h-[50px]">
         </header>
         <div class="overflow-auto overscroll-contain flex-1">
-            <ul class="m-2 text-lg p-0 bg-primary">
+            <ul class="m-2 p-0 bg-primary">
                 <!-- DASHBOARD -->
                 <li>
-                    <a href="{{ url('/student/dashboard') }}"
-                        class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary {{ Request::is('student/dashboard') ? 'text-secondary' : '' }}">
+                    <a href="{{ url('/student/dashboard') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
+                        {{ Request::is('student/dashboard') }}">
                         <i class="material-symbols-outlined max-sm:text-[15px]">dashboard</i>
                         Dashboard
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('/student/download-forms') }}"
-                        class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary {{ Request::is('student/download-forms') ? 'text-secondary' : '' }}">
+                    <a href="{{ url('/student/submit-forms') }}"
+                        class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
+                        {{ Request::is('student/submit-forms') || Request::is('student/forms/*') ? 'text-secondary' : '' }}">
                         <i class="material-symbols-outlined max-sm:text-[15px]">send</i>
                         Submit Forms
                     </a>
                 </li>
                 <!-- SUBMIT DOCUMENTS -->
                 <li>
-                    <a href="{{ url('/student/submit-forms') }}"
-                        class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary {{ Request::is('student/submit-forms') ? 'text-secondary' : '' }}">
+                    <a href="{{ url('/student/submit-documents') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
+                        {{ Request::is('student/submit-documents') ? 'text-secondary' : '' }}">
                         <i class="material-symbols-outlined max-sm:text-[15px]">attach_file</i>
                         Submit Documents
                     </a>
                 </li>
                 <!-- SUBMIT INQUIRIES -->
                 <li>
-                    <a href="{{ url('/student/submit-tickets') }}"
-                        class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary {{ Request::is('student/submit-tickets') ? 'text-secondary' : '' }}">
+                    <a href="{{ url('/student/submit-inquiries') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
+                        {{ Request::is('student/submit-inquiries') ? 'text-secondary' : '' }}">
                         <i class="material-symbols-outlined max-sm:text-[15px]">topic</i>
                         Submit Inquiries
                     </a>
                 </li>
                 <!-- PROCESS MONITORING -->
                 <li>
-                    <a href="{{ url('/student/monitoring-process') }}"
-                        class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary {{ Request::is('student/monitoring-process') ? 'text-secondary' : '' }}">
+                    <a href="{{ url('/student/monitoring-process') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
+                        {{ Request::is('student/monitoring-process') ? 'text-secondary' : '' }}">
                         <i class="material-symbols-outlined max-sm:text-[15px]">monitor</i>
                         Process Monitoring
                     </a>
@@ -217,12 +221,13 @@
                     <div class="whitespace-nowrap max-sm:text-sm">
                         {{ Auth::user()->user_Fname }} {{ Auth::user()->user_MI }} {{ Auth::user()->user_Lname }}
                     </div>
-                    <div class="whitespace-nowrap max-sm:text-xs text-sm">Admin</div>
+                    <div class="whitespace-nowrap max-sm:text-xs text-sm">Student</div>
                 </div>
                 <form method="POST" action="{{ route('logout') }}" class="inline">
                     @csrf
                     <button type="submit" class="duration-200 hover:text-secondary p-0 m-0 bg-transparent border-0">
-                        <i class="material-symbols-outlined text-2xl absolute right-3 max-sm:bottom-[5px] bottom-[10px] -translate-y-[50%]">
+                        <i
+                            class="material-symbols-outlined text-2xl absolute right-3 max-sm:bottom-[5px] bottom-[10px] -translate-y-[50%]">
                             logout
                         </i>
                     </button>
@@ -237,57 +242,5 @@
     class="h-[65px] xl:hidden bg-primary z-[99] shadow-md sticky top-0 left-0 flex items-center px-3 justify-between">
     <button id="menuBtn" class="text-white focus:outline-none text-xl pl-3">&#9776;</button>
     <img src="{{ asset('images/mcu-logo-white(2).png') }}" alt="" class="w-[55px] h-[55px]">
-    <div>
-        <img src="{{ asset('images/profile-white.png') }}" alt="" class="rounded-[50%] w-[35px] h-[35px] border-none">
-    </div>
+    <img src="{{ asset('images/profile-white.png') }}" alt="" class="rounded-[50%] w-[35px] h-[35px] border-none">
 </header>
-<script>
-    function openSettingsModal(modalId) {
-        const modal = document.getElementById(modalId);
-        const inputs = document.querySelectorAll('.name');
-        const profile = document.getElementById('profilePreview');
-        const image = document.getElementById('profileImage');
-
-        image.value = "";
-        profile.src = "{{ asset('images/profile-black.png') }}"
-
-        // FOREACH LOOP TO REMOVE MULTIPLE INPUTS WITH THE SAME CLASS NAME
-        inputs.forEach(input => {
-            input.value = "";
-        });
-
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-    }
-
-    function closeSettingsModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-    }
-
-    function outsideClick(event) {
-        if (event.target === event.currentTarget) {
-            event.currentTarget.classList.add('hidden');
-            event.currentTarget.classList.remove('flex');
-        }
-    }
-
-    function previewImage(event) {
-        const reader = new FileReader();
-        reader.onload = function () {
-            document.getElementById('profilePreview').src = reader.result;
-        }
-        reader.readAsDataURL(event.target.files[0]);
-    }
-
-    function removeProfileImage() {
-        const profile = document.getElementById('profilePreview')
-        const image = document.getElementById('profileImage');
-
-        image.value = "";
-        profile.src = "{{ asset('images/profile-black.png') }}"
-    }
-</script>

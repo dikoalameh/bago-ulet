@@ -32,9 +32,9 @@
                     <span class="absolute right-[8px] leading-[57px]">
                         <i class="bi bi-person-fill"></i>
                     </span>
-                    <input type="text" required class="name w-full h-[50px] bg-transparent border-0 focus:ring-0">
+                    <input type="text" required class="peer w-full h-[50px] bg-transparent border-0 focus:ring-0">
                     <label
-                        class="absolute top-[50%] text-darkgray left-[8px] -translate-y-[50%] pointer-events-none transition-all duration-300">
+                        class="absolute top-[50%] text-darkgray left-[8px] -translate-y-[50%] pointer-events-none transition-all duration-300 peer-focus:-top-[5px] peer-focus:text-[12px] peer-valid:-top-[5px] peer-valid:text-[12px]">
                         First Name
                     </label>
                 </div>
@@ -42,10 +42,10 @@
                     <span class="absolute right-[8px] leading-[57px]">
                         <i class="bi bi-person-fill"></i>
                     </span>
-                    <input type="text" required class="name w-full h-[50px] bg-transparent border-0 focus:ring-0">
+                    <input type="text" required class="peer w-full h-[50px] bg-transparent border-0 focus:ring-0">
                     <label
-                        class="absolute top-[50%] text-darkgray left-[8px] -translate-y-[50%] pointer-events-none transition-all duration-300">
-                        Middle Name
+                        class="absolute top-[50%] text-darkgray left-[8px] -translate-y-[50%] pointer-events-none transition-all duration-300 peer-focus:-top-[5px] peer-focus:text-[12px] peer-valid:-top-[5px] peer-valid:text-[12px]">
+                        Middle Initial
                     </label>
                 </div>
             </div>
@@ -53,10 +53,10 @@
                 <span class="absolute right-[8px] leading-[57px]">
                     <i class="bi bi-person-fill"></i>
                 </span>
-                <input type="text" required class="name w-full h-[50px] bg-transparent border-0 focus:ring-0">
+                <input type="text" required class="peer w-full h-[50px] bg-transparent border-0 focus:ring-0">
                 <label
-                    class="absolute top-[50%] left-[8px] text-darkgray -translate-y-[50%] pointer-events-none transition-all duration-300">
-                    Surname
+                    class="absolute top-[50%] text-darkgray left-[8px] -translate-y-[50%] pointer-events-none transition-all duration-300 peer-focus:-top-[5px] peer-focus:text-[12px] peer-valid:-top-[5px] peer-valid:text-[12px]">
+                    Last Name
                 </label>
             </div>
             <div class="flex items-center gap-x-2 mt-2">
@@ -92,9 +92,9 @@
                 <span class="absolute right-[8px] leading-[57px]">
                     <i class="material-symbols-outlined">lock</i>
                 </span>
-                <input type="password" required class="w-full h-[50px] bg-transparent border-0 focus:ring-0">
+                <input type="password" required class="peer w-full h-[50px] bg-transparent border-0 focus:ring-0">
                 <label
-                    class="absolute top-[50%] text-darkgray left-[8px] -translate-y-[50%] pointer-events-none transition-all duration-300">
+                    class="absolute top-[50%] text-darkgray left-[8px] -translate-y-[50%] pointer-events-none transition-all duration-300 peer-focus:-top-[5px] peer-focus:text-[12px] peer-valid:-top-[5px] peer-valid:text-[12px]">
                     Old Password
                 </label>
             </div>
@@ -102,9 +102,9 @@
                 <span class="absolute right-[8px] leading-[57px]">
                     <i class="material-symbols-outlined">lock</i>
                 </span>
-                <input type="password" required class="w-full h-[50px] bg-transparent border-0 focus:ring-0">
+                <input type="password" required class="peer w-full h-[50px] bg-transparent border-0 focus:ring-0">
                 <label
-                    class="absolute top-[50%] text-darkgray left-[8px] -translate-y-[50%] pointer-events-none transition-all duration-300">
+                    class="absolute top-[50%] text-darkgray left-[8px] -translate-y-[50%] pointer-events-none transition-all duration-300 peer-focus:-top-[5px] peer-focus:text-[12px] peer-valid:-top-[5px] peer-valid:text-[12px]">
                     New Password
                 </label>
             </div>
@@ -112,9 +112,9 @@
                 <span class="absolute right-[8px] leading-[57px]">
                     <i class="material-symbols-outlined">lock</i>
                 </span>
-                <input type="password" required class="w-full h-[50px] bg-transparent border-0 focus:ring-0">
+                <input type="password" required class="peer w-full h-[50px] bg-transparent border-0 focus:ring-0">
                 <label
-                    class="absolute top-[50%] text-darkgray left-[8px] -translate-y-[50%] pointer-events-none transition-all duration-300">
+                    class="absolute top-[50%] text-darkgray left-[8px] -translate-y-[50%] pointer-events-none transition-all duration-300 peer-focus:-top-[5px] peer-focus:text-[12px] peer-valid:-top-[5px] peer-valid:text-[12px]">
                     Confirm New Password
                 </label>
             </div>
@@ -142,16 +142,17 @@
     <div class="overflow-y-auto overscroll-contain px-0 flex-1 bg-primary">
         <ul class="m-4 text-lg p-0 bg-primary">
             <li>
-                <a href="{{ url('/erb/dashboard') }}"
-                    class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 {{ Request::is('erb/dashboard') ? 'text-secondary' : '' }}">
+                <a href="{{ url('/erb/dashboard') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
+                    {{ Request::is('erb/dashboard') ? 'text-secondary' : '' }}">
                     <i class="material-symbols-outlined text-sm">dashboard</i>
                     Dashboard
                 </a>
             </li>
             <li>
                 <button
-                    class="dropdownToggle w-full flex items-center px-2 py-3 border-none gap-x-3 hover:text-secondary transition-all duration-300">
-                    <i class="material-symbols-outlined">folder_eye</i>
+                    class="dropdownToggle w-full flex items-center px-2 py-3 border-none gap-x-3 hover:text-secondary transition-all duration-300 
+                    {{ Request::is('erb/view-reviews') ? 'text-secondary' : '' }} {{ Request::is('erb/assign-reviewer') || Request::is('erb/view-review-files/*/*') || Request::is('erb/full-board-review') ? 'text-secondary' : '' }}">
+                    <i class=" material-symbols-outlined">folder_eye</i>
                     <span class="mr-auto">View Documents</span>
                     <i class="material-symbols-outlined dropdownArrow transition-transform">keyboard_arrow_down</i>
                 </button>
@@ -159,7 +160,7 @@
                     <li>
                         <a href="{{ url('/erb/view-reviews') }}"
                             class="block hover:text-secondary duration-200 px-2 py-1.5 flex
-                        {{ Request::is('erb/view-reviews') || Request::is('erb/erb/view-review-files/*') ? 'text-secondary' : '' }}">
+                            {{ Request::is('erb/view-reviews') || Request::is('erb/view-review-files/*/*') ? 'text-secondary' : '' }}">
                             <i class="material-symbols-outlined">grading</i>
                             <span class="w-full flex justify-between items-center px-3">
                                 View Reviews
@@ -168,7 +169,7 @@
                     </li>
                     <li>
                         <a href="{{ url('/erb/assign-reviewer') }}" class="block hover:text-secondary duration-200 px-2 py-1.5 flex
-                        {{ Request::is('erb/assign-reviewer') ? 'text-secondary' : '' }}">
+                            {{ Request::is('erb/assign-reviewer') ? 'text-secondary' : '' }}">
                             <i class="material-symbols-outlined">person_edit</i>
                             <span class="w-full flex justify-between items-center px-3">
                                 Assign Reviewer
@@ -177,7 +178,7 @@
                     </li>
                     <li>
                         <a href="{{ url('/erb/full-board-review') }}" class="block hover:text-secondary duration-200 px-2 py-1.5 flex
-                        {{ Request::is('erb/full-board-review') ? 'text-secondary' : '' }}">
+                            {{ Request::is('erb/full-board-review') ? 'text-secondary' : '' }}">
                             <i class="material-symbols-outlined">present_to_all</i>
                             <span class="w-full flex justify-between items-center px-3">
                                 Full Board Review
@@ -188,7 +189,7 @@
             </li>
             <li>
                 <a href="{{ url('/erb/iro-approved-accounts') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
-                {{ Request::is('erb/iro-approved-accounts') ? 'text-secondary' : '' }}">
+                    {{ Request::is('erb/iro-approved-accounts') ? 'text-secondary' : '' }}">
                     <i class="material-symbols-outlined">person_check</i>
                     IRO Approved Accounts
                 </a>
@@ -196,50 +197,52 @@
             <li>
                 <a href="{{ url('/erb/research-records') }}"
                     class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
-                {{ Request::is('erb/research-records') || Request::is('erb/submitted-documents/*') ? 'text-secondary' : '' }}">
+                    {{ Request::is('erb/research-records') || Request::is('erb/submitted-documents/*') ? 'text-secondary' : '' }}">
                     <i class="material-symbols-outlined">document_search</i>
                     Research Records
                 </a>
             </li>
 
             <li>
-                <a href="{{ url('/erb/approved-accounts') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
-                {{ Request::is('erb/approved-accounts') ? 'text-secondary' : '' }}">
+                <a href="{{ url('/erb/assigned-forms') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
+                    {{ Request::is('erb/assigned-forms') ? 'text-secondary' : '' }}">
                     <i class="material-symbols-outlined">work_alert</i>
                     Assigned Forms
                 </a>
             </li>
             <li>
-                <a href="{{ url('/erb/pending-reviews') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
-                {{ Request::is('erb/pending-reviews') ? 'text-secondary' : '' }}">
+                <a href="{{ url('/erb/protocol-decision') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
+                    {{ Request::is('erb/protocol-decision') ? 'text-secondary' : '' }}">
                     <i class="material-symbols-outlined">avg_pace</i>
                     Protocol Decision
                 </a>
             </li>
             <li>
                 <a href="{{ url('/erb/submitted-tickets') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
-                {{ Request::is('erb/submitted-tickets') ? 'text-secondary' : ''}}">
+                    {{ Request::is('erb/submitted-tickets') ? 'text-secondary' : ''}}">
                     <i class="material-symbols-outlined">topic</i>
                     Submitted Inquiries
                 </a>
             </li>
             <li>
-                <a href="{{ url('/erb/assign-amendments') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
-            {{ Request::is('erb/assign-amendments') ? 'text-secondary' : ''}}">
+                <a href="{{ url('/erb/resubmission') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
+                    {{ Request::is('erb/resubmission') ? 'text-secondary' : ''}}">
                     <i class="material-symbols-outlined">edit_document</i>
                     Resubmission
                 </a>
             </li>
             <li>
                 <a href="{{ url('/erb/monitoring-process') }}"
-                    class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 {{ Request::is('erb/monitoring-process') ? 'text-secondary' : ''}}">
+                    class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
+                    {{ Request::is('erb/monitoring-process') ? 'text-secondary' : ''}}">
                     <i class="material-symbols-outlined">monitoring</i>
                     Process Monitoring
                 </a>
             </li>
             <li>
                 <a href="{{ url('/erb/final-completion') }}"
-                    class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 {{ Request::is('erb/final-completion') ? 'text-secondary' : ''}}">
+                    class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
+                    {{ Request::is('erb/final-completion') ? 'text-secondary' : ''}}">
                     <i class="material-symbols-outlined">clock_loader_80</i>
                     Final Completion
                 </a>
@@ -267,7 +270,7 @@
                 <div class="whitespace-nowrap">
                     {{ Auth::user()->user_Fname }} {{ Auth::user()->user_MI }} {{ Auth::user()->user_Lname }}
                 </div>
-                <div class="whitespace-nowrap text-sm">Admin</div>
+                <div class="whitespace-nowrap text-sm">ERB Admin</div>
             </div>
             <form method="POST" action="{{ route('logout') }}" class="inline">
                 @csrf
@@ -287,21 +290,22 @@
         class="bg-primary h-[100vh] text-white fixed top-0 left-0 max-xl:flex max-xl:flex-col overflow-y-auto w-[335px]">
         <header
             class="flex justify-center items-center p-2 overflow-hidden border-darkergray border-b h-[90px] max-sm:h-[80px]">
-            <img src="{{ asset('images/mcu-logo-white.png') }}" alt="STUDENT MAS BAGO"
+            <img src="{{ asset('images/mcu-logo-white.png') }}" alt="ERB MAS BAGO"
                 class="w-[160px] h-[55px] max-sm:w-[140px] max-sm:h-[50px]">
         </header>
         <div class="overflow-auto overscroll-contain flex-1">
-            <ul class="m-2 text-lg p-0 bg-primary">
+            <ul class="m-2 p-0 bg-primary">
                 <li>
-                    <a href="{{ url('/student/dashboard') }}"
-                        class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary {{ Request::is('student/dashboard') ? 'text-secondary' : '' }}">
+                    <a href="{{ url('/erb/dashboard') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
+                        {{ Request::is('erb/dashboard') ? 'text-secondary' : '' }}">
                         <i class="material-symbols-outlined max-sm:text-[15px]">dashboard</i>
                         Dashboard
                     </a>
                 </li>
                 <li>
                     <button
-                        class="dropdownToggle w-full flex items-center px-2 py-3 border-none gap-x-3 hover:text-secondary transition-all duration-300">
+                        class="dropdownToggle w-full flex items-center px-2 py-3 border-none gap-x-3 hover:text-secondary transition-all duration-300 text-[15px]
+                        {{ Request::is('erb/view-reviews') ? 'text-secondary' : '' }} {{ Request::is('erb/assign-reviewer') || Request::is('erb/full-board-review') ? 'text-secondary' : '' }}">
                         <i class="material-symbols-outlined">folder_eye</i>
                         <span class="mr-auto">View Documents</span>
                         <i class="material-symbols-outlined dropdownArrow transition-transform">keyboard_arrow_down</i>
@@ -310,7 +314,7 @@
                         <li>
                             <a href="{{ url('/erb/view-reviews') }}"
                                 class="block hover:text-secondary duration-200 px-2 py-1.5 flex
-                        {{ Request::is('erb/view-reviews') || Request::is('erb/erb/view-review-files/*') ? 'text-secondary' : '' }}">
+                                {{ Request::is('erb/view-reviews') || Request::is('erb/erb/view-review-files/*') ? 'text-secondary' : '' }}">
                                 <i class="material-symbols-outlined max-sm:text-[15px]">grading</i>
                                 <span class="w-full flex justify-between items-center px-3">
                                     View Reviews
@@ -319,7 +323,7 @@
                         </li>
                         <li>
                             <a href="{{ url('/erb/assign-reviewer') }}" class="block hover:text-secondary duration-200 px-2 py-1.5 flex
-                        {{ Request::is('erb/assign-reviewer') ? 'text-secondary' : '' }}">
+                                {{ Request::is('erb/assign-reviewer') ? 'text-secondary' : '' }}">
                                 <i class="material-symbols-outlined max-sm:text-[15px]">person_edit</i>
                                 <span class="w-full flex justify-between items-center px-3">
                                     Assign Reviewer
@@ -328,7 +332,7 @@
                         </li>
                         <li>
                             <a href="{{ url('/erb/full-board-review') }}" class="block hover:text-secondary duration-200 px-2 py-1.5 flex
-                        {{ Request::is('erb/full-board-review') ? 'text-secondary' : '' }}">
+                                {{ Request::is('erb/full-board-review') ? 'text-secondary' : '' }}">
                                 <i class="material-symbols-outlined max-sm:text-[15px]">present_to_all</i>
                                 <span class="w-full flex justify-between items-center px-3">
                                     Full Board Review
@@ -338,8 +342,8 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="{{ url('/erb/iro-approved-accounts') }}"
-                        class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary {{ Request::is('erb/iro-approved-accounts') ? 'text-secondary' : '' }}">
+                    <a href="{{ url('/erb/iro-approved-accounts') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
+                        {{ Request::is('erb/iro-approved-accounts') ? 'text-secondary' : '' }}">
                         <i class="material-symbols-outlined max-sm:text-[15px]">person_check</i>
                         IRO Approved Accounts
                     </a>
@@ -347,50 +351,50 @@
                 <li>
                     <a href="{{ url('/erb/research-records') }}"
                         class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary
-                {{ Request::is('erb/research-records') || Request::is('erb/submitted-documents/*') ? 'text-secondary' : '' }}">
+                        {{ Request::is('erb/research-records') || Request::is('erb/submitted-documents/*') ? 'text-secondary' : '' }}">
                         <i class="material-symbols-outlined max-sm:text-[15px]">document_search</i>
                         Research Records
                     </a>
                 </li>
 
                 <li>
-                    <a href="{{ url('/erb/approved-accounts') }}"
-                        class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary {{ Request::is('erb/approved-accounts') ? 'text-secondary' : '' }}">
+                    <a href="{{ url('/erb/assigned-forms') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
+                        {{ Request::is('erb/assigned-forms') ? 'text-secondary' : '' }}">
                         <i class="material-symbols-outlined max-sm:text-[15px]">work_alert</i>
                         Assigned Forms
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('/erb/pending-reviews') }}"
-                        class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary {{ Request::is('erb/pending-reviews') ? 'text-secondary' : '' }}">
+                    <a href="{{ url('/erb/protocol-decision') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
+                        {{ Request::is('erb/protocol-decision') ? 'text-secondary' : '' }}">
                         <i class="material-symbols-outlined max-sm:text-[15px]">avg_pace</i>
                         Protocol Decision
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('/erb/submitted-tickets') }}"
-                        class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary {{ Request::is('erb/submitted-tickets') ? 'text-secondary' : ''}}">
+                    <a href="{{ url('/erb/submitted-tickets') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
+                        {{ Request::is('erb/submitted-tickets') ? 'text-secondary' : ''}}">
                         <i class="material-symbols-outlined max-sm:text-[15px]">topic</i>
                         Submitted Inquiries
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('/erb/assign-amendments') }}"
-                        class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary {{ Request::is('erb/assign-amendments') ? 'text-secondary' : ''}}">
+                    <a href="{{ url('/erb/resubmission') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
+                        {{ Request::is('erb/resubmission') ? 'text-secondary' : ''}}">
                         <i class="material-symbols-outlined max-sm:text-[15px]">edit_document</i>
                         Resubmission
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('/erb/monitoring-process') }}"
-                        class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary {{ Request::is('erb/monitoring-process') ? 'text-secondary' : ''}}">
+                    <a href="{{ url('/erb/monitoring-process') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
+                        {{ Request::is('erb/monitoring-process') ? 'text-secondary' : ''}}">
                         <i class="material-symbols-outlined max-sm:text-[15px]">monitoring</i>
                         Process Monitoring
                     </a>
                 </li>
                 <li>
-                    <a href="{{ url('/erb/final-completion') }}"
-                        class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary {{ Request::is('erb/final-completion') ? 'text-secondary' : ''}}">
+                    <a href="{{ url('/erb/final-completion') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
+                        {{ Request::is('erb/final-completion') ? 'text-secondary' : ''}}">
                         <i class="material-symbols-outlined max-sm:text-[15px]">clock_loader_80</i>
                         Final Completion
                     </a>
@@ -419,7 +423,7 @@
                     <div class="whitespace-nowrap max-sm:text-sm">
                         {{ Auth::user()->user_Fname }} {{ Auth::user()->user_MI }} {{ Auth::user()->user_Lname }}
                     </div>
-                    <div class="whitespace-nowrap max-sm:text-xs text-sm">Admin</div>
+                    <div class="whitespace-nowrap max-sm:text-xs text-sm">ERB Admin</div>
                 </div>
                 <form method="POST" action="{{ route('logout') }}" class="inline">
                     @csrf
@@ -440,75 +444,5 @@
     class="h-[65px] xl:hidden bg-primary z-[99] shadow-md sticky top-0 left-0 flex items-center px-3 justify-between">
     <button id="menuBtn" class="text-white focus:outline-none text-xl pl-3">&#9776;</button>
     <img src="{{ asset('images/mcu-logo-white(2).png') }}" alt="" class="w-[55px] h-[55px]">
-    <div>
-        <img src="{{ asset('images/profile-white.png') }}" alt="" class="rounded-[50%] w-[35px] h-[35px] border-none">
-    </div>
+    <img src="{{ asset('images/profile-white.png') }}" alt="" class="rounded-[50%] w-[35px] h-[35px] border-none">
 </header>
-
-<script>
-    function openSettingsModal(modalId) {
-        const modal = document.getElementById(modalId);
-        const inputs = document.querySelectorAll('.name');
-        const profile = document.getElementById('profilePreview');
-        const image = document.getElementById('profileImage');
-
-        image.value = "";
-        profile.src = "{{ asset('images/profile-black.png') }}"
-
-        // FOREACH LOOP TO REMOVE MULTIPLE INPUTS WITH THE SAME CLASS NAME
-        inputs.forEach(input => {
-            input.value = "";
-        });
-
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-    }
-
-    function closeSettingsModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-    }
-
-    function outsideClick(event) {
-        if (event.target.id === 'editProfileModal' ||
-            event.target.id === 'changePasswordModal') {
-
-            // PREVENTS TO CLOSE SIDEBAR
-            event.stopPropagation();
-            event.currentTarget.classList.add('hidden');
-            event.currentTarget.classList.remove('flex');
-        }
-    }
-
-    document.addEventListener('click', function (e) {
-        const sidebar = document.getElementById('sidebar');
-        const isModalOpen = !document.getElementById('editProfileModal').classList.contains('hidden') ||
-            !document.getElementById('changePasswordModal').classList.contains('hidden');
-
-        // WHEN THE MODAL IS OPEN
-        if (isModalOpen) return;
-
-        if (!sidebar.contains(e.target)) {
-            sidebar.classList.add('-translate-x-full');
-        }
-    });
-
-    function previewImage(event) {
-        const reader = new FileReader();
-        reader.onload = function () {
-            document.getElementById('profilePreview').src = reader.result;
-        }
-        reader.readAsDataURL(event.target.files[0]);
-    }
-
-    function removeProfileImage() {
-        const profile = document.getElementById('profilePreview')
-        const image = document.getElementById('profileImage');
-
-        image.value = "";
-        profile.src = "{{ asset('images/profile-black.png') }}"
-    }
-</script>

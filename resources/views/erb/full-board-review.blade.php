@@ -59,7 +59,10 @@
                                 {{ $protocol->researchInformation->research_title }}
                             @endif
                         </td>
-                        <td>{{ $protocol->created_at->format('m/d/Y\ H:i:s') }}</td>
+                        <td>
+                            {{ $protocol->created_at->format('m/d/Y') }}<br>
+                            {{ $protocol->created_at->format('H:i:s') }}
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
@@ -73,7 +76,8 @@
                         Assigning: <span id="currentCount">0</span>/5 reviewers
                     </div>
                     <div class="h-36 max-md:h-20 overflow-y-auto">
-                        <div class="gap-x-3 gap-y-3 grid grid-cols-2 max-md:grid-cols-1 overflow-y-auto" id="reviewersContainer">
+                        <div class="gap-x-3 gap-y-3 grid grid-cols-2 max-md:grid-cols-1 overflow-y-auto"
+                            id="reviewersContainer">
                             <!-- Reviewers will be populated dynamically -->
                         </div>
                     </div>
