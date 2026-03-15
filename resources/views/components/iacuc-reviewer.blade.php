@@ -50,7 +50,7 @@
             if (!$.fn.dataTable.isDataTable('#myTable')) {
                 const table = new DataTable('#myTable', {
                     responsive: true,
-                    paging: false,
+                    paging: true,
                     scrollY: '350px',
                     order: [],
                     // Tell DataTables not to auto-detect data sources

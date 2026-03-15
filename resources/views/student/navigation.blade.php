@@ -80,7 +80,7 @@
         class="hidden lg:flex justify-center bg-primary align-center p-2 overflow-hidden overscroll-contain border-darkergray border-b">
         <img src="{{ asset('images/mcu-logo-white.png') }}" alt="STUDENT MAS BAGO" class="w-44">
     </header>
-    <div class="nav-items overflow-y-auto overscroll-contain px-0 flex-1 bg-primary">
+    <div class="nav-items overflow-y-auto overscroll-contain px-0 flex-1 bg-primary [&::-webkit-scrollbar]:w-[4px] [&::-webkit-scrollbar-thumb]:bg-[#666666]">
         <ul class="m-4 text-lg p-0 bg-primary">
             <!-- DASHBOARD -->
             <li>

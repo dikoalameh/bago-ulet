@@ -53,7 +53,7 @@
         <div class="top-controls flex items-center justify-between max-md:flex-col">
             <!-- FUNCTIONALITY TO DISPLAY THE DATAS BASED ON DATE -->
             <div class="filter-box">
-                Total Count:
+                Total Submission Count:
                 <span class="font-bold" id="submissionCount"></span>
             </div>
             <div class="flex items-center max-sm:block max-sm:text-center max-md:mt-2">

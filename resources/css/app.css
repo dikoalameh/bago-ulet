@@ -35,12 +35,3 @@ table td, table th {
     --darkpurple: #401b57;
     --darkergray: #5c5c5c;
 }
-
-div::-webkit-scrollbar {
-    width: 5px;
-    border-radius: 10px;
-}
-
-div::-webkit-scrollbar-thumb {
-    background-color: #666;
-}
