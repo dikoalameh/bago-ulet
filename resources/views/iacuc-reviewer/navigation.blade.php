@@ -156,8 +156,8 @@
                 </a>
             </li>
             <li>
-                <a href="{{ url('/iacuc-reviewer/process-monitoring') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
-                    {{ Request::is('iacuc-reviewer/process-monitoring') ? 'text-secondary' : '' }}">
+                <a href="{{ url('/iacuc-reviewer/monitoring-process') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
+                    {{ Request::is('iacuc-reviewer/monitoring-process') ? 'text-secondary' : '' }}">
                     <i class="material-symbols-outlined">monitoring</i>
                     Process Monitoring
                 </a>

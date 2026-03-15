@@ -1,5 +1,33 @@
-@section('title','Monitoring Process')
+@section('title', 'Monitoring Process')
 <x-student-layout>
+    <div id="filterModal" onclick="outsideClick(event)"
+        class="fixed inset-0 bg-black z-[9999] bg-opacity-50 hidden items-center justify-center overflow-auto overscroll-contain">
+        <div class="relative flex items-center justify-center bg-white w-[400px] p-6 rounded-[10px] shadow-md">
+            <form action="" class="w-full px-2">
+                <div class="flex justify-between items-center mb-2">
+                    <div class="text-xl font-bold">Filter</div>
+                    <button type="button" onclick="closeSettingsModal('filterModal')" class="material-symbols-outlined">
+                        close
+                    </button>
+                </div>
+                <div class="w-full">
+                    <!-- CALENDAR FILTERING FOR THE COUNT OF SUBMISSION -->
+                    <div class="mt-4">
+                        <label for="fromDate">From:</label>
+                        <input type="date" id="fromDate" class="w-full max-md:text-sm h-[35px] text-sm max-sm:h-[31px]">
+                    </div>
+                    <div class="mt-4">
+                        <label for="toDate">To:</label>
+                        <input type="date" id="toDate" class="w-full max-md:text-sm h-[35px] text-sm max-sm:h-[31px]">
+                    </div>
+                </div>
+                <button type="button" onclick="updateTable(); closeSettingsModal('filterModal')"
+                    class="mt-4 bg-primary text-white tracking-widest uppercase px-4 py-2 rounded">
+                    Apply
+                </button>
+            </form>
+        </div>
+    </div>
     <!-- Main Content -->
     <main class="xl:ml-[335px] max-xl:ml-auto p-4 max-md:p-2">
         <h2 class="max-xl:hidden text-left bg-[#f2f2f2] shadow-lg p-[35px] rounded-[30px] font-medium text-[28px]">
@@ -8,8 +36,17 @@
         <br>
 
         <!-- CSS NG FILTER + SEARCH BAR -->
-        <div class="top-controls">
-            <div class="search-wrapper max-sm:mt-3 max-sm:justify-center max-sm:items-center"></div>
+        <div class="top-controls flex items-center justify-between max-md:flex-col">
+            <!-- FUNCTIONALITY TO DISPLAY THE DATAS BASED ON DATE -->
+            <div class="filter-box">
+                Total Submission Count:
+                <span class="font-bold" id="submissionCount"></span>
+            </div>
+            <div class="flex items-center max-sm:block max-sm:text-center max-md:mt-2">
+                <button type="button" onclick="openSettingsModal('filterModal')"
+                    class="material-symbols-outlined bg-primary text-white p-1.5 rounded">filter_alt</button>
+                <div class="search-wrapper max-sm:mt-3 max-sm:justify-center max-sm:items-center"></div>
+            </div>
         </div>
 
         <table id="myTable" class="display overflow-scroll border-collapse w-full">
@@ -24,47 +61,56 @@
             <!-- Table body -->
             <tbody class="text-base/7 max-lg:text-sm/6">
                 @forelse($processes as $process)
-                <tr>
-                    <td>{{ $process['description'] }}</td>
-                    <td>
-                        {{ $process['date'] }}<br>
-                        {{ $process['time'] }}
-                    </td>
-                </tr>
+                    <tr>
+                        <td>{{ $process['description'] }}</td>
+                        <td>
+                            {{ $process['date'] }}<br>
+                            {{ $process['time'] }}
+                        </td>
+                    </tr>
                 @empty
-                <tr>
-                    <td colspan="2" class="text-center py-4">No process records found</td>
-                </tr>
                 @endforelse
             </tbody>
         </table>
     </main>
 </x-student-layout>
 <script>
-     $(document).ready(function () {
-        // Only initialize if not already initialized
-        if (!$.fn.dataTable.isDataTable('#myTable')) {
-            const table = new DataTable('#myTable', {
-                responsive: true,
-                paging: false,
-                scrollY: '300px',
-                order: [[1, 'desc']] // Sort by Process Date descending
-            });
+    // calendar filtering
+    const fromDate = document.getElementById('fromDate');
+    const toDate = document.getElementById('toDate');
+    const rows = document.querySelectorAll("#myTable tbody tr");
+    const countSpan = document.getElementById("submissionCount");
 
-            // ✅ Move the DataTables search bar into our custom search-wrapper
-            const dtSearch = $('div.dt-search');
-            $('.search-wrapper').append(dtSearch);
+    function updateTable(selectedDate = "") {
+        const from = fromDate.value;
+        const to = toDate.value;
 
-            // ✅ Build dropdown filter dynamically
-            const descriptions = [...new Set(table.column(0).data().toArray())].sort();
-            const select = $('#officeFilter');
-            descriptions.forEach(d => select.append(`<option value="${d}">${d}</option>`));
+        let count = 0;
 
-            // ✅ Apply filter to Description column
-            select.on('change', function () {
-                const val = $.fn.dataTable.util.escapeRegex($(this).val());
-                table.column(0).search(val ? '^' + val + '$' : '', true, false).draw();
-            });
-        }
-    });
+        rows.forEach(row => {
+            const rowDate = row.getAttribute("data-date");
+
+            let showRow = true;
+
+            if (from && rowDate < from) {
+                showRow = false;
+            }
+
+            if (to && rowDate > to) {
+                showRow = false;
+            }
+
+            if (showRow) {
+                row.style.display = "";
+                count++;
+            } else {
+                row.style.display = "none";
+            }
+        });
+
+        countSpan.textContent = count;
+    }
+
+    // Initial load
+    updateTable();
 </script>

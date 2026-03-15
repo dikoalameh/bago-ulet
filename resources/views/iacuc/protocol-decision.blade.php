@@ -1,5 +1,47 @@
 @section('title', 'Protocol Decision')
 <x-iacuc-layout>
+    <div id="filterModal" onclick="outsideClick(event)"
+        class="fixed inset-0 bg-black z-[9999] bg-opacity-50 hidden items-center justify-center overflow-auto overscroll-contain">
+        <div class="relative flex items-center justify-center bg-white w-[400px] p-6 rounded-[10px] shadow-md">
+            <form action="" class="w-full px-2">
+                <div class="flex justify-between items-center mb-2">
+                    <div class="text-xl font-bold">Filter</div>
+                    <button type="button" onclick="closeSettingsModal('filterModal')" class="material-symbols-outlined">
+                        close
+                    </button>
+                </div>
+                <div class="w-full">
+                    <!-- FILTER BY COLUMN -->
+                    <div class="filter-box mt-4">
+                        <label for="filter">Filter:</label>
+                        <select id="filter"
+                            class="w-full max-md:text-sm h-[35px] leading-[15px] max-sm:h-[31px] max-sm:leading-[11px]">
+                            <option value="" selected disabled>All</option>
+                            <option value="Date Submitted">Date Submitted</option>
+                            <option value="Review Date">Review Date</option>
+                        </select>
+                    </div>
+                    <!-- CALENDAR FILTERING FOR THE COUNT OF SUBMISSION -->
+                    <div class="filter-box mt-4 flex items-center gap-x-2">
+                        <div>
+                            <label for="fromDate">From:</label>
+                            <input type="date" id="fromDate"
+                                class="w-full max-md:text-sm h-[35px] text-sm max-sm:h-[31px]">
+                        </div>
+                        <div>
+                            <label for="toDate">To:</label>
+                            <input type="date" id="toDate"
+                                class="w-full max-md:text-sm h-[35px] text-sm max-sm:h-[31px]">
+                        </div>
+                    </div>
+                </div>
+                <button type="button" onclick="updateTable(); closeSettingsModal('filterModal')"
+                    class="mt-4 bg-primary text-white tracking-widest uppercase px-4 py-2 rounded">
+                    Apply
+                </button>
+            </form>
+        </div>
+    </div>
     <!-- Main Content -->
     <main class="xl:ml-[335px] max-xl:ml-auto p-4 max-md:p-2">
         <h2 class="max-xl:hidden text-left bg-[#f2f2f2] shadow-lg p-[35px] rounded-[30px] font-medium text-[28px]">
@@ -8,15 +50,17 @@
         <br>
 
         <!-- CSS NG FILTER + SEARCH BAR -->
-        <div class="top-controls flex items-center max-md:flex-col">
-            <div class="filter-wrapper items-center gap-x-2 max-sm:justify-center max-sm:items-center">
-                <label for="officeFilter">Filter:</label>
-                <select id="officeFilter"
-                    class="w-32 max-md:text-sm h-[35px] leading-[15px] max-sm:h-[31px] max-sm:leading-[11px]">
-                    <option value="">All</option>
-                </select>
+        <div class="top-controls flex items-center justify-between max-md:flex-col">
+            <!-- FUNCTIONALITY TO DISPLAY THE DATAS BASED ON DATE -->
+            <div class="filter-box">
+                Total Submission Count:
+                <span class="font-bold" id="submissionCount"></span>
             </div>
-            <div class="search-wrapper max-sm:mt-3 max-sm:justify-center max-sm:items-center"></div>
+            <div class="flex items-center max-sm:block max-sm:text-center max-md:mt-2">
+                <button type="button" onclick="openSettingsModal('filterModal')"
+                    class="material-symbols-outlined bg-primary text-white p-1.5 rounded">filter_alt</button>
+                <div class="search-wrapper max-sm:mt-3 max-sm:justify-center max-sm:items-center"></div>
+            </div>
         </div>
 
         <table id="myTable" class="display overflow-scroll border-collapse w-full">
@@ -36,7 +80,7 @@
             <!-- Table body -->
             <tbody class="text-base/7 max-lg:text-sm/6">
                 @forelse($evaluatedProtocols as $review)
-                    <tr>
+                    <tr data-submitted="{{ $review->date_submitted }}" data-review="{{ $review->review_date }}">
                         <!-- Protocol ID with checkbox (moved to first column) -->
                         <td>
                             <input type="checkbox" class="protocol-checkbox w-[14px] h-[14px] mb-1"
@@ -74,9 +118,6 @@
                         </td>
                     </tr>
                 @empty
-                    <tr>
-                        <td colspan="7" class="text-center text-gray-500 py-4">No pending reviews available.</td>
-                    </tr>
                 @endforelse
             </tbody>
         </table>
@@ -117,74 +158,123 @@
             </button>
         </div>
     </main>
-    <script>
-        // ✅ Keep your checkbox logic (only one can be selected)
-        const protocolCheckboxes = document.querySelectorAll(".protocol-checkbox");
-        const selectedProtocolsList = document.getElementById("selectedProtocols");
-
-        protocolCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener("change", () => {
-                // Allow only one protocol selection at a time
-                protocolCheckboxes.forEach(cb => {
-                    if (cb !== checkbox) cb.checked = false;
-                });
-
-                selectedProtocolsList.innerHTML = "";
-
-                if (checkbox.checked) {
-                    const li = document.createElement("li");
-                    li.textContent = `Protocol ID: ${checkbox.value} — ${checkbox.dataset.title}`;
-                    li.setAttribute("data-protocol-id", checkbox.value);
-                    selectedProtocolsList.appendChild(li);
-                }
-            });
-        });
-
-        // ✅ Handle decision submission
-        document.getElementById("submitBtn").addEventListener("click", function () {
-            const selectedRadio = document.querySelector('input[name="decision"]:checked');
-            const selectedProtocol = document.querySelector(".protocol-checkbox:checked");
-
-            if (!selectedProtocol) {
-                alert("⚠️ Please select a protocol first.");
-                return;
-            }
-
-            if (!selectedRadio) {
-                alert("⚠️ Please select a decision type.");
-                return;
-            }
-
-            const decision = selectedRadio.value;
-            const protocolID = selectedProtocol.value;
-
-            fetch("{{ route('iacuc.pending-reviews.store') }}", {
-                method: "POST",
-                headers: {
-                    "X-CSRF-TOKEN": "{{ csrf_token() }}",
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    protocol_id: protocolID,
-                    decision: decision
-                }),
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("✅ " + data.message);
-                        selectedProtocol.closest("tr").classList.add("bg-green-100");
-                        selectedProtocol.checked = false;
-                        document.querySelector('input[name="decision"]:checked').checked = false;
-                        selectedProtocolsList.innerHTML = '';
-                    } else {
-                        alert("❌ " + (data.message || "An error occurred."));
-                    }
-                })
-                .catch(error => {
-                    console.error(error);
-                    alert("❌ Unexpected error occurred.");
-                });
-        });
-    </script>
 </x-iacuc-layout>
+<script>
+    function updateTable() {
+
+        const filterType = document.getElementById("filter").value;
+        const from = document.getElementById("fromDate").value;
+        const to = document.getElementById("toDate").value;
+        const rows = document.querySelectorAll("#myTable tbody tr");
+
+        rows.forEach(row => {
+
+            let rowDate = "";
+
+            if (filterType === "Date Submitted") {
+                rowDate = row.getAttribute("data-submitted");
+            }
+
+            if (filterType === "Review Date") {
+                rowDate = row.getAttribute("data-review");
+            }
+
+            if (!rowDate) {
+                row.style.display = "none";
+                return;
+            }
+
+            const date = rowDate.split(" ")[0]; // remove time
+
+            let showRow = true;
+
+            if (from && date < from) {
+                showRow = false;
+            }
+
+            if (to && date > to) {
+                showRow = false;
+            }
+
+            if (showRow) {
+                row.style.display = "";
+                count++; // ✅ increment visible rows
+            } else {
+                row.style.display = "none";
+            }
+
+        });
+    }
+    document.addEventListener("DOMContentLoaded", function () {
+        const rows = document.querySelectorAll("#myTable tbody tr");
+        document.getElementById("submissionCount").textContent = rows.length
+    })
+    // ✅ Keep your checkbox logic (only one can be selected)
+    const protocolCheckboxes = document.querySelectorAll(".protocol-checkbox");
+    const selectedProtocolsList = document.getElementById("selectedProtocols");
+
+    protocolCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener("change", () => {
+            // Allow only one protocol selection at a time
+            protocolCheckboxes.forEach(cb => {
+                if (cb !== checkbox) cb.checked = false;
+            });
+
+            selectedProtocolsList.innerHTML = "";
+
+            if (checkbox.checked) {
+                const li = document.createElement("li");
+                li.textContent = `Protocol ID: ${checkbox.value} — ${checkbox.dataset.title}`;
+                li.setAttribute("data-protocol-id", checkbox.value);
+                selectedProtocolsList.appendChild(li);
+            }
+        });
+    });
+
+    // ✅ Handle decision submission
+    document.getElementById("submitBtn").addEventListener("click", function () {
+        const selectedRadio = document.querySelector('input[name="decision"]:checked');
+        const selectedProtocol = document.querySelector(".protocol-checkbox:checked");
+
+        if (!selectedProtocol) {
+            alert("⚠️ Please select a protocol first.");
+            return;
+        }
+
+        if (!selectedRadio) {
+            alert("⚠️ Please select a decision type.");
+            return;
+        }
+
+        const decision = selectedRadio.value;
+        const protocolID = selectedProtocol.value;
+
+        fetch("{{ route('iacuc.pending-reviews.store') }}", {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                protocol_id: protocolID,
+                decision: decision
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("✅ " + data.message);
+                    selectedProtocol.closest("tr").classList.add("bg-green-100");
+                    selectedProtocol.checked = false;
+                    document.querySelector('input[name="decision"]:checked').checked = false;
+                    selectedProtocolsList.innerHTML = '';
+                } else {
+                    alert("❌ " + (data.message || "An error occurred."));
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                alert("❌ Unexpected error occurred.");
+            });
+    });
+</script>

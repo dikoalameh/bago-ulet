@@ -1,11 +1,53 @@
 @section('title', 'Resubmission')
 <x-erb-layout>
+    <div id="filterModal" onclick="outsideClick(event)"
+        class="fixed inset-0 bg-black z-[9999] bg-opacity-50 hidden items-center justify-center overflow-auto overscroll-contain">
+        <div class="relative flex items-center justify-center bg-white w-[400px] p-6 rounded-[10px] shadow-md">
+            <form action="" class="w-full px-2">
+                <div class="flex justify-between items-center mb-2">
+                    <div class="text-xl font-bold">Filter</div>
+                    <button type="button" onclick="closeSettingsModal('filterModal')" class="material-symbols-outlined">
+                        close
+                    </button>
+                </div>
+                <div class="w-full">
+                    <!-- CALENDAR FILTERING FOR THE COUNT OF SUBMISSION -->
+                    <div class="mt-4">
+                        <label for="fromDate">From:</label>
+                        <input type="date" id="fromDate" class="w-full max-md:text-sm h-[35px] text-sm max-sm:h-[31px]">
+                    </div>
+                    <div class="mt-4">
+                        <label for="toDate">To:</label>
+                        <input type="date" id="toDate" class="w-full max-md:text-sm h-[35px] text-sm max-sm:h-[31px]">
+                    </div>
+                </div>
+                <button type="button" onclick="updateTable(); closeSettingsModal('filterModal')"
+                    class="mt-4 bg-primary text-white tracking-widest uppercase px-4 py-2 rounded">
+                    Apply
+                </button>
+            </form>
+        </div>
+    </div>
     <!-- Main Content -->
     <main class="xl:ml-[335px] max-xl:ml-auto p-4 max-md:p-2">
         <h2 class="max-xl:hidden text-left bg-[#f2f2f2] shadow-lg p-[35px] rounded-[30px] font-medium text-[28px]">
             RESUBMISSION
         </h2>
         <br>
+
+        <!-- CSS NG FILTER + SEARCH BAR -->
+        <div class="top-controls flex items-center justify-between max-md:flex-col">
+            <!-- FUNCTIONALITY TO DISPLAY THE DATAS BASED ON DATE -->
+            <div class="filter-box">
+                Total Submission Count:
+                <span class="font-bold" id="submissionCount"></span>
+            </div>
+            <div class="flex items-center max-sm:block max-sm:text-center max-md:mt-2">
+                <button type="button" onclick="openSettingsModal('filterModal')"
+                    class="material-symbols-outlined bg-primary text-white p-1.5 rounded">filter_alt</button>
+                <div class="search-wrapper max-sm:mt-3 max-sm:justify-center max-sm:items-center"></div>
+            </div>
+        </div>
 
         <table id="myTable" class="display overflow-scroll border-collapse w-full">
             <thead class="bg-primary text-white text-lg/7 max-lg:text-base/7">
@@ -17,11 +59,10 @@
             </thead>
             <tbody class="text-base/7 max-lg:text-sm/6">
                 @forelse($approvedProtocols as $approved)
-                    <tr>
+                    <tr data-date="{{ $approved->created_at->format('Y-m-d') }}">
                         <td>
                             <input type="checkbox" class="user-checkbox w-[14px] h-[14px] mb-1"
-                                data-user-id="{{ $approved->user_ID }}" 
-                                data-protocol-id="{{ $approved->Protocol_ID }}"
+                                data-user-id="{{ $approved->user_ID }}" data-protocol-id="{{ $approved->Protocol_ID }}"
                                 data-user-name="{{ trim(($approved->user->user_Fname ?? '') . ' ' . ($approved->user->user_MI ?? '') . ' ' . ($approved->user->user_Lname ?? '')) }}">
                             <span>
                                 {{ $approved->user->user_Fname ?? '' }}
@@ -34,13 +75,10 @@
                         </td>
                         <td>
                             {{ $approved->created_at->format('m/d/Y') }}<br>
-                            {{ $approved->created_at->format('H:i:s') }}
+                            {{ $approved->created_at->format('h:i:s A') }}
                         </td>
                     </tr>
                 @empty
-                    <tr>
-                        <td colspan="3" class="text-center py-4">No approved protocols found.</td>
-                    </tr>
                 @endforelse
             </tbody>
         </table>
@@ -66,6 +104,45 @@
 </x-erb-layout>
 
 <script>
+    // calendar filtering
+    const fromDate = document.getElementById('fromDate');
+    const toDate = document.getElementById('toDate');
+    const rows = document.querySelectorAll("#myTable tbody tr");
+    const countSpan = document.getElementById("submissionCount");
+
+    function updateTable(selectedDate = "") {
+        const from = fromDate.value;
+        const to = toDate.value;
+
+        let count = 0;
+
+        rows.forEach(row => {
+            const rowDate = row.getAttribute("data-date");
+
+            let showRow = true;
+
+            if (from && rowDate < from) {
+                showRow = false;
+            }
+
+            if (to && rowDate > to) {
+                showRow = false;
+            }
+
+            if (showRow) {
+                row.style.display = "";
+                count++;
+            } else {
+                row.style.display = "none";
+            }
+        });
+
+        countSpan.textContent = count;
+    }
+
+    // Initial load
+    updateTable();
+
     $(document).ready(function () {
         const userCheckboxes = document.querySelectorAll(".user-checkbox");
         const selectedUsersList = document.getElementById("selectedUsers");
@@ -86,9 +163,9 @@
             checkbox.addEventListener("change", function () {
                 const userId = this.getAttribute('data-user-id');
                 const protocolId = this.getAttribute('data-protocol-id');
-                const userName = this.getAttribute('data-user-name') || 
-                               this.closest('td').querySelector('span').textContent.trim();
-                
+                const userName = this.getAttribute('data-user-name') ||
+                    this.closest('td').querySelector('span').textContent.trim();
+
                 console.log('Checkbox changed:', { userId, protocolId, userName });
 
                 const existing = selectedUsersList.querySelector(`[data-user-id="${userId}"][data-protocol-id="${protocolId}"]`);
@@ -129,15 +206,15 @@
             const selectedData = selectedItems.map(li => {
                 const userId = li.getAttribute('data-user-id');
                 const protocolId = li.getAttribute('data-protocol-id');
-                
+
                 console.log('Processing item:', { userId, protocolId });
-                
+
                 // Validate that we have values
                 if (!userId || !protocolId) {
                     console.error('Missing data:', { userId, protocolId });
                     return null;
                 }
-                
+
                 return {
                     user_id: userId,
                     protocol_id: protocolId
@@ -164,39 +241,39 @@
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify({ 
-                    protocols: selectedData 
+                body: JSON.stringify({
+                    protocols: selectedData
                 })
             })
-            .then(response => {
-                console.log('Response status:', response.status);
-                if (!response.ok) {
-                    return response.json().then(errorData => {
-                        throw new Error(errorData.message || `Server error: ${response.status}`);
-                    }).catch(() => {
-                        throw new Error(`Network error: ${response.status}`);
-                    });
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Success response:', data);
-                if (data.success) {
-                    alert(data.message || 'Protocols assigned successfully!');
-                    location.reload();
-                } else {
-                    throw new Error(data.message || 'Unknown error occurred');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error assigning protocols: ' + error.message);
-            })
-            .finally(() => {
-                // Re-enable button
-                this.disabled = false;
-                this.textContent = originalText;
-            });
+                .then(response => {
+                    console.log('Response status:', response.status);
+                    if (!response.ok) {
+                        return response.json().then(errorData => {
+                            throw new Error(errorData.message || `Server error: ${response.status}`);
+                        }).catch(() => {
+                            throw new Error(`Network error: ${response.status}`);
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Success response:', data);
+                    if (data.success) {
+                        alert(data.message || 'Protocols assigned successfully!');
+                        location.reload();
+                    } else {
+                        throw new Error(data.message || 'Unknown error occurred');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Error assigning protocols: ' + error.message);
+                })
+                .finally(() => {
+                    // Re-enable button
+                    this.disabled = false;
+                    this.textContent = originalText;
+                });
         });
 
         // Initialize selected list state

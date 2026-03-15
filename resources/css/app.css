@@ -6,7 +6,7 @@ table td, table th {
     position: relative;
 }
 .dt-search input[type="search"] {
-    margin-left: 4px;
+    margin-left: 2px;
     font-size: 14px;
     height: 30px;
     border-radius: 4px;
@@ -16,19 +16,10 @@ table td, table th {
 .search-wrapper {
     display: flex;
     justify-content: flex-end;
-    margin-left: 20px;
+    margin-left: 10px;
 }
-
-/* Make filter move */
-.filter-wrapper {
-    display: flex;
-    justify-content: flex-end;
-    flex: 1;
-}
-
-select {
-    padding: 4px 6px;
-    border-radius: 4px;
+.dt-length {
+    display: none;
 }
 
 :root {
@@ -45,11 +36,11 @@ select {
     --darkergray: #5c5c5c;
 }
 
-::-webkit-scrollbar {
+div::-webkit-scrollbar {
     width: 5px;
     border-radius: 10px;
 }
 
-::-webkit-scrollbar-thumb {
+div::-webkit-scrollbar-thumb {
     background-color: #666;
 }

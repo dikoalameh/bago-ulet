@@ -6,20 +6,14 @@
         </h2>
         <br>
 
-        {{-- ✅ START FORM --}}
         <form id="assignForm" action="{{ route('assign-reviewer.store') }}" method="POST">
             @csrf
 
             <!-- CSS NG FILTER + SEARCH BAR -->
-            <div class="top-controls flex items-center max-md:flex-col">
-                <div class="filter-wrapper items-center gap-x-2 max-sm:justify-center max-sm:items-center">
-                    <label for="officeFilter">Filter:</label>
-                    <select id="officeFilter"
-                        class="w-32 max-md:text-sm h-[35px] leading-[15px] max-sm:h-[31px] max-sm:leading-[11px]">
-                        <option value="">All</option>
-                    </select>
+            <div class="top-controls flex items-center justify-end max-md:flex-col">
+                <div class="flex items-center max-md:block max-md:text-center">
+                    <div class="search-wrapper max-md:mt-3 max-sm:justify-center max-sm:items-center"></div>
                 </div>
-                <div class="search-wrapper max-sm:mt-3 max-sm:justify-center max-sm:items-center"></div>
             </div>
 
             <table id="myTable" class="display overflow-scroll border-collapse w-full">
@@ -35,7 +29,8 @@
                         <tr>
                             <td>
                                 <input type="checkbox" class="user-checkbox w-[14px] h-[14px] mb-1"
-                                    value="{{ $assignReviewer->user_ID }}" data-name="{{ $assignReviewer->researchInformation?->research_title }}">
+                                    value="{{ $assignReviewer->user_ID }}"
+                                    data-name="{{ $assignReviewer->researchInformation?->research_title }}">
                                 <span>{{ $assignReviewer->researchInformation?->research_title }}</span>
                             </td>
                             <td>{{ $assignReviewer->user_Fname }} {{ $assignReviewer->user_MI }}
@@ -156,8 +151,7 @@
             <div id="fullboard" style="display: none;" class="bg-lightgray p-4 mt-4 shadow-md rounded-md">
                 <h3 class="font-semibold text-lg max-md:text-base mb-3">SELECTED PROTOCOLS FOR FULLBOARD REVIEW</h3>
                 <div class="h-20 overflow-y-auto">
-                    <ul id="selectedUsers"
-                        class="list-disc pl-5 flex grid max-md:grid-cols-1 max-md:text-sm"></ul>
+                    <ul id="selectedUsers" class="list-disc pl-5 flex grid max-md:grid-cols-1 max-md:text-sm"></ul>
                 </div>
             </div>
 
@@ -203,13 +197,13 @@
                 reviewerSection.style.display = "none"; // hide the section
                 fullBoard.style.display = "none";
             }
-            
+
             // Update form selection state when review type changes
             updateFormSelectionState();
         });
     });
 
-   // Modal controls
+    // Modal controls
     const userCheckboxes = document.querySelectorAll(".user-checkbox");
     const selectedUsersList = document.getElementById("selectedUsers");
 
@@ -257,7 +251,7 @@
         const bothNA = reviewer1.value === "N/A" && reviewer2.value === "N/A";
         const isExempted = reviewType.value === "Exempted";
         const isFullBoard = reviewType.value === "Full Board";
-        
+
         rooms.forEach(room => {
             if (bothNA || isExempted || isFullBoard) {
                 room.style.opacity = "0.5";
@@ -359,12 +353,12 @@
         } else {
             // For Expedited reviews, require reviewers
             if (!reviewer1Id || !reviewer2Id) return alert("Please select both reviewers.");
-            
+
             const bothNA = reviewer1Id === "N/A" && reviewer2Id === "N/A";
             if (!bothNA && selectedForms.length === 0) {
                 return alert("Please select at least one form to assign.");
             }
-            
+
             if (bothNA) selectedForms = [];
         }
 
@@ -389,67 +383,67 @@
             },
             body: JSON.stringify(data)
         })
-        .then(response => {
-            const contentType = response.headers.get('content-type');
-            
-            if (contentType && contentType.includes('application/pdf')) {
-                // Handle PDF response for exempted reviews only
-                return response.blob().then(blob => {
-                    if (blob.size === 0) {
-                        throw new Error('PDF is empty');
-                    }
-                    
-                    // Create download link for PDF
-                    const url = window.URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.style.display = 'none';
-                    a.href = url;
-                    
-                    // Get filename from Content-Disposition header
-                    const contentDisposition = response.headers.get('Content-Disposition');
-                    let filename = `Exempted_Certificate_${Date.now()}.pdf`;
-                    if (contentDisposition) {
-                        const filenameMatch = contentDisposition.match(/filename="(.+)"/);
-                        if (filenameMatch) {
-                            filename = filenameMatch[1];
-                        }
-                    }
-                    
-                    a.download = filename;
-                    document.body.appendChild(a);
-                    a.click();
-                    window.URL.revokeObjectURL(url);
-                    
-                    return { message: 'Exempted protocol assigned and certificate downloaded!' };
-                });
-            } else if (contentType && contentType.includes('application/json')) {
-                // Handle JSON response for non-exempted reviews (Full Board and Expedite)
-                return response.json();
-            } else {
-                throw new Error('Unexpected response type: ' + contentType);
-            }
-        })
-        .then(res => {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Submit";
+            .then(response => {
+                const contentType = response.headers.get('content-type');
 
-            if (res && res.message) {
-                if (isFullBoard) {
-                    alert("✅ Full Board protocol assigned successfully!");
+                if (contentType && contentType.includes('application/pdf')) {
+                    // Handle PDF response for exempted reviews only
+                    return response.blob().then(blob => {
+                        if (blob.size === 0) {
+                            throw new Error('PDF is empty');
+                        }
+
+                        // Create download link for PDF
+                        const url = window.URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.style.display = 'none';
+                        a.href = url;
+
+                        // Get filename from Content-Disposition header
+                        const contentDisposition = response.headers.get('Content-Disposition');
+                        let filename = `Exempted_Certificate_${Date.now()}.pdf`;
+                        if (contentDisposition) {
+                            const filenameMatch = contentDisposition.match(/filename="(.+)"/);
+                            if (filenameMatch) {
+                                filename = filenameMatch[1];
+                            }
+                        }
+
+                        a.download = filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+
+                        return { message: 'Exempted protocol assigned and certificate downloaded!' };
+                    });
+                } else if (contentType && contentType.includes('application/json')) {
+                    // Handle JSON response for non-exempted reviews (Full Board and Expedite)
+                    return response.json();
                 } else {
-                    alert("✅ " + res.message);
+                    throw new Error('Unexpected response type: ' + contentType);
                 }
-                resetForm();
-            } else if (res && res.error) {
-                alert("❌ " + res.error);
-            }
-        })
-        .catch(err => {
-            console.error('Error details:', err);
-            alert("❌ Failed to save: " + err.message);
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Submit";
-        });
+            })
+            .then(res => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Submit";
+
+                if (res && res.message) {
+                    if (isFullBoard) {
+                        alert("✅ Full Board protocol assigned successfully!");
+                    } else {
+                        alert("✅ " + res.message);
+                    }
+                    resetForm();
+                } else if (res && res.error) {
+                    alert("❌ " + res.error);
+                }
+            })
+            .catch(err => {
+                console.error('Error details:', err);
+                alert("❌ Failed to save: " + err.message);
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Submit";
+            });
     });
 
     // Function to reset form
@@ -465,14 +459,14 @@
         document.getElementById("r2_forms").textContent = "—";
         reviewer1.selectedIndex = 0;
         reviewer2.selectedIndex = 0;
-        
+
         // Clear selected users
         selectedUsersList.innerHTML = "";
         document.querySelectorAll('.user-checkbox').forEach(cb => {
             cb.checked = false;
         });
         document.getElementById("user_id").value = '';
-        
+
         // Reset review type
         reviewType.selectedIndex = 0;
     }

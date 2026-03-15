@@ -28,8 +28,8 @@ class ProcessMonitoringController extends Controller
                 'research_title' => $displayUser && $displayUser->researchInformation ? 
                     $displayUser->researchInformation->research_title : 'N/A',
                 'account_type' => $displayUser ? $displayUser->user_Access : 'System',
-                'date' => $process->timestamp->format('m/d/y'),
-                'time' => $process->timestamp->format('H:i:s'),
+                'date' => $process->timestamp->format('m/d/Y'),
+                'time' => $process->timestamp->format('h:i:s A'),
                 'description' => $process->process_description,
             ];
         });
@@ -62,8 +62,8 @@ class ProcessMonitoringController extends Controller
                     'research_title' => $displayUser && $displayUser->researchInformation ? 
                         $displayUser->researchInformation->research_title : 'N/A',
                     'account_type' => $displayUser ? $displayUser->user_Access : 'System',
-                    'date' => $process->timestamp->format('m/d/y'),
-                    'time' => $process->timestamp->format('H:i:s'),
+                    'date' => $process->timestamp->format('m/d/Y'),
+                    'time' => $process->timestamp->format('h:i:s A'),
                     'description' => $process->process_description,
                 ];
             });
@@ -92,8 +92,8 @@ class ProcessMonitoringController extends Controller
             ->map(function ($process) {
                 return [
                     'description' => $process->process_description,
-                    'date' => $process->timestamp->format('m/d/y'),
-                    'time' => $process->timestamp->format('H:i:s'),
+                    'date' => $process->timestamp->format('m/d/Y'),
+                    'time' => $process->timestamp->format('h:i:s A'),
                 ];
             });
 
@@ -120,8 +120,8 @@ class ProcessMonitoringController extends Controller
             ->map(function ($process) {
                 return [
                     'description' => $process->process_description,
-                    'date' => $process->timestamp->format('m/d/y'),
-                    'time' => $process->timestamp->format('H:i:s'),
+                    'date' => $process->timestamp->format('m/d/Y'),
+                    'time' => $process->timestamp->format('h:i:s A'),
                 ];
             });
 

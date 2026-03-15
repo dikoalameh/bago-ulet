@@ -138,6 +138,17 @@
                         placeholder="School" value="{{ old('research_school') }}" />
                 </div>
 
+                <!-- Research Type -->
+                <div class="mt-2">
+                    <x-input-label for="research_type" :value="__('Research Type')" />
+                    <select name="research_type" id="research_type" class="block border-gray mt-1 w-full text-[15px] max-sm:text-sm max-sm:text-sm h-[35px] leading-[20px]">
+                        <option value="" selected disabled>-- Choose type --</option>
+                        <option value="ERB">ERB</option>
+                        <option value="IACUC">IACUC</option>
+                        <option value="ERB/IACUC">ERB/IACUC</option>
+                    </select>
+                </div>
+
                 <!-- Research Title -->
                 <div class="mt-2">
                     <x-input-label for="research_title" :value="__('Research Title')" />

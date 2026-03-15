@@ -48,7 +48,7 @@
             if (!$.fn.dataTable.isDataTable('#myTable')) {
                 const table = new DataTable('#myTable', {
                     responsive: true,
-                    paging: false,
+                    paging: true,
                     scrollY: '350px',
                     order: [],
                     // Tell DataTables not to auto-detect data sources
@@ -62,17 +62,6 @@
                 // ✅ Move the DataTables search bar into our custom search-wrapper
                 const dtSearch = $('div.dt-search');
                 $('.search-wrapper').append(dtSearch);
-
-                // ✅ Build dropdown filter dynamically
-                const offices = [...new Set(table.column(1).data().toArray())].sort();
-                const select = $('#filter');
-                offices.forEach(o => select.append(`<option value="${o}">${o}</option>`));
-
-                // ✅ Apply filter to Office column
-                select.on('change', function () {
-                    const val = $.fn.dataTable.util.escapeRegex($(this).val());
-                    table.column(1).search(val ? '^' + val + '$' : '', true, false).draw();
-                });
             }
         });
 
@@ -144,7 +133,7 @@
                 });
             });
         }
-        
+
         function openSettingsModal(modalId) {
             const modal = document.getElementById(modalId);
             const inputs = document.querySelectorAll('.peer');
@@ -173,7 +162,8 @@
 
         function outsideClick(event) {
             if (event.target.id === 'editProfileModal' ||
-                event.target.id === 'changePasswordModal') {
+                event.target.id === 'changePasswordModal' ||
+                event.target.id === 'filterModal') {
 
                 // PREVENTS TO CLOSE SIDEBAR
                 event.stopPropagation();
@@ -185,7 +175,7 @@
         document.addEventListener('click', function (e) {
             const sidebar = document.getElementById('sidebar');
             const isModalOpen = !document.getElementById('editProfileModal').classList.contains('hidden') ||
-                !document.getElementById('changePasswordModal').classList.contains('hidden');
+                !document.getElementById('changePasswordModal').classList.contains('hidden') || !document.getElementById('filterModal').classList.contains('hidden');
 
             // WHEN THE MODAL IS OPEN
             if (isModalOpen) return;

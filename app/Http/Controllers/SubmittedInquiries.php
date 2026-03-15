@@ -21,7 +21,7 @@ class SubmittedInquiries extends Controller
                     'research_title' => $ticket->user && $ticket->user->researchInformation ? 
                         $ticket->user->researchInformation->research_title : 'N/A',
                     'subject' => $ticket->Ticket_Subject,
-                    'date_submitted' => $ticket->created_at->format('m/d/y<\b\r>H:i:s'),
+                    'date_submitted' => $ticket->created_at,
                     'ticket_id' => $ticket->Ticket_ID,
                 ];
             });

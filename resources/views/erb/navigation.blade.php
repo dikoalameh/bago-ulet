@@ -139,7 +139,7 @@
         class="hidden lg:flex justify-center bg-primary align-center p-2 overflow-hidden overscroll-contain border-darkergray border-b">
         <img src="{{ asset('images/mcu-logo-white.png') }}" alt="STUDENT MAS BAGO" class="w-44">
     </header>
-    <div class="overflow-y-auto overscroll-contain px-0 flex-1 bg-primary">
+    <div class="sidebar overflow-y-auto overscroll-contain px-0 flex-1 bg-primary">
         <ul class="m-4 text-lg p-0 bg-primary">
             <li>
                 <a href="{{ url('/erb/dashboard') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
@@ -219,7 +219,7 @@
             </li>
             <li>
                 <a href="{{ url('/erb/submitted-tickets') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
-                    {{ Request::is('erb/submitted-tickets') ? 'text-secondary' : ''}}">
+                    {{ Request::is('erb/submitted-tickets') || Request::is('erb/tickets/*') ? 'text-secondary' : ''}}">
                     <i class="material-symbols-outlined">topic</i>
                     Submitted Inquiries
                 </a>
@@ -373,7 +373,7 @@
                 </li>
                 <li>
                     <a href="{{ url('/erb/submitted-tickets') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
-                        {{ Request::is('erb/submitted-tickets') ? 'text-secondary' : ''}}">
+                        {{ Request::is('erb/submitted-tickets') || Request::is('erb/tickets/*') ? 'text-secondary' : ''}}">
                         <i class="material-symbols-outlined max-sm:text-[15px]">topic</i>
                         Submitted Inquiries
                     </a>

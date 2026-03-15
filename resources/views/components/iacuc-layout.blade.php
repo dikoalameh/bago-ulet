@@ -176,7 +176,8 @@
 
         function outsideClick(event) {
             if (event.target.id === 'editProfileModal' ||
-                event.target.id === 'changePasswordModal') {
+                event.target.id === 'changePasswordModal' ||
+                event.target.id === 'filterModal') {
 
                 // PREVENTS TO CLOSE SIDEBAR
                 event.stopPropagation();
@@ -188,7 +189,7 @@
         document.addEventListener('click', function (e) {
             const sidebar = document.getElementById('sidebar');
             const isModalOpen = !document.getElementById('editProfileModal').classList.contains('hidden') ||
-                !document.getElementById('changePasswordModal').classList.contains('hidden');
+                !document.getElementById('changePasswordModal').classList.contains('hidden') || !document.getElementById('filterModal').classList.contains('hidden');
 
             // WHEN THE MODAL IS OPEN
             if (isModalOpen) return;

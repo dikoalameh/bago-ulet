@@ -8,15 +8,10 @@
         <br>
 
         <!-- CSS NG FILTER + SEARCH BAR -->
-        <div class="top-controls flex items-center max-md:flex-col">
-            <div class="filter-wrapper items-center gap-x-2 max-sm:justify-center max-sm:items-center">
-                <label for="officeFilter">Filter:</label>
-                <select id="officeFilter"
-                    class="w-32 max-md:text-sm h-[35px] leading-[15px] max-sm:h-[31px] max-sm:leading-[11px]">
-                    <option value="">All</option>
-                </select>
+        <div class="top-controls flex items-center justify-end max-md:flex-col">
+            <div class="flex items-center max-md:block max-md:text-center">
+                <div class="search-wrapper max-md:mt-3 max-sm:justify-center max-sm:items-center"></div>
             </div>
-            <div class="search-wrapper max-sm:mt-3 max-sm:justify-center max-sm:items-center"></div>
         </div>
 
         <table id="myTable" class="display overflow-scroll border-collapse w-full">
@@ -32,7 +27,8 @@
                     <tr>
                         <td>
                             <input type="checkbox" class="user-checkbox w-[14px] h-[14px] mb-1"
-                                value="{{ $assignReviewer->user_ID }}" data-name="{{ $assignReviewer->researchInformation?->research_title }}">
+                                value="{{ $assignReviewer->user_ID }}"
+                                data-name="{{ $assignReviewer->researchInformation?->research_title }}">
                             <span>{{ $assignReviewer->researchInformation?->research_title }}</span>
                         </td>
                         <td>{{ $assignReviewer->user_Fname }} {{ $assignReviewer->user_MI }}
@@ -121,7 +117,7 @@
     function updateDropdownOptions() {
         const reviewer1Select = document.getElementById('reviewer1');
         const reviewer2Select = document.getElementById('reviewer2');
-        
+
         // Reset all options first
         Array.from(reviewer1Select.options).forEach(option => {
             if (option.value !== 'N/A') {
@@ -129,14 +125,14 @@
                 option.hidden = false;
             }
         });
-        
+
         Array.from(reviewer2Select.options).forEach(option => {
             if (option.value !== 'N/A') {
                 option.disabled = false;
                 option.hidden = false;
             }
         });
-        
+
         // Disable selected reviewers in the other dropdown
         if (selectedReviewers.reviewer1 && selectedReviewers.reviewer1 !== 'N/A') {
             const optionToDisable = reviewer2Select.querySelector(`option[value="${selectedReviewers.reviewer1}"]`);
@@ -144,7 +140,7 @@
                 optionToDisable.disabled = true;
             }
         }
-        
+
         if (selectedReviewers.reviewer2 && selectedReviewers.reviewer2 !== 'N/A') {
             const optionToDisable = reviewer1Select.querySelector(`option[value="${selectedReviewers.reviewer2}"]`);
             if (optionToDisable) {
@@ -158,7 +154,7 @@
         const nameElement = document.getElementById(`r${reviewerNumber}_name`);
         const collegeElement = document.getElementById(`r${reviewerNumber}_college`);
         const progElement = document.getElementById(`r${reviewerNumber}_prog`);
-        
+
         if (selectedOption.value === 'N/A') {
             nameElement.textContent = '—';
             collegeElement.textContent = '—';
@@ -171,16 +167,16 @@
     }
 
     // Reviewer 1 change event
-    document.getElementById('reviewer1').addEventListener('change', function() {
+    document.getElementById('reviewer1').addEventListener('change', function () {
         const selectedOption = this.options[this.selectedIndex];
         selectedReviewers.reviewer1 = selectedOption.value;
-        
+
         // Update reviewer 1 information
         displayReviewerInfo(1, selectedOption);
-        
+
         // Update dropdown options to prevent duplicate selection
         updateDropdownOptions();
-        
+
         // If same reviewer is selected in both, reset reviewer 2
         if (selectedReviewers.reviewer1 === selectedReviewers.reviewer2 && selectedReviewers.reviewer1 !== 'N/A') {
             document.getElementById('reviewer2').value = 'N/A';
@@ -190,16 +186,16 @@
     });
 
     // Reviewer 2 change event
-    document.getElementById('reviewer2').addEventListener('change', function() {
+    document.getElementById('reviewer2').addEventListener('change', function () {
         const selectedOption = this.options[this.selectedIndex];
         selectedReviewers.reviewer2 = selectedOption.value;
-        
+
         // Update reviewer 2 information
         displayReviewerInfo(2, selectedOption);
-        
+
         // Update dropdown options to prevent duplicate selection
         updateDropdownOptions();
-        
+
         // If same reviewer is selected in both, reset reviewer 1
         if (selectedReviewers.reviewer2 === selectedReviewers.reviewer1 && selectedReviewers.reviewer2 !== 'N/A') {
             document.getElementById('reviewer1').value = 'N/A';
@@ -226,13 +222,13 @@
             alert("Please select at least one research project.");
             return;
         }
-        
+
         // Validate at least one reviewer is selected (not N/A)
         if (reviewer1Id === 'N/A' && reviewer2Id === 'N/A') {
             alert("Please select at least one reviewer.");
             return;
         }
-        
+
         // Validate no duplicate reviewers
         if (reviewer1Id !== 'N/A' && reviewer2Id !== 'N/A' && reviewer1Id === reviewer2Id) {
             alert("Please select different reviewers for Reviewer 1 and Reviewer 2.");
@@ -258,34 +254,34 @@
             },
             body: JSON.stringify(data)
         })
-        .then(response => {
-            const contentType = response.headers.get('content-type');
-            
-            if (contentType && contentType.includes('application/json')) {
-                return response.json();
-            } else {
-                return response.text().then(text => {
-                    throw new Error('Unexpected response type: ' + contentType);
-                });
-            }
-        })
-        .then(res => {
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Submit";
+            .then(response => {
+                const contentType = response.headers.get('content-type');
 
-            if (res && res.message) {
-                alert("✅ " + res.message);
-                resetForm();
-            } else if (res && res.error) {
-                alert("❌ " + res.error);
-            }
-        })
-        .catch(err => {
-            console.error('Error details:', err);
-            alert("❌ Failed to save: " + err.message);
-            submitBtn.disabled = false;
-            submitBtn.textContent = "Submit";
-        });
+                if (contentType && contentType.includes('application/json')) {
+                    return response.json();
+                } else {
+                    return response.text().then(text => {
+                        throw new Error('Unexpected response type: ' + contentType);
+                    });
+                }
+            })
+            .then(res => {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Submit";
+
+                if (res && res.message) {
+                    alert("✅ " + res.message);
+                    resetForm();
+                } else if (res && res.error) {
+                    alert("❌ " + res.error);
+                }
+            })
+            .catch(err => {
+                console.error('Error details:', err);
+                alert("❌ Failed to save: " + err.message);
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Submit";
+            });
     });
 
     // Function to reset form
@@ -294,11 +290,11 @@
         document.querySelectorAll('.user-checkbox').forEach(checkbox => {
             checkbox.checked = false;
         });
-        
+
         // Reset reviewer selections
         document.getElementById('reviewer1').selectedIndex = 0;
         document.getElementById('reviewer2').selectedIndex = 0;
-        
+
         // Reset reviewer information display
         document.getElementById("r1_name").textContent = "—";
         document.getElementById("r2_name").textContent = "—";
@@ -306,19 +302,19 @@
         document.getElementById("r2_college").textContent = "—";
         document.getElementById("r1_prog").textContent = "—";
         document.getElementById("r2_prog").textContent = "—";
-        
+
         // Reset selected reviewers
         selectedReviewers = {
             reviewer1: null,
             reviewer2: null
         };
-        
+
         // Update dropdown options
         updateDropdownOptions();
     }
 
     // Initialize dropdown options on page load
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         updateDropdownOptions();
     });
 </script>
