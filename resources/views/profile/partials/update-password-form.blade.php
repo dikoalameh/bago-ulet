@@ -12,36 +12,45 @@
     <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-6">
         @csrf
         @method('put')
-
-        <div>
-            <x-input-label for="update_password_current_password" :value="__('Current Password')" />
-            <x-text-input id="update_password_current_password" name="current_password" type="password" class="mt-1 max-xl:text-sm block w-full" autocomplete="current-password" />
-            <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
+        <div class="relative mt-6 w-full">
+            <x-text-input id="update_password_current_password" name="current_password" type="password"
+                required placeholder="" autocomplete="current-password"
+                class="peer w-full h-[40px] bg-transparent rounded focus:ring-0 outline-none text-sm" />
+            <label for="update_password_current_password"
+                class="px-2 absolute left-1 top-[9px] text-darkergray text-sm transition-all duration-300 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary peer-valid:-top-2 peer-valid:text-xs peer-valid:text-primary bg-white">
+                Current Password
+            </label>
+            <x-input-error class="mt-2" :messages="$errors->updatePassword->get('current_password')" />
         </div>
 
-        <div>
-            <x-input-label for="update_password_password" :value="__('New Password')" />
-            <x-text-input id="update_password_password" name="password" type="password" class="mt-1 max-xl:text-sm block w-full" autocomplete="new-password" />
-            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
+        <div class="relative mt-6 w-full">
+            <x-text-input id="update_password_password" name="password" type="password" required
+                placeholder="" autocomplete="new-password"
+                class="peer w-full h-[40px] bg-transparent rounded focus:ring-0 outline-none text-sm" />
+            <label for="update_password_password"
+                class="px-2 absolute left-1 top-[9px] text-darkergray text-sm transition-all duration-300 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary peer-valid:-top-2 peer-valid:text-xs peer-valid:text-primary bg-white">
+                New Password
+            </label>
+            <x-input-error class="mt-2" :messages="$errors->updatePassword->get('password')"/>
         </div>
 
-        <div>
-            <x-input-label for="update_password_password_confirmation" :value="__('Confirm Password')" />
-            <x-text-input id="update_password_password_confirmation" name="password_confirmation" type="password" class="mt-1 max-xl:text-sm block w-full" autocomplete="new-password" />
-            <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
+        <div class="relative mt-6 w-full">
+            <x-text-input id="update_password_current_password" name="password_confirmation" type="password"
+                required placeholder="" autocomplete="name"
+                class="peer w-full h-[40px] bg-transparent rounded focus:ring-0 outline-none text-sm" />
+            <label for="update_password_password_confirmation"
+                class="px-2 absolute left-1 top-[9px] text-darkergray text-sm transition-all duration-300 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary peer-valid:-top-2 peer-valid:text-xs peer-valid:text-primary bg-white">
+                Confirm New Password
+            </label>
+            <x-input-error class="mt-2" :messages="$errors->updatePassword->get('password_confirmation')" />
         </div>
 
         <div class="flex items-center gap-4">
             <x-primary-button>{{ __('Save') }}</x-primary-button>
 
             @if (session('status') === 'password-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm"
-                >{{ __('Saved.') }}</p>
+                <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)"
+                    class="text-sm">{{ __('Saved.') }}</p>
             @endif
         </div>
     </form>

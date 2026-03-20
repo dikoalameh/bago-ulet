@@ -1,80 +1,3 @@
-<!-- EDIT PROFILE MODAL FORM -->
-<div id="editProfileModal" onclick="outsideClick(event)"
-    class="fixed inset-0 bg-black z-[9999] bg-opacity-50 hidden items-center justify-center overflow-auto overscroll-contain">
-    <div class="relative flex items-center justify-center bg-white w-[500px] p-6 rounded-[10px] shadow-md">
-        <form action="" class="w-full px-2">
-            <div class="flex justify-between items-center mb-2">
-                <div class="text-xl font-bold">Edit Profile</div>
-                <button type="button" onclick="closeSettingsModal('editProfileModal')"
-                    class="material-symbols-outlined">
-                    close
-                </button>
-            </div>
-            <!-- PROFILE IMAGE -->
-            <div class="flex flex-col items-center mb-3">
-                <div class="relative">
-                    <img id="profilePreview" src="{{ asset('images/profile-black.png') }}"
-                        class="w-[110px] h-[110px] rounded-full object-cover shadow-md">
-
-                    <label for="profileImage"
-                        class="material-symbols-outlined absolute bottom-0 right-0 bg-primary text-white p-2 rounded-full cursor-pointer">
-                        photo_camera
-                    </label>
-                </div>
-                <input type="file" id="profileImage" accept="image/*" class="hidden" onchange="previewImage(event)">
-                <button type="button" onclick="removeProfileImage()"
-                    class="bg-secondary px-3 py-2 tracking-widest text-primary mt-2 rounded-[5px]">REMOVE
-                    PHOTO</button>
-            </div>
-            <!-- INPUTS -->
-            <div class="flex gap-4 w-full">
-                <div class="relative w-1/2 border-b-[2px] mt-6">
-                    <span class="absolute right-[8px] leading-[57px]">
-                        <i class="bi bi-person-fill"></i>
-                    </span>
-                    <input type="text" required class="name w-full h-[50px] bg-transparent border-0 focus:ring-0">
-                    <label
-                        class="absolute top-[50%] text-darkgray left-[8px] -translate-y-[50%] pointer-events-none transition-all duration-300">
-                        First Name
-                    </label>
-                </div>
-                <div class="relative w-1/2 border-b-[2px] mt-6">
-                    <span class="absolute right-[8px] leading-[57px]">
-                        <i class="bi bi-person-fill"></i>
-                    </span>
-                    <input type="text" required class="name w-full h-[50px] bg-transparent border-0 focus:ring-0">
-                    <label
-                        class="absolute top-[50%] text-darkgray left-[8px] -translate-y-[50%] pointer-events-none transition-all duration-300">
-                        Middle Name
-                    </label>
-                </div>
-            </div>
-            <div class="relative border-b-[2px] mt-6 w-full">
-                <span class="absolute right-[8px] leading-[57px]">
-                    <i class="bi bi-person-fill"></i>
-                </span>
-                <input type="text" required class="name w-full h-[50px] bg-transparent border-0 focus:ring-0">
-                <label
-                    class="absolute top-[50%] left-[8px] text-darkgray -translate-y-[50%] pointer-events-none transition-all duration-300">
-                    Surname
-                </label>
-            </div>
-            <div class="flex items-center gap-x-2 mt-2">
-                <!-- RESET TO DEFAULT -->
-                <button type="submit"
-                    class="mt-4 bg-primary text-white hover:bg-secondary hover:text-primary font-normal rounded-[5px] px-4 py-1 tracking-widest uppercase transition-all duration-300">
-                    Reset
-                </button>
-                <!-- SAVE ALL CHANGES -->
-                <button type="submit"
-                    class="mt-4 bg-secondary text-primary hover:bg-primary hover:text-white font-normal rounded-[5px] px-4 py-1 tracking-widest uppercase transition-all duration-300">
-                    Save
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
 <nav class="bg-primary h-screen text-white fixed top-0 left-0 hidden xl:flex flex-col overflow-y-auto w-[335px]">
     <header
         class="hidden lg:flex justify-center bg-primary align-center p-2 overflow-hidden overscroll-contain border-darkergray border-b">
@@ -82,7 +5,6 @@
     </header>
     <div class="nav-items overflow-y-auto overscroll-contain px-0 flex-1 bg-primary [&::-webkit-scrollbar]:w-[4px] [&::-webkit-scrollbar-thumb]:bg-[#666666]">
         <ul class="m-4 text-lg p-0 bg-primary">
-            <!-- DASHBOARD -->
             <li>
                 <a href="{{ url('/student/dashboard') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
                     {{ Request::is('student/dashboard') ? 'text-secondary' : '' }}">
@@ -90,7 +12,6 @@
                     Dashboard
                 </a>
             </li>
-            <!-- SUBMIT FORMS -->
             <li>
                 <a href="{{ url('/student/submit-forms') }}"
                     class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
@@ -99,7 +20,6 @@
                     Submit Forms
                 </a>
             </li>
-            <!-- SUBMIT DOCUMENTS -->
             <li>
                 <a href="{{ url('/student/submit-documents') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
                     {{ Request::is('student/submit-documents') ? 'text-secondary' : '' }}">
@@ -107,7 +27,6 @@
                     Submit Documents
                 </a>
             </li>
-            <!-- SUBMIT INQUIRIES -->
             <li>
                 <a href="{{ url('/student/submit-inquiries') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
                     {{ Request::is('student/submit-inquiries') ? 'text-secondary' : '' }}">
@@ -115,7 +34,6 @@
                     Submit Inquiries
                 </a>
             </li>
-            <!-- PROCESS MONITORING -->
             <li>
                 <a href="{{ url('/student/monitoring-process') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
                     {{ Request::is('student/monitoring-process') ? 'text-secondary' : '' }}">
@@ -124,11 +42,11 @@
                 </a>
             </li>
             <li>
-                <button onclick="openSettingsModal('editProfileModal')"
-                    class="w-full flex items-center border-none px-2 py-3 gap-x-3 hover:text-secondary transition-all duration-300">
-                    <i class="material-symbols-outlined text-sm">account_circle</i>
-                    Edit Profile
-                </button>
+                <a href="{{ url('/student/settings') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
+                    {{ Request::is('student/settings') ? 'text-secondary' : '' }}">
+                    <i class="material-symbols-outlined text-sm">settings</i>
+                    Settings
+                </a>
             </li>
         </ul>
     </div>
@@ -164,7 +82,6 @@
         </header>
         <div class="overflow-auto overscroll-contain flex-1">
             <ul class="m-2 p-0 bg-primary">
-                <!-- DASHBOARD -->
                 <li>
                     <a href="{{ url('/student/dashboard') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
                         {{ Request::is('student/dashboard') }}">
@@ -180,7 +97,6 @@
                         Submit Forms
                     </a>
                 </li>
-                <!-- SUBMIT DOCUMENTS -->
                 <li>
                     <a href="{{ url('/student/submit-documents') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
                         {{ Request::is('student/submit-documents') ? 'text-secondary' : '' }}">
@@ -188,7 +104,6 @@
                         Submit Documents
                     </a>
                 </li>
-                <!-- SUBMIT INQUIRIES -->
                 <li>
                     <a href="{{ url('/student/submit-inquiries') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
                         {{ Request::is('student/submit-inquiries') ? 'text-secondary' : '' }}">
@@ -196,20 +111,12 @@
                         Submit Inquiries
                     </a>
                 </li>
-                <!-- PROCESS MONITORING -->
                 <li>
                     <a href="{{ url('/student/monitoring-process') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
                         {{ Request::is('student/monitoring-process') ? 'text-secondary' : '' }}">
                         <i class="material-symbols-outlined max-sm:text-[15px]">monitor</i>
                         Process Monitoring
                     </a>
-                </li>
-                <li>
-                    <button onclick="openSettingsModal('editProfileModal')"
-                        class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary">
-                        <i class="material-symbols-outlined max-sm:text-[15px]">account_circle</i>
-                        Edit Profile
-                    </button>
                 </li>
             </ul>
         </div>
@@ -236,8 +143,6 @@
         </footer>
     </nav>
 </div>
-
-<!-- HEADER FOR MOBILE VIEW -->
 <header
     class="h-[65px] xl:hidden bg-primary z-[99] shadow-md sticky top-0 left-0 flex items-center px-3 justify-between">
     <button id="menuBtn" class="text-white focus:outline-none text-xl pl-3">&#9776;</button>

@@ -36,18 +36,26 @@
         @csrf
 
         <!-- Username -->
-        <div>
-            <x-input-label for="user_ID" :value="__('Username')" />
-            <x-text-input id="user_ID" class="block mt-1 w-full text-[15px] max-sm:text-sm h-[35px]" type="text"
-                name="user_ID" :value="old('user_ID')" required autofocus autocomplete="username" />
+        <div class="relative mt-6 w-full">
+            <x-text-input id="user_ID"
+                class="peer w-full max-sm:h-[35px] h-[40px] bg-transparent rounded focus:ring-0 outline-none text-sm"
+                type="text" name="user_ID" :value="old('user_ID')" required autofocus autocomplete="username" />
+            <label for="user_ID"
+                class="px-2 absolute left-1 top-[8px] max-sm:top-[7px] text-darkergray max-sm:text-sm text-md transition-all duration-300 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary peer-valid:-top-2 peer-valid:text-xs peer-valid:text-primary bg-white">
+                Username
+            </label>
             <x-input-error :messages="$errors->get('user_ID')" class="mt-2" />
         </div>
 
         <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="user_Password" :value="__('Password')" />
-            <x-text-input id="user_Password" class="block mt-1 w-full text-[15px] max-sm:text-sm h-[35px]"
+        <div class="relative mt-6 w-full">
+            <x-text-input id="user_Password"
+                class="peer w-full max-sm:h-[35px] h-[40px] bg-transparent rounded focus:ring-0 outline-none text-sm"
                 type="password" name="user_Password" required autocomplete="current-password" />
+            <label for="user_Password"
+                class="px-2 absolute left-1 top-[8px] max-sm:top-[7px] text-darkergray max-sm:text-sm text-md transition-all duration-300 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary peer-valid:-top-2 peer-valid:text-xs peer-valid:text-primary bg-white">
+                Password
+            </label>
             <x-input-error :messages="$errors->get('user_Password')" class="mt-2" />
         </div>
 

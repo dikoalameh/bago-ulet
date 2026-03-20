@@ -6,7 +6,7 @@
             <form action="" class="w-full px-2">
                 <div class="flex justify-between items-center mb-2">
                     <div class="text-xl font-bold">Filter</div>
-                    <button type="button" onclick="closeSettingsModal('filterModal')" class="material-symbols-outlined">
+                    <button type="button" onclick="closeModal('filterModal')" class="material-symbols-outlined">
                         close
                     </button>
                 </div>
@@ -21,7 +21,7 @@
                         <input type="date" id="toDate" class="w-full max-md:text-sm h-[35px] text-sm max-sm:h-[31px]">
                     </div>
                 </div>
-                <button type="button" onclick="updateTable(); closeSettingsModal('filterModal')"
+                <button type="button" onclick="updateTable(); closeModal('filterModal')"
                     class="mt-4 bg-primary text-white tracking-widest uppercase px-4 py-2 rounded">
                     Apply
                 </button>
@@ -43,7 +43,7 @@
                 <span class="font-bold" id="submissionCount"></span>
             </div>
             <div class="flex items-center max-sm:block max-sm:text-center max-md:mt-2">
-                <button type="button" onclick="openSettingsModal('filterModal')"
+                <button type="button" onclick="openModal('filterModal')"
                     class="material-symbols-outlined bg-primary text-white p-1.5 rounded">filter_alt</button>
                 <div class="search-wrapper max-sm:mt-3 max-sm:justify-center max-sm:items-center"></div>
             </div>

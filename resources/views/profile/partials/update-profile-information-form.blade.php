@@ -13,58 +13,62 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6 w-full">
         @csrf
         @method('patch')
-
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 max-xl:text-sm block w-full" autofocus
-                autocomplete="name" />
+            <div class="flex mt-3">
+                <img id="profile-img" src="{{ asset('/images/profile-black.png') }}" alt="Profile Picture"
+                    class="w-[100px] max-md:w-[85px] h-[100px] max-md:h-[85px] rounded-full object-cover">
+                <!-- Upload Button -->
+                <div class="my-auto mx-4">
+                    <div>
+                        <label for="file-upload"
+                            class="cursor-pointer inline-block bg-secondary hover:bg-primary text-primary hover:text-secondary tracking-widest py-2 px-3 rounded-md duration-200">
+                            CHANGE PHOTO
+                        </label>
+                        <input type="file" id="file-upload" accept="image/*" class="hidden">
+                    </div>
+                    <div class="text-sm text-primary">
+                        JPG or PNG (Max 2MB per file)
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="relative mt-6 w-full">
+            <x-text-input id="name" name="name" type="text" required placeholder="" autocomplete="name"
+                class="peer w-full h-[40px] bg-transparent rounded focus:ring-0 outline-none text-sm" />
+            <label for="name"
+                class="px-2 absolute left-1 top-[9px] text-darkergray text-sm transition-all duration-300 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary peer-valid:-top-2 peer-valid:text-xs peer-valid:text-primary bg-white">
+                Name
+            </label>
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
         </div>
-
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 max-xl:text-sm block w-full"
-                autocomplete="username" />
+        <div class="relative mt-6 w-full">
+            <x-text-input id="email" name="email" type="email" required placeholder=""
+                class="peer w-full h-[40px] bg-transparent rounded focus:ring-0 outline-none text-sm"
+                autocomplete="email" />
+            <label for="email"
+                class="px-2 absolute left-1 top-[9px] text-darkergray text-sm transition-all duration-300 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary peer-valid:-top-2 peer-valid:text-xs peer-valid:text-primary bg-white">
+                Email
+            </label>
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
-
-            <div>
-                <p class="text-sm mt-2">
-                    {{ __('Your email address is unverified.') }}
-
-                    <button form="send-verification"
-                        class="underline text-sm text-primary hover:text-orangeyellow duration-200 rounded-md">
-                        {{ __('Click here to re-send the verification email.') }}
-                    </button>
-                </p>
-
-                @if (session('status') === 'verification-link-sent')
-                    <p class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
-                        {{ __('A new verification link has been sent to your email address.') }}
-                    </p>
-                @endif
-            </div>
         </div>
-
         <div>
-            <x-input-label for="profile_photo" :value="__('Profile Picture')" />
-            <!-- Profile container -->
-            <div class="user-img relative w-[130px] max-md:w-[115px] h-[130px] max-md:h-[115px]">
-                <!-- Profile image -->
-                <img src="{{ asset('images/mcu-logo.png') }}" id="photo" alt="profile"
-                    class="w-[130px] max-md:w-[115px] h-[130px] max-md:h-[115px] rounded-full border-2 border-white shadow-md" />
+            <p class="text-sm mt-2">
+                {{ __('Your email address is unverified.') }}
 
-                <!-- Hidden file input -->
-                <input type="file" id="file" class="hidden" />
+                <button form="send-verification"
+                    class="underline text-left text-sm text-primary hover:text-orangeyellow duration-200 rounded-md">
+                    {{ __('Click here to re-send the verification email.') }}
+                </button>
+            </p>
 
-                <!-- Upload button -->
-                <label for="file" id="uploadBtn"
-                    class="absolute bottom-0 right-0 flex items-center justify-center w-[32px] max-md:w-[28px] max-md:h-[28px] h-[32px] rounded-full bg-darkgray text-white shadow-[2px_4px_4px_rgba(0,0,0,0.6)] cursor-pointer hover:bg-primary transition">
-                    <i class="bi bi-camera-fill max-md:text-sm"></i>
-                </label>
-            </div>
+            @if (session('status') === 'verification-link-sent')
+                <p class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
+                    {{ __('A new verification link has been sent to your email address.') }}
+                </p>
+            @endif
         </div>
 
         <div class="flex items-center gap-4">
