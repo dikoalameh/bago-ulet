@@ -6,8 +6,13 @@
             <form action="" class="w-full px-2">
                 <div class="flex justify-between items-center mb-2">
                     <div class="text-xl font-bold">Filter</div>
-                    <button type="button" onclick="closeSettingsModal('filterModal')" class="material-symbols-outlined">
-                        close
+                    <button type="button" onclick="closeModal('filterModal')">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-x-icon lucide-x">
+                            <path d="M18 6 6 18" />
+                            <path d="m6 6 12 12" />
+                        </svg>
                     </button>
                 </div>
                 <div class="w-full">
@@ -21,7 +26,7 @@
                         <input type="date" id="toDate" class="w-full max-md:text-sm h-[35px] text-sm max-sm:h-[31px]">
                     </div>
                 </div>
-                <button type="button" onclick="updateTable(); closeSettingsModal('filterModal')"
+                <button type="button" onclick="updateTable(); closeModal('filterModal')"
                     class="mt-4 bg-primary text-white tracking-widest uppercase px-4 py-2 rounded">
                     Apply
                 </button>
@@ -43,8 +48,15 @@
                 <span class="font-bold" id="submissionCount"></span>
             </div>
             <div class="flex items-center max-sm:block max-sm:text-center max-md:mt-2">
-                <button type="button" onclick="openSettingsModal('filterModal')"
-                    class="material-symbols-outlined bg-primary text-white p-1.5 rounded">filter_alt</button>
+                <button type="button" onclick="openModal('filterModal')"
+                    class="material-symbols-outlined bg-primary text-white p-1.5 rounded">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-funnel-icon lucide-funnel">
+                        <path
+                            d="M10 20a1 1 0 0 0 .553.895l2 1A1 1 0 0 0 14 21v-7a2 2 0 0 1 .517-1.341L21.74 4.67A1 1 0 0 0 21 3H3a1 1 0 0 0-.742 1.67l7.225 7.989A2 2 0 0 1 10 14z" />
+                    </svg>
+                </button>
                 <div class="search-wrapper max-sm:mt-3 max-sm:justify-center max-sm:items-center"></div>
             </div>
         </div>
@@ -96,42 +108,36 @@
     </main>
 </x-superadmin-layout>
 <script>
-    // calendar filtering
     const fromDate = document.getElementById('fromDate');
     const toDate = document.getElementById('toDate');
-    const rows = document.querySelectorAll("#myTable tbody tr");
     const countSpan = document.getElementById("submissionCount");
 
-    function updateTable(selectedDate = "") {
+    // ✅ Register BEFORE DataTable initializes (this runs first since it's in the slot)
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+        if (settings.nTable.id !== 'myTable') return true;
+
         const from = fromDate.value;
         const to = toDate.value;
 
-        let count = 0;
+        if (!from && !to) return true;
 
-        rows.forEach(row => {
-            const rowDate = row.getAttribute("data-date");
+        const row = settings.aoData[dataIndex].nTr;
+        const rowDate = row ? row.getAttribute('data-date') : '';
 
-            let showRow = true;
+        if (from && rowDate < from) return false;
+        if (to && rowDate > to) return false;
 
-            if (from && rowDate < from) {
-                showRow = false;
-            }
+        return true;
+    });
 
-            if (to && rowDate > to) {
-                showRow = false;
-            }
-
-            if (showRow) {
-                row.style.display = "";
-                count++;
-            } else {
-                row.style.display = "none";
-            }
-        });
-
-        countSpan.textContent = count;
+    function updateTable() {
+        const table = $('#myTable').DataTable();
+        table.draw();
+        countSpan.textContent = table.rows({ search: 'applied' }).count();
     }
 
-    // Initial load
-    updateTable();
+    // ✅ Set initial count after DataTables is ready
+    $(document).ready(function () {
+        countSpan.textContent = $('#myTable').DataTable().rows().count();
+    });
 </script>

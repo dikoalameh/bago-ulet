@@ -1,19 +1,16 @@
-<button id="faqButton" onclick="openFaqModal('faqModal')"
-    class="fixed bottom-12 right-12 z-40 w-12 h-12 rounded-md bg-primary text-white flex items-center justify-center shadow-lg hover:bg-gray-700 transition"
-    title="Ask a question">
-    <i class="material-symbols-outlined">help</i>
-</button>
-
 <!-- MODAL FORM -->
 <div id="faqModal" class="fixed inset-0 z-50 hidden bg-black/60 items-center justify-center opacity-0">
-
     <div id="modalBox" class="bg-white w-full max-w-md rounded-lg p-6 relative h-[500px]">
-
         <!-- CLOSE BUTTON -->
         <div class="flex align-center justify-between mb-5">
             <h2 class="text-xl font-semibold">Frequently Asked Questions</h2>
             <button onclick="closeFaqModal()" class="text-2xl text-gray-500 hover:text-black">
-                &times;
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-x-icon lucide-x">
+                    <path d="M18 6 6 18" />
+                    <path d="m6 6 12 12" />
+                </svg>
             </button>
         </div>
         <!-- MODAL FORM MAIN CONTENT SCROLLABLE -->
@@ -99,9 +96,6 @@
         requestAnimationFrame(() => {
             modal.classList.remove('opacity-0');
             modal.classList.add('opacity-100');
-
-            modalBox.classList.remove('-translate-y-12');
-            modalBox.classList.add('translate-y-0');
         });
 
         button.classList.add('hidden');
@@ -110,9 +104,6 @@
     function closeFaqModal() {
         modal.classList.add('opacity-0');
         modal.classList.remove('opacity-100');
-
-        modalBox.classList.add('-translate-y-12');
-        modalBox.classList.remove('translate-y-0');
 
         setTimeout(() => {
             modal.classList.add('hidden');

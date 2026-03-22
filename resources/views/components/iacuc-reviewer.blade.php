@@ -10,7 +10,6 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <!-- Fonts and Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
     <!-- Browser Tab Icon -->
@@ -115,35 +114,24 @@
             }
         });
         
-        function openSettingsModal(modalId) {
+        function openModal(modalId) {
             const modal = document.getElementById(modalId);
-            const inputs = document.querySelectorAll('.peer');
-            const profile = document.getElementById('profilePreview');
-            const image = document.getElementById('profileImage');
+            const inputs = modal.querySelectorAll('input');
 
-            image.value = "";
-            profile.src = "{{ asset('images/profile-black.png') }}"
-
-            // FOREACH LOOP TO REMOVE MULTIPLE INPUTS WITH THE SAME CLASS NAME
-            inputs.forEach(input => {
-                input.value = "";
-            });
+            inputs.forEach(input => input.value = "");
 
             modal.classList.remove('hidden');
             modal.classList.add('flex');
         }
 
-        function closeSettingsModal(modalId) {
+        function closeModal(modalId) {
             const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
         }
 
         function outsideClick(event) {
-            if (event.target.id === 'editProfileModal' ||
-                event.target.id === 'changePasswordModal') {
+            if (event.target.id === 'filterModal') {
 
                 // PREVENTS TO CLOSE SIDEBAR
                 event.stopPropagation();
@@ -154,8 +142,7 @@
 
         document.addEventListener('click', function (e) {
             const sidebar = document.getElementById('sidebar');
-            const isModalOpen = !document.getElementById('editProfileModal').classList.contains('hidden') ||
-                !document.getElementById('changePasswordModal').classList.contains('hidden');
+            const isModalOpen = !document.getElementById('filterModal').classList.contains('hidden');
 
             // WHEN THE MODAL IS OPEN
             if (isModalOpen) return;
@@ -164,22 +151,6 @@
                 sidebar.classList.add('-translate-x-full');
             }
         });
-
-        function previewImage(event) {
-            const reader = new FileReader();
-            reader.onload = function () {
-                document.getElementById('profilePreview').src = reader.result;
-            }
-            reader.readAsDataURL(event.target.files[0]);
-        }
-
-        function removeProfileImage() {
-            const profile = document.getElementById('profilePreview')
-            const image = document.getElementById('profileImage');
-
-            image.value = "";
-            profile.src = "{{ asset('images/profile-black.png') }}"
-        }
     </script>
 </body>
 

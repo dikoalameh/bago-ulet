@@ -10,7 +10,6 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <!-- Fonts and Styles -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
     <!-- Browser Tab Icon -->
@@ -113,6 +112,9 @@
                 const menu = toggle.nextElementSibling;
                 const arrow = toggle.querySelector('.dropdownArrow');
 
+                menu.style.overflow = 'hidden';
+                menu.style.transition = 'max-height 0.2s ease, opacity';
+
                 toggle.addEventListener('click', (e) => {
                     e.stopPropagation();
 
@@ -120,14 +122,21 @@
 
                     if (isHidden) {
                         menu.classList.remove('hidden');
+                        menu.style.maxHeight = 0;
+                        requestAnimationFrame(() => {
+                            menu.style.maxHeight = menu.scrollHeight + 'px';
+                        })
                         setTimeout(() => {
                             menu.classList.remove('opacity-0');
-                        }); // small delay to trigger transition
+                        });
                     } else {
-                        menu.classList.add('opacity-0');
+                        menu.style.maxHeight = menu.scrollHeight + 'px';
+                        requestAnimationFrame(() => {
+                            menu.style.maxHeight = 0;
+                        })
                         setTimeout(() => {
                             menu.classList.add('hidden');
-                        }); // match the transition duration
+                        }, 200);
                     }
 
                     arrow.classList.toggle('rotate-180');
@@ -147,6 +156,7 @@
                 });
             });
         }
+
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
             const inputs = modal.querySelectorAll('input');

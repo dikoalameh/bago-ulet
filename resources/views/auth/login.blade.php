@@ -38,7 +38,7 @@
         <!-- Username -->
         <div class="relative mt-6 w-full">
             <x-text-input id="user_ID"
-                class="peer w-full max-sm:h-[35px] h-[40px] bg-transparent rounded focus:ring-0 outline-none text-sm"
+                class="peer w-full max-sm:h-[35px] h-[40px] bg-transparent rounded focus:ring-0 outline-none max-md:text-sm"
                 type="text" name="user_ID" :value="old('user_ID')" required autofocus autocomplete="username" />
             <label for="user_ID"
                 class="px-2 absolute left-1 top-[8px] max-sm:top-[7px] text-darkergray max-sm:text-sm text-md transition-all duration-300 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary peer-valid:-top-2 peer-valid:text-xs peer-valid:text-primary bg-white">
@@ -50,7 +50,7 @@
         <!-- Password -->
         <div class="relative mt-6 w-full">
             <x-text-input id="user_Password"
-                class="peer w-full max-sm:h-[35px] h-[40px] bg-transparent rounded focus:ring-0 outline-none text-sm"
+                class="peer w-full max-sm:h-[35px] h-[40px] bg-transparent rounded focus:ring-0 outline-none max-md:text-sm"
                 type="password" name="user_Password" required autocomplete="current-password" />
             <label for="user_Password"
                 class="px-2 absolute left-1 top-[8px] max-sm:top-[7px] text-darkergray max-sm:text-sm text-md transition-all duration-300 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-primary peer-valid:-top-2 peer-valid:text-xs peer-valid:text-primary bg-white">
