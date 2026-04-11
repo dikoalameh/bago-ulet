@@ -113,7 +113,7 @@
             </li>
             <li>
                 <a href="{{ url('/student/submit-documents') }}" class="w-full flex items-center px-2 py-3 border-none no-underline gap-x-3 hover:text-secondary transition-all duration-300 
-                    {{ Request::is('student/submit-documents') ? 'text-secondary' : '' }}">
+                    {{ Request::is('student/submit-documents') || Request::is('student/submit-form-layout/*') ? 'text-secondary' : '' }}">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         class="lucide lucide-paperclip-icon lucide-paperclip">
@@ -243,7 +243,7 @@
                 </li>
                 <li>
                     <a href="{{ url('/student/submit-documents') }}" class="flex items-center max-sm:text-[15px] px-2 py-3 max-sm:py-2.5 border-0 no-underline gap-x-2 cursor-pointer transition-all duration-300 hover:text-secondary 
-                        {{ Request::is('student/submit-documents') ? 'text-secondary' : '' }}">
+                        {{ Request::is('student/submit-documents') || Request::is('student/submit-form-layout/*') ? 'text-secondary' : '' }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                             class="lucide lucide-paperclip-icon lucide-paperclip">

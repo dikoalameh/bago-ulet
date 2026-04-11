@@ -111,7 +111,7 @@ Route::middleware(['auth', 'access:ERB Admin', 'no-cache', 'prevent-back'])->pre
 
     // Assign Reviewer
     Route::get('/assign-reviewer', [assignReviewer::class, 'index'])
-    ->name('erb.assigned-reviewer');
+        ->name('erb.assigned-reviewer');
 
     Route::post('/assign-reviewer/store', [assignReviewer::class, 'ERBstore'])
         ->name('assign-reviewer.store');
@@ -125,7 +125,7 @@ Route::middleware(['auth', 'access:ERB Admin', 'no-cache', 'prevent-back'])->pre
 
     // Submitted Tickets
     Route::get('/submitted-tickets', [SubmittedInquiries::class, 'index'])
-    ->name('erb.submitted-tickets');
+        ->name('erb.submitted-tickets');
 
     // Resubmission
     Route::get('/resubmission', [AmendmentsERB::class, 'assignedAmendments'])
@@ -136,7 +136,7 @@ Route::middleware(['auth', 'access:ERB Admin', 'no-cache', 'prevent-back'])->pre
 
     // Tickets
     Route::get('/tickets/{ticketId}', [SubmittedInquiries::class, 'show'])
-    ->name('erb.tickets');
+        ->name('erb.tickets');
 
     // Monitoring Process
     Route::get('/monitoring-process', [ProcessMonitoringController::class, 'erbindex'])
@@ -144,14 +144,14 @@ Route::middleware(['auth', 'access:ERB Admin', 'no-cache', 'prevent-back'])->pre
 
     // Assign Full Board Review
     Route::get('/full-board-review', [FullBoardReview::class, 'index'])
-    ->name('erb.full-board-review');
+        ->name('erb.full-board-review');
 
     Route::post('/full-board/assign', [FullBoardReview::class, 'store'])
-    ->name('full-board.assign');
+        ->name('full-board.assign');
 
     // Final Completion
     Route::get('/final-completion', [FinalCompletionController::class, 'index'])
-    ->name('erb.final-completion');
+        ->name('erb.final-completion');
 
     // Settings
     Route::get('/settings', function () {
@@ -178,7 +178,7 @@ Route::middleware(['auth', 'access:ERB Admin', 'no-cache', 'prevent-back'])->pre
 Route::middleware(['auth', 'access:IACUC Admin', 'no-cache', 'prevent-back'])->prefix('iacuc')->group(function () {
     // Dashboard
     Route::get('/dashboard', [ERBDashboard::class, 'iacucDashboard'])
-    ->name('iacuc.dashboard');
+        ->name('iacuc.dashboard');
 
     Route::post('/iacuc/notifications/{id}/mark-read', function ($id) {
         $notification = auth()->user()->notifications()->find($id);
@@ -204,24 +204,31 @@ Route::middleware(['auth', 'access:IACUC Admin', 'no-cache', 'prevent-back'])->p
         ->name('iacuc.submitted-documents');
 
     Route::post('/assign-default-forms', [FormAssignment::class, 'assignDefaultFormsAjax'])
-    ->name('assign.default.forms.ajax');
+        ->name('assign.default.forms.ajax');
 
     // Pending Reviews
-    Route::get('/protocol-decision', [ERBDecisionController::class, 'iacucIndex']
+    Route::get(
+        '/protocol-decision',
+        [ERBDecisionController::class, 'iacucIndex']
     )->name('iacuc.protocol-decision');
 
     // Assign Reviewer
     Route::get('/assign-reviewer', [assignReviewer::class, 'iacucIndex'])
-    ->name('iacuc.assigned-reviewer');
+        ->name('iacuc.assigned-reviewer');
 
     Route::post('/pending-reviews/store', [ERBDecisionController::class, 'iacucStoreDecision'])
-    ->name('iacuc.pending-reviews.store');
+        ->name('iacuc.pending-reviews.store');
 
     Route::post('/assign-reviewer/store', [assignReviewer::class, 'IACUCstore'])
-    ->name('iacuc.assign-reviewer.store');
+        ->name('iacuc.assign-reviewer.store');
 
     // View Reviews
     Route::get('/view-reviews', [ERBViewReviews::class, 'iacucIndex'])->name('iacuc.view-reviews');
+
+    // Submitted Tickets
+    Route::get('/submitted-tickets', function () {
+        return view('iacuc.submitted-tickets');
+    })->name('iacuc.submitted-tickets');
 
     // Settings
     Route::get('/settings', function () {
@@ -233,7 +240,7 @@ Route::middleware(['auth', 'access:IACUC Admin', 'no-cache', 'prevent-back'])->p
         ->name('iacuc.view-review-files');
 
     // Monitoring Process
-    Route::get('/monitoring-process', function() {
+    Route::get('/monitoring-process', function () {
         return view('iacuc.monitoring-process');
     });
 
@@ -384,7 +391,7 @@ Route::middleware(['auth', 'access:IACUC Reviewer', 'no-cache', 'prevent-back'])
     });
 
 //iacuc reviewer - ADDED no-cache MIDDLEWARE
-Route::middleware(['auth', 'access:IACUC Reviewer',CheckReviewerInformation::class, 'no-cache', 'prevent-back'])->prefix('iacuc-reviewer')->group(function () {
+Route::middleware(['auth', 'access:IACUC Reviewer', CheckReviewerInformation::class, 'no-cache', 'prevent-back'])->prefix('iacuc-reviewer')->group(function () {
     Route::get('/dashboard', function () {
         return view('iacuc-reviewer.dashboard');
     })->name('iacuc-reviewer.dashboard');
@@ -399,7 +406,7 @@ Route::middleware(['auth', 'access:IACUC Reviewer',CheckReviewerInformation::cla
         return view('iacuc-reviewer.settings');
     });
 
-    Route::get('/monitoring-process', function() {
+    Route::get('/monitoring-process', function () {
         return view('iacuc-reviewer.monitoring-process');
     });
 
